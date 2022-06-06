@@ -1,8 +1,12 @@
 import React from "react";
 
+const containerStyles = {
+  width: "42px",
+};
+
 export const AvatarImg = () => {
   return (
-    <svg viewBox="0 0 212 212" width="212" height="212">
+    <svg viewBox="0 0 212 212" width="48" height="48">
       <path
         fill="#6A7175"
         d="M106.251.5C164.653.5 212 47.846 212 106.25S164.653 212 106.25 212C47.846 212 .5 164.654.5 106.25S47.846.5 106.251.5z"
