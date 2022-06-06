@@ -1,3 +1,7 @@
+export { MicImg } from "./MicImg";
+export { PinImg } from "./PinImg";
+export { SmileyImg } from "./SmileyImg";
+export { ChatInput } from "./ChatInput";
 export { LockImg } from "./LockImg";
 export { DesktopImg } from "./DesktopImg";
 export { DefaultChatSection } from "./DefaultChatSection";

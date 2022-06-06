@@ -1,4 +1,4 @@
-import { AvatarImg, MenuImg } from "@Components/exports";
+import { AvatarImg, ChatInput, MenuImg } from "@Components/exports";
 import { Box } from "@mui/material";
 import React from "react";
 import styles from "./styles.module.scss";
@@ -15,7 +15,8 @@ export const ChatSection = ({ sender }: any) => {
           <MenuImg />
         </div>
       </Box>
-      ;
+      <Box className={styles.chatMainSection}>This is main section</Box>
+      <ChatInput />
     </Box>
   );
 };
