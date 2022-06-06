@@ -14,7 +14,8 @@ const Home: NextPage = () => {
         <UserSection />
       </div>
       <div className={styles.chat}>
-        <DefaultChatSection />
+        {/* <DefaultChatSection /> */}
+        <ChatSection sender={{ userName: "Donald" }} />
       </div>
     </Box>
   );

@@ -28,9 +28,7 @@ export const UserSection = () => {
     <Box className={styles.userSectionContainer}>
       {/* user section header */}
       <Box className={styles.header}>
-        <div className={styles.accountLogoContainer}>
-          <AvatarImg />
-        </div>
+        <AvatarImg />
         <div className={styles.iconGroup}>
           <StatusImg />
           <MessageImg />

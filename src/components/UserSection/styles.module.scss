@@ -4,6 +4,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  border-right: 2px solid var(--clr-dark-200);
   .header {
     background-color: #202c33;
     padding: 1em;
@@ -11,15 +12,6 @@
     display: flex;
     align-items: center;
     top: 0;
-    .accountLogoContainer {
-      // height: 100%;
-      width: 42px;
-      display: flex;
-      align-items: center;
-      svg {
-        height: 80%;
-      }
-    }
     .iconGroup {
       display: flex;
       align-items: center;

@@ -1,0 +1,26 @@
+.chatContainer {
+  background: url("/chatBg.png");
+  background-position: center;
+  background-size: contain;
+  height: 100%;
+  background-color: var(--clr-dark-100);
+  color: var(--clr-gray-100);
+  .header {
+    display: flex;
+    align-items: center;
+    height: 10vh;
+    padding: 1em;
+    background-color: var(--clr-dark-100);
+    .senderName {
+      font-size: 1.2rem;
+      padding: 1em;
+      flex: 1;
+      font-weight: 600;
+      color: var(--clr-gray-400);
+    }
+    .iconGroup{
+      display: flex;
+      column-gap: 1.2em;
+    }
+  }
+}
