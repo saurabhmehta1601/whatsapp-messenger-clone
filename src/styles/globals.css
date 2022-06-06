@@ -1,3 +1,14 @@
+:root {
+  --clr-gray-100: #fff;
+  --clr-gray-200: #8696a0;
+  --clr-gray-300: #667781;
+  --clr-gray-400: #d1d6d8;
+  --clr-green-100: #13896d;
+  --clr-dark-100: #222e35;
+  --clr-dark-200: #364147;
+  --clr-dark-300: #202c33;
+}
+
 body {
-  height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }

@@ -1,0 +1,55 @@
+.chatSectionContainer {
+  background-color: var(--clr-dark-100);
+  color: var(--clr-gray-100);
+  text-align: center;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--clr-gray-200);
+  font-size: 0.9rem;
+  padding: 2em;
+  padding-top: 5em;
+  border-bottom: 8px solid var(--clr-green-100);
+  .heroTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--clr-gray-400);
+    margin-bottom: -0.6rem;
+    .new {
+      position: relative;
+      top: 5px;
+      margin-left: 0.9em;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--clr-gray-200);
+      background-color: var(--clr-dark-200);
+      padding: 0.4em 0.8em;
+      border-radius: 20px;
+    }
+  }
+  .featureDetail {
+    border-bottom: 2px solid var(--clr-dark-200);
+    padding: 1em 2.8em 2em 2.8em;
+  }
+  .downloadSuggestion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5em;
+    column-gap: 0.3em;
+    a {
+      color: var(--clr-green-100);
+      text-decoration: none;
+    }
+  }
+  .e2eEncrypted {
+    display: flex;
+    color: var(--clr-gray-300);
+    align-items: center;
+    column-gap: 0.3em;
+    justify-content: center;
+  }
+}

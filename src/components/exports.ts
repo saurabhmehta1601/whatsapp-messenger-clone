@@ -1,3 +1,6 @@
+export { LockImg } from "./LockImg";
+export { DesktopImg } from "./DesktopImg";
+export { DefaultChatSection } from "./DefaultChatSection";
 export { UserChatList } from "./UserChatList";
 export { MessageImg } from "./MessageImg";
 export { StatusImg } from "./StatusImg";

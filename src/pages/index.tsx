@@ -1,6 +1,10 @@
 import { Box } from "@mui/material";
 import type { NextPage } from "next";
-import { ChatSection, UserSection } from "@Components/exports";
+import {
+  ChatSection,
+  UserSection,
+  DefaultChatSection,
+} from "@Components/exports";
 import styles from "@Styles/Home.module.scss";
 
 const Home: NextPage = () => {
@@ -10,7 +14,7 @@ const Home: NextPage = () => {
         <UserSection />
       </div>
       <div className={styles.chat}>
-        <ChatSection />
+        <DefaultChatSection />
       </div>
     </Box>
   );
