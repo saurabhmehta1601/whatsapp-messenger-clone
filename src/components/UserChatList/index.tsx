@@ -19,7 +19,7 @@ interface IProps {
 
 export const UserChatList = ({ chats }: IProps) => {
   return (
-    <Stack>
+    <Stack className={styles.chatList}>
       {chats.map((chat) => (
         <Container className={styles.chatItem}>
           <div className={styles.chatItemAvatar}>

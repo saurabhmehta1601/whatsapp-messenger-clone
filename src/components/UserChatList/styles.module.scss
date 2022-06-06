@@ -1,3 +1,23 @@
+.chatList {
+  height: 100%;
+  overflow-y: scroll;
+  /* width */
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 9px;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #111b21;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #374045;
+    max-height: 20px;
+  }
+}
+
 .chatItem {
   display: flex;
   align-items: center;

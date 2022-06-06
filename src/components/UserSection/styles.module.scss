@@ -2,29 +2,15 @@
   background-color: #111b21;
   color: white;
   height: 100vh;
-  overflow-y: scroll;
-  /* width */
-  // Custom scrollbar
-  &::-webkit-scrollbar {
-    width: 9px;
-  }
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background: #111b21;
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: #374045;
-    max-height: 20px;
-  }
-
+  display: flex;
+  flex-direction: column;
   .header {
     background-color: #202c33;
     padding: 1em;
     height: 10vh;
     display: flex;
     align-items: center;
+    top: 0;
     .accountLogoContainer {
       // height: 100%;
       width: 42px;
