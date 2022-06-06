@@ -1,0 +1,7 @@
+.page {
+  display: flex;
+  .user,
+  .chat {
+    flex: 1;
+  }
+}

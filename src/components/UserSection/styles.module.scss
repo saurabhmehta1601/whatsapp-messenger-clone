@@ -1,0 +1,23 @@
+.header {
+  background-color: #202C33;
+  padding: 1em;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  .accountLogoContainer {
+    // height: 100%;
+    width: 42px;
+    display: flex;
+    align-items: center;
+    svg {
+      height: 80%;
+    }
+  }
+  .iconGroup {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+    column-gap: 1em;
+  }
+}
