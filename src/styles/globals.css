@@ -4,11 +4,13 @@
   --clr-gray-300: #667781;
   --clr-gray-400: #d1d6d8;
   --clr-green-100: #13896d;
+  --clr-green-200: #06cf9c;
   --clr-dark-100: #222e35;
   --clr-dark-200: #364147;
   --clr-dark-300: #202c33;
   --clr-blue-100: #53bdeb;
-  --text-sm: 0.85rem;
+  --text-xs: 0.85rem;
+  --text-sm: 0.95rem;
 }
 
 /* scollbar */

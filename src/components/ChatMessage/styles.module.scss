@@ -13,10 +13,14 @@
   .sender {
     color: var(--clr-blue-100);
   }
+  .text {
+    font-size: var(--text-sm);
+  }
   .time {
     text-align: end;
     color: var(--clr-gray-200);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
+    font-weight: 500;
   }
   .tailInImg {
     position: absolute;
@@ -26,6 +30,17 @@
   }
 }
 
-.container.recieved {
+.recieved {
   margin-left: auto;
+  border-radius: 8px;
+  border-top-right-radius: 0;
+  .sender {
+    color: var(--clr-green-200);
+  }
+  .tailOutImg {
+    position: absolute;
+    color: var(--clr-dark-100);
+    top: 0;
+    right: -14px;
+  }
 }
