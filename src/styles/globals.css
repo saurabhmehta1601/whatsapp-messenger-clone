@@ -9,6 +9,21 @@
   --clr-dark-300: #202c33;
 }
 
+/* scollbar */
+*::-webkit-scrollbar {
+  width: 9px;
+}
+/* Track */
+*::-webkit-scrollbar-track {
+  background: #111b21;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: #374045;
+  max-height: 20px;
+}
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
