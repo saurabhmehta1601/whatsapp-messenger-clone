@@ -25,6 +25,24 @@ export const ChatSection = ({ sender }: any) => {
           message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
         />
         <ChatMessage
+          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
+        />
+        <ChatMessage
+          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
+        />
+        <ChatMessage
+          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
+        />
+        <ChatMessage
+          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
+        />
+        <ChatMessage
+          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
+        />
+        <ChatMessage
+          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
+        />
+        <ChatMessage
           message={{
             sender: "You",
             text: "Hiii, How are you ? are you doing well I have completed whatsapp clone UI now the functionality part remains ",
