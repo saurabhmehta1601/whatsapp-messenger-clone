@@ -1,3 +1,6 @@
+export { TailInImg } from "./TailInImg";
+export { TailOutImg } from "./TailOutImg";
+export { ChatMessage } from "./ChatMessage";
 export { MicImg } from "./MicImg";
 export { PinImg } from "./PinImg";
 export { SmileyImg } from "./SmileyImg";

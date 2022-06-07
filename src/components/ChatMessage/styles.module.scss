@@ -1,0 +1,31 @@
+.container {
+  background-color: var(--clr-dark-100);
+  width: fit-content;
+  min-width: 20ch;
+  max-width: min(30vw, 50%);
+  padding: 0.8em 1em 0.2em;
+  margin-bottom: 1em;
+  border-radius: 8px;
+  border-top-left-radius: 0;
+  position: relative;
+  z-index: 11;
+
+  .sender {
+    color: var(--clr-blue-100);
+  }
+  .time {
+    text-align: end;
+    color: var(--clr-gray-200);
+    font-size: var(--text-sm);
+  }
+  .tailInImg {
+    position: absolute;
+    color: var(--clr-dark-100);
+    top: 0;
+    left: -14px;
+  }
+}
+
+.container.recieved {
+  margin-left: auto;
+}

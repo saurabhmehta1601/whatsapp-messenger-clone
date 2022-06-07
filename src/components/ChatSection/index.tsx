@@ -1,4 +1,9 @@
-import { AvatarImg, ChatInput, MenuImg } from "@Components/exports";
+import {
+  AvatarImg,
+  ChatInput,
+  MenuImg,
+  ChatMessage,
+} from "@Components/exports";
 import { Box } from "@mui/material";
 import React from "react";
 import styles from "./styles.module.scss";
@@ -15,7 +20,14 @@ export const ChatSection = ({ sender }: any) => {
           <MenuImg />
         </div>
       </Box>
-      <Box className={styles.chatMainSection}>This is main section</Box>
+      <Box className={styles.chatMainSection}>
+        <ChatMessage
+          message={{ sender: "saurabh", text: "Hiii", time: "7:10 am" }}
+        />
+        <ChatMessage
+          message={{ sender: "Rohan", text: "Hiii, How are you ? are you doing well I have completed whatsapp clone UI now the functionality part remains ", time: "7:10 am" }}
+        />
+      </Box>
       <ChatInput />
     </Box>
   );
