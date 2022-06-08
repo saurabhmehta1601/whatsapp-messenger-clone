@@ -61,3 +61,9 @@ Database tables structures are :
 
 - This is join table for many to many relationship between threads and users
 - connects a user to a thread
+
+### Impotant points about relationships
+
+- A **thread** can have many **messages**.
+- A **user** can have many **threads** .
+- A **thread** can have many **users** .
