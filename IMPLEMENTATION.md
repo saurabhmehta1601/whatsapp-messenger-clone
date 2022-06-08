@@ -43,6 +43,11 @@ Database tables structures are :
 <tr><td>created_at</td> <td>timestamp</td></tr>
 </table>
 
+<b>Table Relationships</b>
+
+- one-to-one : messages.sender_id -> users.id
+- one-to-one : messages.thread_id -> threads.id
+
 <!-- table  -->
 <caption><b style="color:gray;text-decoration:underline;">user_thread</b></caption>
 <table style="border: 1px solid white;">
@@ -52,3 +57,7 @@ Database tables structures are :
 <tr><td>user_id</td> <td>UUID</td></tr>
 </table>
 
+<b>Table Relationships</b>
+
+- This is join table for many to many relationship between threads and users
+- connects a user to a thread
