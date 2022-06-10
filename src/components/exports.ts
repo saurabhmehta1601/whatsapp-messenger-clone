@@ -1,3 +1,5 @@
+import dynamic from "next/dynamic";
+
 export { TailInImg } from "./TailInImg";
 export { TailOutImg } from "./TailOutImg";
 export { ChatMessage } from "./ChatMessage";
@@ -16,3 +18,7 @@ export { AvatarImg } from "./AvatarImg";
 export { GadgetsImg } from "./GadgetsImg";
 export { UserSection } from "./UserSection";
 export { ChatSection } from "./ChatSection";
+
+export const EmojiPicker = dynamic(() => import("./EmojiPicker"), {
+  ssr: false,
+});

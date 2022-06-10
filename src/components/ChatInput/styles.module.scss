@@ -5,6 +5,7 @@
   display: flex;
   column-gap: 1.2em;
   align-items: center;
+  position: relative;
   .chatInput {
     flex: 1;
     padding: 0.6em;
@@ -14,5 +15,9 @@
     outline: none;
     color: var(--clr-gray-100);
     background-color: var(--clr-dark-200);
+  }
+  .emojiPickerContainer {
+    position: absolute;
+    z-index: 11;
   }
 }

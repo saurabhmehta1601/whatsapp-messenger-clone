@@ -3,6 +3,7 @@ import {
   ChatInput,
   MenuImg,
   ChatMessage,
+  EmojiPicker,
 } from "@Components/exports";
 import { Box } from "@mui/material";
 import React from "react";
@@ -21,6 +22,9 @@ export const ChatSection = ({ sender }: any) => {
         </div>
       </Box>
       <Box className={styles.chatMainSection}>
+        <div className={styles.emojiPickerContainer}>
+          <EmojiPicker />
+        </div>
         <ChatMessage
           message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
         />
