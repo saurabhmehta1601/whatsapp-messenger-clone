@@ -18,9 +18,9 @@
     "paths": {
       "@Styles/*": ["styles/*"],
       "@Components/*": ["components/*"],
-      "@Apollo/*": ["apollo/*"]
+      "@Firebase/*": ["firebase/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/firebase/app.js"],
   "exclude": ["node_modules"]
 }
