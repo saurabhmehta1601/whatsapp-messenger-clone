@@ -1,3 +1,8 @@
+        // getT
+        // if (thread) {
+        //   console.log("Thread is ", thread);
+        //   setMessages(thread as IMessage[]);
+        // }
 import {
   AvatarImg,
   ChatInput,
@@ -12,31 +17,31 @@ import styles from "./styles.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
 import {
-  getMessagesInThread,
-  getThreadByIdFromFirestore,
+  getMessagesInThreadSnapShot,
 } from "@Firebase/utils/db";
 import { IMessage, IThread } from "chat-app-types";
+import { useAppSelector } from "@Redux/hooks";
 
 export const ChatSection = () => {
   // if threadId not exists in route path return Default Chat Section
   const [messages, setMessages] = useState<IMessage[] | null>(null);
   const [thread, setThread] = useState<IThread | null>(null);
   const router = useRouter();
+  const shouldShowEmojiPicker = useAppSelector(
+    (state) => state.ui.showEmojiPicker
+  );
   const { threadId } = router.query;
-  // If threadId exists in route path return chats in thread
   useEffect(() => {
     (async () => {
       if (threadId) {
-        console.log("Thread id is ", threadId);
-        const thread = await getMessagesInThread(threadId as string);
-        if (thread) {
-          console.log("chatsection rendered line 43");
-          console.log("Thread is ", thread);
-          setMessages(thread as IMessage[]);
-        }
-      }
-    })();
-  }, []);
+        getMessagesInThreadSnapShot(threadId as string, (snapShot) => {
+          const messages = snapShot.docs.map((doc: any) =>  ({
+              ...doc.data(),
+              id: doc.id,
+          })) 
+          setMessages(messages);
+          })}
+  })()}, []);
   return (
     <>
       {!threadId ? (
@@ -45,9 +50,7 @@ export const ChatSection = () => {
         <Box className={styles.chatContainer}>
           <Box className={styles.header}>
             <AvatarImg />
-            <div className={styles.groupOrRecieverName}>
-              { "Unnamed"}
-            </div>
+            <div className={styles.groupOrRecieverName}>{"Unnamed"}</div>
             <div className={styles.iconGroup}>
               <SearchIcon />
               <MenuImg />
@@ -55,15 +58,10 @@ export const ChatSection = () => {
           </Box>
           <Box className={styles.chatMainSection}>
             <div className={styles.emojiPickerContainer}>
-              <EmojiPicker />
+              {shouldShowEmojiPicker && (
+                <EmojiPicker onClick={() => alert("picker ckice")} />
+              )}
             </div>
-            <ChatMessage
-              message={{
-                senderName: "Rohan",
-                text: "Hiii",
-                createdAt: "7:10 am",
-              }}
-            />
             {messages?.map((message) => (
               <ChatMessage
                 key={message.id}

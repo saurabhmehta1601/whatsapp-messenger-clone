@@ -25,7 +25,7 @@ export const UserChatList = ({ threads }: IProps) => {
             {thread.photoURL ? (
               <Avatar src={thread.photoURL} />
             ) : (
-              <Avatar src={""} />
+              <Avatar src="" />
             )}
           </div>
           {/* Chat Thread */}
