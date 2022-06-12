@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-
+export { ThreadPage } from "./ThreadPage";
 export { TailInImg } from "./TailInImg";
 export { TailOutImg } from "./TailOutImg";
 export { ChatMessage } from "./ChatMessage";
