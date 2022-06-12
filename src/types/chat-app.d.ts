@@ -17,5 +17,6 @@ declare module "chat-app-types" {
     id: string;
     photoURL: string;
     displayName: string;
+    threadIds: string[];
   }
 }

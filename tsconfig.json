@@ -18,7 +18,8 @@
     "paths": {
       "@Styles/*": ["styles/*"],
       "@Components/*": ["components/*"],
-      "@Firebase/*": ["firebase/*"]
+      "@Firebase/*": ["firebase/*"],
+      "@Redux/*": ["redux/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/firebase/app.js"],
