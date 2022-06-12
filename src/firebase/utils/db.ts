@@ -8,7 +8,7 @@ const getFirebaseDoc = async (collectionName: string, docId: string) => {
   return docSnap.data();
 };
 
-export const getUserById = async (id: string) => getFirebaseDoc("user", id);
-export const getThreadById = async (id: string) => getFirebaseDoc("thread", id);
-export const getMessageById = async (id: string) =>
+export const getUserByIdFromFirebase = async (id: string) => getFirebaseDoc("user", id);
+export const getThreadByIdFromFirebase  = async (id: string) => getFirebaseDoc("thread", id);
+export const getMessageByIdFromFirebase  = async (id: string) =>
   getFirebaseDoc("message", id);
