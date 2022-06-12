@@ -4,58 +4,76 @@ import {
   MenuImg,
   ChatMessage,
   EmojiPicker,
+  DefaultChatSection,
 } from "@Components/exports";
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
+import { useRouter } from "next/router";
+import { getThreadByIdFromFirestore } from "@Firebase/utils/db";
+import { IThread, IMessage } from "chat-app-types";
 
-export const ChatSection = ({ sender }: any) => {
+export const ChatSection = () => {
+  // if threadId not exists in route path return Default Chat Section
+  const [thread, setThread] = useState<IThread | null>(null);
+  const router = useRouter();
+  const { threadId } = router.query;
+  // If threadId exists in route path return chats in thread
+  useEffect(() => {
+    (async () => {
+      if (threadId) {
+        console.log("Thread id is ", threadId);
+        const thread = await getThreadByIdFromFirestore(threadId as string);
+        if (thread) {
+          console.log("chatsection rendered line 43");
+          console.log("Thread is ", thread);
+          setThread(thread as IThread);
+        }
+      }
+    })();
+  }, []);
   return (
-    <Box className={styles.chatContainer}>
-      <Box className={styles.header}>
-        <AvatarImg />
-        <div className={styles.senderName}>{sender.userName}</div>
-        <div className={styles.iconGroup}>
-          <SearchIcon />
-          <MenuImg />
-        </div>
-      </Box>
-      <Box className={styles.chatMainSection}>
-        <div className={styles.emojiPickerContainer}>
-          <EmojiPicker />
-        </div>
-        <ChatMessage
-          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
-        />
-        <ChatMessage
-          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
-        />
-        <ChatMessage
-          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
-        />
-        <ChatMessage
-          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
-        />
-        <ChatMessage
-          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
-        />
-        <ChatMessage
-          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
-        />
-        <ChatMessage
-          message={{ sender: "Rohan", text: "Hiii", time: "7:10 am" }}
-        />
-        <ChatMessage
-          message={{
-            sender: "You",
-            text: "Hiii, How are you ? are you doing well I have completed whatsapp clone UI now the functionality part remains ",
-            time: "7:16 am",
-            recieved: true,
-          }}
-        />
-      </Box>
-      <ChatInput />
-    </Box>
+    <>
+      {!threadId ? (
+        <DefaultChatSection />
+      ) : (
+        <Box className={styles.chatContainer}>
+          <Box className={styles.header}>
+            <AvatarImg />
+            <div className={styles.groupOrRecieverName}>
+              {thread?.name ?? "Unnamed"}
+            </div>
+            <div className={styles.iconGroup}>
+              <SearchIcon />
+              <MenuImg />
+            </div>
+          </Box>
+          <Box className={styles.chatMainSection}>
+            <div className={styles.emojiPickerContainer}>
+              <EmojiPicker />
+            </div>
+            <ChatMessage
+              message={{
+                senderName: "Rohan",
+                text: "Hiii",
+                createdAt: "7:10 am",
+              }}
+            />
+            {thread?.messages.map((message) => (
+              <ChatMessage
+                key={message.id}
+                message={{
+                  senderName: message.senderName,
+                  text: message.text,
+                  createdAt: message.createdAt,
+                }}
+              />
+            ))}
+          </Box>
+          <ChatInput />
+        </Box>
+      )}
+    </>
   );
 };
