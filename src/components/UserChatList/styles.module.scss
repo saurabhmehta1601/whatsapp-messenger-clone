@@ -5,6 +5,7 @@
 
 .chatItem {
   display: flex;
+  cursor: pointer;
   align-items: center;
   .chatItemAvatar {
     margin-right: 1.4em;

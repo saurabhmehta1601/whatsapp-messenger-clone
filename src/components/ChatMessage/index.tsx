@@ -2,16 +2,23 @@ import { Box } from "@mui/material";
 import { TailOutImg, TailInImg } from "@Components/exports";
 import React from "react";
 import styles from "./styles.module.scss";
+import { IMessage } from "chat-app-types";
 
-export const ChatMessage = ({ message }: any) => {
+interface IProps {
+  message: Omit<IMessage, "id">;
+}
+
+export const ChatMessage = ({ message }: IProps) => {
   return (
     <Box
       className={`${styles.container} ${
-        message.recieved ? styles.recieved : ""
+        // message.recieved ? styles.recieved : ""
+        true ? styles.recieved : ""
       }`}
     >
       <div className={styles.sender}>
-        {!message.recieved ? (
+        {/* {!message.recieved ? ( */}
+        {false ? (
           <div className={styles.tailInImg}>
             <TailInImg />
           </div>
@@ -20,10 +27,10 @@ export const ChatMessage = ({ message }: any) => {
             <TailOutImg />
           </div>
         )}
-        {message.sender}
+        {message.senderName}
       </div>
       <div className={styles.text}>{message.text}</div>
-      <div className={styles.time}>{message.time}</div>
+      <div className={styles.time}>Today</div>
     </Box>
   );
 };

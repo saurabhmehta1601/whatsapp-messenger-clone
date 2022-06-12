@@ -1,41 +1,45 @@
 import { Avatar, Container, Stack } from "@mui/material";
+import { IThread } from "chat-app-types";
+import { useRouter } from "next/router";
 import React from "react";
 import styles from "./styles.module.scss";
 
-type Chat = {
-  lastMessage: {
-    text: string;
-    time: string;
-  };
-  sender: {
-    name: string;
-    avatar: string;
-  };
-};
-
 interface IProps {
-  chats: Array<Chat>;
+  threads: Array<IThread>;
 }
 
-export const UserChatList = ({ chats }: IProps) => {
+export const UserChatList = ({ threads }: IProps) => {
+  const router = useRouter();
+  const navigateToThread = (threadId: string) => {
+    router.replace("/thread/" + threadId);
+  };
   return (
     <Stack className={styles.chatList}>
-      {chats.map((chat,idx) => (
-        <Container key={idx} className={styles.chatItem}>
+      {threads.map((thread) => (
+        <Container
+          key={thread.id}
+          onClick={() => navigateToThread(thread.id)}
+          className={styles.chatItem}
+        >
           <div className={styles.chatItemAvatar}>
-            <Avatar src={chat.sender.avatar} />
+            {thread.photoURL ? (
+              <Avatar src={thread.photoURL} />
+            ) : (
+              <Avatar src={""} />
+            )}
           </div>
+          {/* Chat Thread */}
           <div className={styles.chatItemInfo}>
             <div className={styles.chatSenderAndLastMessage}>
               <div className={styles.chatItemSenderName}>
-                {chat.sender.name}
+                {thread.name ?? "Not group"}
               </div>
               <div className={styles.chatItemLastMessage}>
-                {chat.lastMessage.text}
+                {thread.lastMessage}
               </div>
             </div>
             <div className={styles.lastMessageTime}>
-              {chat.lastMessage.time}
+              {JSON.stringify(thread.lastMessagedAt)}
             </div>
           </div>
         </Container>

@@ -11,11 +11,15 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
-import { getThreadByIdFromFirestore } from "@Firebase/utils/db";
-import { IThread, IMessage } from "chat-app-types";
+import {
+  getMessagesInThread,
+  getThreadByIdFromFirestore,
+} from "@Firebase/utils/db";
+import { IMessage, IThread } from "chat-app-types";
 
 export const ChatSection = () => {
   // if threadId not exists in route path return Default Chat Section
+  const [messages, setMessages] = useState<IMessage[] | null>(null);
   const [thread, setThread] = useState<IThread | null>(null);
   const router = useRouter();
   const { threadId } = router.query;
@@ -24,11 +28,11 @@ export const ChatSection = () => {
     (async () => {
       if (threadId) {
         console.log("Thread id is ", threadId);
-        const thread = await getThreadByIdFromFirestore(threadId as string);
+        const thread = await getMessagesInThread(threadId as string);
         if (thread) {
           console.log("chatsection rendered line 43");
           console.log("Thread is ", thread);
-          setThread(thread as IThread);
+          setMessages(thread as IMessage[]);
         }
       }
     })();
@@ -42,7 +46,7 @@ export const ChatSection = () => {
           <Box className={styles.header}>
             <AvatarImg />
             <div className={styles.groupOrRecieverName}>
-              {thread?.name ?? "Unnamed"}
+              { "Unnamed"}
             </div>
             <div className={styles.iconGroup}>
               <SearchIcon />
@@ -60,13 +64,13 @@ export const ChatSection = () => {
                 createdAt: "7:10 am",
               }}
             />
-            {thread?.messages.map((message) => (
+            {messages?.map((message) => (
               <ChatMessage
                 key={message.id}
                 message={{
                   senderName: message.senderName,
                   text: message.text,
-                  createdAt: message.createdAt,
+                  createdAt: JSON.stringify(message.createdAt),
                 }}
               />
             ))}

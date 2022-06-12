@@ -1,8 +1,8 @@
 import { ThreadPage } from "@Components/exports";
 import React from "react";
 
-const Home = () => {
+export const ThreadId = () => {
   return <ThreadPage />;
 };
 
-export default Home;
+export default ThreadId;
