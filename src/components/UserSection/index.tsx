@@ -11,11 +11,8 @@ import {
 } from "@Components/exports";
 import SearchIcon from "@mui/icons-material/Search";
 import { Container } from "@mui/system";
-import {
-  getThreadByIdFromFirestore,
-  getUserByIdFromFirestore,
-} from "@Firebase/utils/db";
-import { IUser } from "chat-app-types";
+import { getThreadByIdFromFirestore } from "@Firebase/utils/db";
+import { useActiveUser } from "@Hooks/useActiveUser";
 
 const User = {
   lastMessage: {
@@ -30,14 +27,12 @@ const User = {
 };
 
 export const UserSection = () => {
-  const [activeUser, setActiveUser] = useState<IUser | null>(null);
   const [activeUserThreads, setActiveUserThreads] = useState<any>([]);
+  const activeUser = useActiveUser();
+
   useEffect(() => {
     (async () => {
-      const activeUser = await getUserByIdFromFirestore("krdrnG9caTRrpQeANlrC");
       if (activeUser) {
-        console.log("activeUser is ", activeUser);
-        setActiveUser(activeUser as IUser);
         // request to get all threads of active user
         const getThreadRequests: Promise<DocumentData | undefined>[] = [];
         activeUser.threadIds.forEach((id: string) => {
@@ -48,7 +43,7 @@ export const UserSection = () => {
         setActiveUserThreads(threads);
       }
     })();
-  }, []);
+  }, [activeUser]);
   return (
     <Box className={styles.userSectionContainer}>
       {/* user section header */}
