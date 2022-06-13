@@ -5,6 +5,7 @@ declare module "chat-app-types" {
     senderName: string;
     senderId: string;
     createdAt: string;
+    threadId: string;
   }
   export interface IThread {
     id: string;

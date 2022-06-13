@@ -4,9 +4,12 @@ import {
   getDoc,
   onSnapshot,
   query,
+  addDoc,
   where,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "@Firebase/app";
+import { IMessage } from "chat-app-types";
 
 // returns a promise that resolves to a firebase document using id if not exists returns undefined
 const getFirebaseDoc = async (collectionName: string, docId: string) => {
@@ -29,4 +32,14 @@ export const getMessagesInThreadSnapShot = async (
   const messageCollectionRef = collection(db, "message");
   const q = query(messageCollectionRef, where("threadId", "==", threadId));
   onSnapshot(q, callback);
+};
+
+export const addMessageToFirestore = async (
+  message: Omit<IMessage, "id" | "createdAt">
+) => {
+  const messageDocRef = await addDoc(collection(db, "message"), {
+    ...message,
+    createdAt: Timestamp.now(),
+  });
+  return messageDocRef.id;
 };
