@@ -7,6 +7,7 @@ import {
   addDoc,
   where,
   Timestamp,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "@Firebase/app";
 import { IMessage } from "chat-app-types";
@@ -30,7 +31,11 @@ export const getMessagesInThreadSnapShot = async (
   callback: (snapShots: any) => void
 ) => {
   const messageCollectionRef = collection(db, "message");
-  const q = query(messageCollectionRef, where("threadId", "==", threadId));
+  const q = query(
+    messageCollectionRef,
+    where("threadId", "==", threadId),
+    orderBy("createdAt", "asc")
+  );
   onSnapshot(q, callback);
 };
 

@@ -10,8 +10,6 @@ interface IProps {
 }
 
 export const ChatMessage = ({ message }: IProps) => {
-  console.log("message", message);
-  // const chatUser = message.user;
   const activeUser = useActiveUser();
 
   const isYourMessage = message.senderId === activeUser.id;
