@@ -12,7 +12,7 @@ import {
   DefaultChatSection,
 } from "@Components/exports";
 import { Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./styles.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
@@ -23,12 +23,12 @@ import { useAppSelector } from "@Redux/hooks";
 export const ChatSection = () => {
   // if threadId not exists in route path return Default Chat Section
   const [messages, setMessages] = useState<IMessage[] | null>(null);
-  const [thread, setThread] = useState<IThread | null>(null);
   const router = useRouter();
   const shouldShowEmojiPicker = useAppSelector(
     (state) => state.ui.showEmojiPicker
   );
   const { threadId } = router.query;
+  const chatMainRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     (async () => {
       if (threadId) {
@@ -43,6 +43,17 @@ export const ChatSection = () => {
       }
     })();
   }, []);
+
+  // when messages update smooth scroll to bottom
+  useEffect(() => {
+    if (chatMainRef.current) {
+      chatMainRef.current.scrollTo({
+        top: chatMainRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
+
   return (
     <>
       {!threadId ? (
@@ -57,7 +68,7 @@ export const ChatSection = () => {
               <MenuImg />
             </div>
           </Box>
-          <Box className={styles.chatMainSection}>
+          <Box className={styles.chatMainSection} ref={chatMainRef}>
             <div className={styles.emojiPickerContainer}>
               {shouldShowEmojiPicker && (
                 <EmojiPicker onClick={() => alert("picker ckice")} />
