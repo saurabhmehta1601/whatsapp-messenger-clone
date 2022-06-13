@@ -12,7 +12,7 @@ import { db } from "@Firebase/app";
 const getFirebaseDoc = async (collectionName: string, docId: string) => {
   const docRef = doc(db, collectionName, docId);
   const docSnap = await getDoc(docRef);
-  return docSnap.data();
+  return { id: docSnap.id, ...docSnap.data() };
 };
 
 export const getUserByIdFromFirestore = async (id: string) =>

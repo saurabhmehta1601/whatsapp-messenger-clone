@@ -2,7 +2,7 @@ import { getUserByIdFromFirestore } from "@Firebase/utils/db";
 import { setActiveUser } from "@Redux/features/activeUser";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { IUser } from "chat-app-types";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export const useActiveUser = () => {
   const activeUser = useAppSelector((state) => state.activeUser.data);

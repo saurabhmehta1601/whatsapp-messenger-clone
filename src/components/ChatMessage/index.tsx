@@ -3,22 +3,21 @@ import { TailOutImg, TailInImg } from "@Components/exports";
 import React from "react";
 import styles from "./styles.module.scss";
 import { IMessage } from "chat-app-types";
+import { useActiveUser } from "@Hooks/useActiveUser";
 
 interface IProps {
-  message: Omit<IMessage, "id">;
+  message: IMessage;
 }
 
 export const ChatMessage = ({ message }: IProps) => {
+  // const chatUser = message.user;
+  const activeUser = useActiveUser();
+
+  const isYourMessage = message.senderId === activeUser.id;
   return (
-    <Box
-      className={`${styles.container} ${
-        // message.recieved ? styles.recieved : ""
-        true ? styles.recieved : ""
-      }`}
-    >
+    <Box className={`${styles.container} ${isYourMessage ? styles.sent : ""}`}>
       <div className={styles.sender}>
-        {/* {!message.recieved ? ( */}
-        {false ? (
+        {!isYourMessage ? (
           <div className={styles.tailInImg}>
             <TailInImg />
           </div>
@@ -27,7 +26,7 @@ export const ChatMessage = ({ message }: IProps) => {
             <TailOutImg />
           </div>
         )}
-        {message.senderName}
+        {isYourMessage ? "YOU" : message.senderName}
       </div>
       <div className={styles.text}>{message.text}</div>
       <div className={styles.time}>Today</div>

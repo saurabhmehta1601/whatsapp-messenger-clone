@@ -1,8 +1,8 @@
-        // getT
-        // if (thread) {
-        //   console.log("Thread is ", thread);
-        //   setMessages(thread as IMessage[]);
-        // }
+// getT
+// if (thread) {
+//   console.log("Thread is ", thread);
+//   setMessages(thread as IMessage[]);
+// }
 import {
   AvatarImg,
   ChatInput,
@@ -16,9 +16,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
-import {
-  getMessagesInThreadSnapShot,
-} from "@Firebase/utils/db";
+import { getMessagesInThreadSnapShot } from "@Firebase/utils/db";
 import { IMessage, IThread } from "chat-app-types";
 import { useAppSelector } from "@Redux/hooks";
 
@@ -35,13 +33,15 @@ export const ChatSection = () => {
     (async () => {
       if (threadId) {
         getMessagesInThreadSnapShot(threadId as string, (snapShot) => {
-          const messages = snapShot.docs.map((doc: any) =>  ({
-              ...doc.data(),
-              id: doc.id,
-          })) 
+          const messages = snapShot.docs.map((doc: any) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
           setMessages(messages);
-          })}
-  })()}, []);
+        });
+      }
+    })();
+  }, []);
   return (
     <>
       {!threadId ? (
@@ -63,14 +63,7 @@ export const ChatSection = () => {
               )}
             </div>
             {messages?.map((message) => (
-              <ChatMessage
-                key={message.id}
-                message={{
-                  senderName: message.senderName,
-                  text: message.text,
-                  createdAt: JSON.stringify(message.createdAt),
-                }}
-              />
+              <ChatMessage key={message.id} message={message} />
             ))}
           </Box>
           <ChatInput />

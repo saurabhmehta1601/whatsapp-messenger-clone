@@ -19,7 +19,8 @@
       "@Styles/*": ["styles/*"],
       "@Components/*": ["components/*"],
       "@Firebase/*": ["firebase/*"],
-      "@Redux/*": ["redux/*"]
+      "@Redux/*": ["redux/*"],
+      "@Hooks/*": ["hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/firebase/app.js"],
