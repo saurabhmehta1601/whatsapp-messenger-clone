@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { IMessage } from "chat-app-types";
 import { useActiveUser } from "@Hooks/useActiveUser";
+import { getFormattedTime } from "@Utils/time";
 
 interface IProps {
   message: IMessage;
@@ -28,7 +29,9 @@ export const ChatMessage = ({ message }: IProps) => {
         {isYourMessage ? "YOU" : message.senderName}
       </div>
       <div className={styles.text}>{message.text}</div>
-      <div className={styles.time}>Today</div>
+      <div className={styles.time}>
+        {getFormattedTime(message.createdAt.seconds * 1000)}
+      </div>
     </Box>
   );
 };
