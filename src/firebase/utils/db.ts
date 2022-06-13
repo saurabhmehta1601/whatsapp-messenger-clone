@@ -8,9 +8,10 @@ import {
   where,
   Timestamp,
   orderBy,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "@Firebase/app";
-import { IMessage } from "chat-app-types";
+import { IMessage, IThread } from "chat-app-types";
 
 // returns a promise that resolves to a firebase document using id if not exists returns undefined
 const getFirebaseDoc = async (collectionName: string, docId: string) => {
@@ -19,6 +20,7 @@ const getFirebaseDoc = async (collectionName: string, docId: string) => {
   return { id: docSnap.id, ...docSnap.data() };
 };
 
+// GET single document from a firebase collection
 export const getUserByIdFromFirestore = async (id: string) =>
   getFirebaseDoc("user", id);
 export const getThreadByIdFromFirestore = async (id: string) =>
@@ -26,6 +28,7 @@ export const getThreadByIdFromFirestore = async (id: string) =>
 export const getMessageByIdFromFirestore = async (id: string) =>
   getFirebaseDoc("message", id);
 
+// SUBSCRIBE to a firebase collection
 export const getMessagesInThreadSnapShot = async (
   threadId: string,
   callback: (snapShots: any) => void
@@ -39,6 +42,7 @@ export const getMessagesInThreadSnapShot = async (
   onSnapshot(q, callback);
 };
 
+// ADD document to a firebase collection
 export const addMessageToFirestore = async (
   message: Omit<IMessage, "id" | "createdAt">
 ) => {
@@ -47,4 +51,13 @@ export const addMessageToFirestore = async (
     createdAt: Timestamp.now(),
   });
   return messageDocRef.id;
+};
+
+// UPDATE document in a firebase collection
+export const updateThreadInFirestore = async (
+  id: string,
+  thread: Partial<IThread>
+) => {
+  const threadDocRef = doc(db, "thread", id);
+  return await setDoc(threadDocRef, thread, { merge: true });
 };

@@ -1,9 +1,13 @@
 import { MicImg, PinImg, SmileyImg } from "@Components/exports";
-import { addMessageToFirestore } from "@Firebase/utils/db";
+import {
+  addMessageToFirestore,
+  updateThreadInFirestore,
+} from "@Firebase/utils/db";
 import { useActiveUser } from "@Hooks/useActiveUser";
 import { Box } from "@mui/material";
 import { setChatTextInput, toggleEmojiPicker } from "@Redux/features/ui";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import { Timestamp } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "./styles.module.scss";
@@ -21,6 +25,7 @@ export const ChatInput = () => {
         text: chatTextInput,
         threadId: router.query.threadId as string,
       });
+      await updateThreadInFirestore(router.query.threadId as string, { lastMessage: chatTextInput , lastMessagedAt: Timestamp.now()});
       dispatch(setChatTextInput(""));
       console.log("message added to firebase with id", messageId);
     }

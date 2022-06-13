@@ -36,7 +36,9 @@ export const UserChatList = ({ threads }: IProps) => {
                 {thread.name ?? "College"}
               </div>
               <div className={styles.chatItemLastMessage}>
-                {thread.lastMessage}
+                {thread.lastMessage.length > 20
+                  ? thread.lastMessage.substring(0, 20) + "..."
+                  : thread.lastMessage}
               </div>
             </div>
             <div className={styles.lastMessageTime}>
