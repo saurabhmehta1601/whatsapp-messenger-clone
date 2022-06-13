@@ -1,8 +1,3 @@
-// getT
-// if (thread) {
-//   console.log("Thread is ", thread);
-//   setMessages(thread as IMessage[]);
-// }
 import {
   AvatarImg,
   ChatInput,
@@ -17,10 +12,11 @@ import styles from "./styles.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
 import { getMessagesInThreadSnapShot } from "@Firebase/utils/db";
-import { IMessage, IThread } from "chat-app-types";
+import { IMessage } from "chat-app-types";
 import { useAppSelector } from "@Redux/hooks";
 
 export const ChatSection = () => {
+  const emojiPickerContainerRef = useRef<HTMLDivElement>(null);
   // if threadId not exists in route path return Default Chat Section
   const [messages, setMessages] = useState<IMessage[] | null>(null);
   const router = useRouter();
@@ -54,6 +50,27 @@ export const ChatSection = () => {
     }
   }, [messages]);
 
+  //
+  useEffect(() => {
+    let listener: any;
+    if (chatMainRef.current) {
+      chatMainRef.current.addEventListener("scroll", () => {
+        const scrollHeight = chatMainRef.current?.scrollTop ?? 0;
+        if (emojiPickerContainerRef.current) {
+          if (scrollHeight > 0) {
+            emojiPickerContainerRef.current.style.bottom = `${
+              10 - scrollHeight
+            }px`;
+          }
+        }
+      });
+    }
+    return () => {
+      if (typeof listener === "function") {
+        listener();
+      }
+    };
+  }, []);
   return (
     <>
       {!threadId ? (
@@ -69,7 +86,10 @@ export const ChatSection = () => {
             </div>
           </Box>
           <Box className={styles.chatMainSection} ref={chatMainRef}>
-            <div className={styles.emojiPickerContainer}>
+            <div
+              className={styles.emojiPickerContainer}
+              ref={emojiPickerContainerRef}
+            >
               {shouldShowEmojiPicker && (
                 <EmojiPicker onClick={() => alert("picker ckice")} />
               )}
