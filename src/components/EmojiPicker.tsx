@@ -2,11 +2,10 @@ import React, { useEffect, useRef } from "react";
 import data from "@emoji-mart/data";
 import { Picker } from "emoji-mart";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
-import { setChatTextInput } from "@Redux/features/ui";
+import { addEmojiToChatTextInput } from "@Redux/features/ui";
 
 const EmojiPicker = (props: any) => {
   const dispatch = useAppDispatch();
-  const chatTextInput = useAppSelector((state) => state.ui.chatTextInput);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -15,7 +14,7 @@ const EmojiPicker = (props: any) => {
       data,
       ref,
       onEmojiSelect: (emoji: any) => {
-        dispatch(setChatTextInput(chatTextInput + emoji.native));
+        dispatch(addEmojiToChatTextInput(emoji.native));
       },
     });
   }, []);

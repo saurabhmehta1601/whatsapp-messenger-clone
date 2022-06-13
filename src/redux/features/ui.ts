@@ -23,10 +23,14 @@ export const UISlice = createSlice({
     setChatTextInput: (state, action: PayloadAction<string>) => {
       state.chatTextInput = action.payload;
     },
+    addEmojiToChatTextInput: (state, action: PayloadAction<string>) => {
+      state.chatTextInput += action.payload;
+    },
   },
 });
 
-export const { toggleEmojiPicker, setChatTextInput } = UISlice.actions;
+export const { toggleEmojiPicker, setChatTextInput, addEmojiToChatTextInput } =
+  UISlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 
