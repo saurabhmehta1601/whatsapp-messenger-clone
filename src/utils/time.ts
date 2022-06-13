@@ -7,5 +7,5 @@ export const getFormattedTime = (time: number): string => {
       d.getMinutes() < 10 ? "0" : ""
     }${d.getMinutes()} ${d.getHours() >= 12 ? "PM" : "AM"}`;
   }
-  return "Earlier message";
+  return "Earlier";
 };

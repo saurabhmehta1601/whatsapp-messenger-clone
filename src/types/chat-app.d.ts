@@ -12,7 +12,7 @@ declare module "chat-app-types" {
     name?: string;
     messages: IMessage[];
     lastMessage: string;
-    lastMessagedAt: string;
+    lastMessagedAt: any;
     photoURL?: string;
   }
   export interface IUser {

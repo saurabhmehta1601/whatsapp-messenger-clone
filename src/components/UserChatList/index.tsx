@@ -1,4 +1,5 @@
 import { Avatar, Container, Stack } from "@mui/material";
+import { getFormattedTime } from "@Utils/time";
 import { IThread } from "chat-app-types";
 import { useRouter } from "next/router";
 import React from "react";
@@ -32,14 +33,14 @@ export const UserChatList = ({ threads }: IProps) => {
           <div className={styles.chatItemInfo}>
             <div className={styles.chatSenderAndLastMessage}>
               <div className={styles.chatItemSenderName}>
-                {thread.name ?? "Not group"}
+                {thread.name ?? "College"}
               </div>
               <div className={styles.chatItemLastMessage}>
                 {thread.lastMessage}
               </div>
             </div>
             <div className={styles.lastMessageTime}>
-              {JSON.stringify(thread.lastMessagedAt)}
+              {getFormattedTime(thread.lastMessagedAt.seconds * 1000)}
             </div>
           </div>
         </Container>
