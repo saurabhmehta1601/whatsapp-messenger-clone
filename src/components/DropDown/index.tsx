@@ -9,6 +9,7 @@ interface IProps {
   }[];
   className?: string;
   style?: React.CSSProperties;
+  containerStyle?: React.CSSProperties;
 }
 export const DropDown = (props: IProps) => {
   const [isDropDownVisible, setIsDropDownVisible] = React.useState(false);
@@ -17,7 +18,7 @@ export const DropDown = (props: IProps) => {
     setIsDropDownVisible(false);
   };
   return (
-    <span className={styles.container}>
+    <span className={styles.container} style={props.containerStyle}>
       <div
         onClick={() =>
           setIsDropDownVisible((isDropDownVisible) => !isDropDownVisible)

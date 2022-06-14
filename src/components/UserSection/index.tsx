@@ -8,11 +8,13 @@ import {
   MenuImg,
   MessageImg,
   UserChatList,
+  DropDown,
 } from "@Components/exports";
 import SearchIcon from "@mui/icons-material/Search";
 import { Container } from "@mui/system";
 import { getThreadByIdFromFirestore } from "@Firebase/utils/db";
 import { useActiveUser } from "@Hooks/useActiveUser";
+import { signOutUser } from "@Firebase/utils/auth";
 
 export const UserSection = () => {
   const [activeUserThreads, setActiveUserThreads] = useState<any>([]);
@@ -37,7 +39,10 @@ export const UserSection = () => {
       {/* user section header */}
       <Box className={styles.header}>
         {activeUser?.photoURL ? (
-          <Avatar src={activeUser.photoURL} alt={activeUser.displayName} />
+          <Avatar
+            src={activeUser.photoURL}
+            alt={activeUser.displayName ?? ""}
+          />
         ) : (
           <AvatarImg />
         )}
@@ -45,7 +50,16 @@ export const UserSection = () => {
         <div className={styles.iconGroup}>
           <StatusImg />
           <MessageImg />
-          <MenuImg />
+          {/* <MenuImg /> */}
+          <DropDown
+            options={[{ label: "Log out", onSelect: signOutUser }]}
+            containerStyle={{
+              position: "relative",
+              bottom: "-2px",
+            }}
+          >
+            <MenuImg />
+          </DropDown>
         </div>
       </Box>
       {/* chat search */}
