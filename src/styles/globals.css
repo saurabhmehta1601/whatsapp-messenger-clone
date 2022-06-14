@@ -54,3 +54,8 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+/* Select tag arrows */
+select {
+  -webkit-appearance: none;
+}

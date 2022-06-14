@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+export { DropDown } from "./DropDown";
 export { LoginForm } from "./LoginForm";
 export { ThreadPage } from "./ThreadPage";
 export { TailInImg } from "./TailInImg";

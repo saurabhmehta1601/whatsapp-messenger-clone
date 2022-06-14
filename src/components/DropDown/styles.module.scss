@@ -1,0 +1,23 @@
+.container {
+  position: relative;
+  background-color: red;
+  .list {
+    position: absolute;
+    z-index: 33;
+    background-color: var(--clr-dark-300);
+    top: calc(100% + 2px);
+    left: 0;
+    border-radius: 2px;
+    .item {
+      width: fit-content;
+      padding: 0.8em 1.2em;
+      font-size: 0.85rem;
+      color: var(--clr-gray-100);
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: var(--clr-dark-200);
+      }
+    }
+  }
+}
