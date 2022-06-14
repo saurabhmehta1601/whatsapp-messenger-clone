@@ -17,8 +17,9 @@ declare module "chat-app-types" {
   }
   export interface IUser {
     id: string;
-    photoURL: string;
-    displayName: string;
+    photoURL: string | null;
+    displayName: string | null;
+    phoneNumber: string | null;
     threadIds: string[];
   }
 }

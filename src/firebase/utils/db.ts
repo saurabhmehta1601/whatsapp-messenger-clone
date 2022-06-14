@@ -11,7 +11,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { db } from "@Firebase/app";
-import { IMessage, IThread } from "chat-app-types";
+import { IMessage, IThread, IUser } from "chat-app-types";
 
 // returns a promise that resolves to a firebase document using id if not exists returns undefined
 const getFirebaseDoc = async (collectionName: string, docId: string) => {
@@ -51,6 +51,11 @@ export const addMessageToFirestore = async (
     createdAt: Timestamp.now(),
   });
   return messageDocRef.id;
+};
+
+export const addUserToFirestore = (userId: string, user: Omit<IUser, "id">) => {
+  const userDocRef = doc(db, "user", userId);
+  return setDoc(userDocRef, user);
 };
 
 // UPDATE document in a firebase collection

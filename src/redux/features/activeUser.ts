@@ -3,13 +3,8 @@ import { IUser } from "chat-app-types";
 // Define a type for the slice state
 
 // Define the initial state using that type
-const initialState: { data: IUser } = {
-  data: {
-    id: "",
-    displayName: "",
-    photoURL: "",
-    threadIds: [],
-  },
+const initialState: { data: IUser | null } = {
+  data: null,
 };
 
 export const activeUserSlice = createSlice({
@@ -17,7 +12,7 @@ export const activeUserSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    setActiveUser: (state, action: PayloadAction<IUser>) => {
+    setActiveUser: (state, action: PayloadAction<IUser | null>) => {
       state.data = action.payload;
     },
   },
