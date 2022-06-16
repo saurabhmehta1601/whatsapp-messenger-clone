@@ -6,11 +6,14 @@ import { loginWithFacebook } from "@Firebase/utils/auth";
 import { addUserToFirestore } from "@Firebase/utils/db";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@Firebase/app";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 
 export const LoginForm = () => {
   const [RC, setRC] = useState<any>(null);
   const [confirmationResult, setConfirmationResult] = useState<any>(null);
-  const [phoneNumber, setPhoneNumber] = useState("+91");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [isPhoneNumberDisabled, setPhoneNumberDisabled] = useState(true);
+  const [country, setCountry] = useState({ code: "+91", symbol: "IN" });
 
   const handleFacebookLogin = async () => {
     const { user } = await loginWithFacebook();
@@ -59,9 +62,9 @@ export const LoginForm = () => {
       </div>
       <div className={styles.telephone}>
         <PhoneIcon />
+        <span>{country.code}</span>
         <input
-          type="text"
-          placeholder="Telephone"
+          type="number"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
@@ -71,6 +74,9 @@ export const LoginForm = () => {
           className={styles.confirm}
           id="sign-in-button"
           onClick={handlePhoneLogin}
+          disabled={
+            !isValidPhoneNumber(phoneNumber, (country as any).symbol )
+          }
         >
           CONFIRM
         </button>

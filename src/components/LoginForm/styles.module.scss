@@ -24,6 +24,11 @@
       font-weight: 600;
       letter-spacing: 1.2px;
     }
+    button:disabled {
+      color: white;
+      cursor: not-allowed;
+      background-color: gray;
+    }
     .facebookConnect {
       background-color: var(--clr-blue-200);
       color: var(--clr-gray-100);
