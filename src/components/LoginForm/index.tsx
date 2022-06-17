@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneIcon from "@mui/icons-material/Phone";
-import { loginWithFacebook } from "@Firebase/utils/auth";
-import { addUserToFirestore } from "@Firebase/utils/db";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@Firebase/app";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { OTPForm } from "./OTPForm";
+import { FacebookLoginButton } from "./FacebookLoginButton";
 
 const isValidName = (name: string) => {
   return name.length >= 3 && name.length <= 20;
@@ -19,19 +18,6 @@ export const LoginForm = () => {
   const [country, setCountry] = useState({ code: "+91", symbol: "IN" });
   const [name, setName] = useState("");
   const [isOTPFormVisible, setIsOTPFormVisible] = useState(false);
-
-  const handleFacebookLogin = async () => {
-    const { user } = await loginWithFacebook();
-    if (user) {
-      await addUserToFirestore(user.uid, {
-        displayName: user.displayName,
-        phoneNumber: user.phoneNumber,
-        photoURL: user.photoURL,
-        threadIds: [],
-      });
-      console.log(user);
-    }
-  };
 
   const handlePhoneLogin = async () => {
     const verifier = new RecaptchaVerifier(
@@ -59,9 +45,7 @@ export const LoginForm = () => {
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(e.target.value.length <= 20 )
-    setName(e.target.value);
-
+    if (e.target.value.length <= 20) setName(e.target.value);
   };
 
   return (
@@ -102,12 +86,7 @@ export const LoginForm = () => {
             >
               CONFIRM
             </button>
-            <button
-              className={styles.facebookConnect}
-              onClick={handleFacebookLogin}
-            >
-              CONNECT WITH FACEBOOK
-            </button>
+            <FacebookLoginButton />
           </div>
         </div>
       )}
