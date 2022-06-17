@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -7,9 +7,7 @@ import { addUserToFirestore } from "@Firebase/utils/db";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@Firebase/app";
 import { isValidPhoneNumber } from "react-phone-number-input";
-import { setActiveUser } from "@Redux/features/activeUser";
-import { useAppDispatch } from "@Redux/hooks";
-import { useRouter } from "next/router";
+import { OTPForm } from "./OTPForm";
 
 const isValidName = (name: string) => {
   return name.length >= 3 && name.length <= 20;
@@ -21,11 +19,6 @@ export const LoginForm = () => {
   const [country, setCountry] = useState({ code: "+91", symbol: "IN" });
   const [name, setName] = useState("");
   const [isOTPFormVisible, setIsOTPFormVisible] = useState(false);
-  const [OTP, setOTP] = useState("");
-  const dispatch = useAppDispatch();
-  const [isVerifyOTPDisabled, setIsVerifyOTPDisabled] = useState(true);
-
-  const router = useRouter();
 
   const handleFacebookLogin = async () => {
     const { user } = await loginWithFacebook();
@@ -65,51 +58,14 @@ export const LoginForm = () => {
     setIsOTPFormVisible(true);
   };
 
-  const handleOTPVerification = async () => {
-    try {
-      const result = await confirmationResult.confirm(OTP);
-      console.log("confirmationResult.confirm", result);
-      dispatch(setActiveUser(result.user));
-      router.push("/thread");
-    } catch (error: any) {
-      alert(error.message);
-    }
-  };
-
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
-  const handleOTPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOTP(e.target.value);
-
-    if (OTP.length === 6) {
-      setIsVerifyOTPDisabled(false);
-    } else {
-      setIsVerifyOTPDisabled(true);
-    }
+    if (e.target.value.length <= 20) setName(e.target.value);
   };
 
   return (
     <>
       {isOTPFormVisible ? (
-        <div className={styles.form}>
-          <div className={styles.formControl}>
-            <input
-              type="number"
-              placeholder="Enter OTP"
-              value={OTP}
-              onChange={handleOTPChange}
-              max="999999"
-              min="0"
-            />
-          </div>
-          <button
-            onClick={handleOTPVerification}
-            // disabled={isVerifyOTPDisabled}
-          >
-            VERIFY OTP
-          </button>
-        </div>
+        <OTPForm confirmationResult={confirmationResult} />
       ) : (
         <div className={styles.form}>
           <div className={styles.formControl}>
