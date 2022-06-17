@@ -14,8 +14,8 @@ interface IProps {
 export const DropDown = (props: IProps) => {
   const [isDropDownVisible, setIsDropDownVisible] = React.useState(false);
   const handleOptionSelect = (label: string) => {
-    props.options.find((option) => option.label === label)?.onSelect();
     setIsDropDownVisible(false);
+    props.options.find((option) => option.label === label)?.onSelect();
   };
   return (
     <span className={styles.container} style={props.containerStyle}>
