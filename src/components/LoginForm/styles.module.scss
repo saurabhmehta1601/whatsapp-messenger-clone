@@ -16,19 +16,20 @@
       color: var(--clr-gray-100);
     }
   }
+  button {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+  }
+  button:disabled {
+    color: white;
+    cursor: not-allowed;
+    background-color: gray;
+  }
+
   .buttonGroup {
     display: flex;
     flex-direction: column;
-    button {
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 1.2px;
-    }
-    button:disabled {
-      color: white;
-      cursor: not-allowed;
-      background-color: gray;
-    }
     .facebookConnect {
       background-color: var(--clr-blue-200);
       color: var(--clr-gray-100);

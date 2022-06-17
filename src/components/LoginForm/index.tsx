@@ -59,7 +59,9 @@ export const LoginForm = () => {
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length <= 20) setName(e.target.value);
+    if(e.target.value.length <= 20 )
+    setName(e.target.value);
+
   };
 
   return (
