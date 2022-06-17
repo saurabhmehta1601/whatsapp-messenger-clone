@@ -15,10 +15,17 @@ import { Container } from "@mui/system";
 import { getThreadByIdFromFirestore } from "@Firebase/utils/db";
 import { useActiveUser } from "@Hooks/useActiveUser";
 import { signOutUser } from "@Firebase/utils/auth";
+import { useRouter } from "next/router";
 
 export const UserSection = () => {
   const [activeUserThreads, setActiveUserThreads] = useState<any>([]);
   const activeUser = useActiveUser();
+  const router = useRouter();
+
+  const handleLogOut = async () => {
+    await signOutUser();
+    router.replace("/");
+  };
 
   useEffect(() => {
     (async () => {
@@ -52,7 +59,13 @@ export const UserSection = () => {
           <MessageImg />
           {/* <MenuImg /> */}
           <DropDown
-            options={[{ label: "Log out", onSelect: signOutUser }]}
+            options={[
+              {
+                label: "New group",
+                onSelect: signOutUser,
+              },
+              { label: "Log out", onSelect: handleLogOut },
+            ]}
             containerStyle={{
               position: "relative",
               bottom: "-2px",
