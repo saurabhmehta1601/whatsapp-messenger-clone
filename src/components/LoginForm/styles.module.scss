@@ -1,3 +1,21 @@
+.button {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+}
+
+.button:disabled {
+  color: white;
+  cursor: not-allowed;
+  background-color: gray;
+}
+
+.facebookConnectButton {
+  @extend .button;
+  background-color: var(--clr-blue-200) !important;
+  color: var(--clr-gray-100);
+}
+
 .form {
   .formControl {
     display: flex;
@@ -16,23 +34,9 @@
       color: var(--clr-gray-100);
     }
   }
-  button {
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-  }
-  button:disabled {
-    color: white;
-    cursor: not-allowed;
-    background-color: gray;
-  }
 
   .buttonGroup {
     display: flex;
     flex-direction: column;
-    .facebookConnect {
-      background-color: var(--clr-blue-200);
-      color: var(--clr-gray-100);
-    }
   }
 }

@@ -5,7 +5,7 @@ import { addUserToFirestore } from "@Firebase/utils/db";
 import { useRouter } from "next/router";
 
 export const FacebookLoginButton = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleFacebookLogin = async () => {
     const { user } = await loginWithFacebook();
@@ -17,12 +17,15 @@ export const FacebookLoginButton = () => {
         threadIds: [],
       });
       console.log(user);
-      router.push("/thread")
+      router.push("/thread");
     }
   };
 
   return (
-    <button className={styles.facebookConnect} onClick={handleFacebookLogin}>
+    <button
+      className={styles.facebookConnectButton}
+      onClick={handleFacebookLogin}
+    >
       CONNECT WITH FACEBOOK
     </button>
   );
