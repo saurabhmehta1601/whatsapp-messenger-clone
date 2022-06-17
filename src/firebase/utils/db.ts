@@ -17,16 +17,18 @@ import { IMessage, IThread, IUser } from "chat-app-types";
 const getFirebaseDoc = async (collectionName: string, docId: string) => {
   const docRef = doc(db, collectionName, docId);
   const docSnap = await getDoc(docRef);
-  return { id: docSnap.id, ...docSnap.data() };
+  if (docSnap.exists()) {
+    return { id: docSnap.id, ...docSnap.data() };
+  } else return undefined;
 };
 
 // GET single document from a firebase collection
 export const getUserByIdFromFirestore = async (id: string) =>
-  getFirebaseDoc("user", id);
+  getFirebaseDoc("user", id) as Promise<IUser | undefined>;
 export const getThreadByIdFromFirestore = async (id: string) =>
-  getFirebaseDoc("thread", id);
+  getFirebaseDoc("thread", id) as Promise<IThread | undefined>;
 export const getMessageByIdFromFirestore = async (id: string) =>
-  getFirebaseDoc("message", id);
+  getFirebaseDoc("message", id) as Promise<IMessage | undefined>;
 
 // SUBSCRIBE to a firebase collection
 export const getMessagesInThreadSnapShot = async (
@@ -55,7 +57,7 @@ export const addMessageToFirestore = async (
 
 export const addUserToFirestore = (userId: string, user: Omit<IUser, "id">) => {
   const userDocRef = doc(db, "user", userId);
-  return setDoc(userDocRef, user);
+  return setDoc(userDocRef, user, { merge: true });
 };
 
 // UPDATE document in a firebase collection
