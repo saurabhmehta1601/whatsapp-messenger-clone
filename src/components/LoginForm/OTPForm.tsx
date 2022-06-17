@@ -1,3 +1,7 @@
+import {
+  addUserToFirestore,
+  getUserByIdFromFirestore,
+} from "@Firebase/utils/db";
 import { setActiveUser } from "@Redux/features/activeUser";
 import { useAppDispatch } from "@Redux/hooks";
 import { useRouter } from "next/router";
@@ -6,9 +10,10 @@ import styles from "./styles.module.scss";
 
 interface IProps {
   confirmationResult: any;
+  userName: string;
 }
 
-export const OTPForm = ({ confirmationResult }: IProps) => {
+export const OTPForm = ({ confirmationResult, userName }: IProps) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -16,10 +21,8 @@ export const OTPForm = ({ confirmationResult }: IProps) => {
   const [isFormDisabled, setIsFormDisabled] = useState(true);
 
   const handleOTPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length === 6) setIsFormDisabled(false);
-    if (e.target.value.length <= 6) setOTP(e.target.value);
-
-    if (OTP.length === 6) {
+    setOTP(e.target.value);
+    if (e.target.value.length === 6) {
       setIsFormDisabled(false);
     } else {
       setIsFormDisabled(true);
@@ -27,10 +30,25 @@ export const OTPForm = ({ confirmationResult }: IProps) => {
   };
 
   const handleOTPVerification = async () => {
+    setIsFormDisabled(true);
     try {
       const result = await confirmationResult.confirm(OTP);
-      console.log("confirmationResult.confirm", result);
-      dispatch(setActiveUser(result.user));
+      console.log("result = confirmationResult.confirm", result);
+      const userId = result.user.uid;
+      const userWithId = await getUserByIdFromFirestore(userId);
+      console.log("found user is ", userWithId);
+      if (!userWithId) {
+        const newUser = {
+          displayName: userName,
+          phoneNumber: result.user.phoneNumber,
+          threadIds: [],
+          photoURL: null,
+        };
+        await addUserToFirestore(userId, newUser);
+        dispatch(setActiveUser({ id: userId, ...newUser }));
+      } else {
+        dispatch(setActiveUser(userWithId));
+      }
       router.push("/thread");
     } catch (error: any) {
       alert(error.message);
@@ -49,7 +67,11 @@ export const OTPForm = ({ confirmationResult }: IProps) => {
           min="0"
         />
       </div>
-      <button onClick={handleOTPVerification} disabled={isFormDisabled}>
+      <button
+        onClick={handleOTPVerification}
+        disabled={isFormDisabled}
+        className={styles.button}
+      >
         VERIFY OTP
       </button>
     </div>

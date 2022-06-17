@@ -39,7 +39,9 @@ const Home = () => {
 
       <div className={styles.pageBottom}>
         <div className={styles.from}>from</div>
-        <div className={styles.facebook}>FACEBOOK</div>
+        <div className={styles.facebook}>
+          META <Image width={32} height={32} src="/meta.svg" />
+        </div>
       </div>
     </div>
   );

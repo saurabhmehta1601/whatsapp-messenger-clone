@@ -11,19 +11,24 @@ const isValidName = (name: string) => {
 };
 
 interface IProps {
+  name: string;
+  setName: (name: string) => void;
   setConfirmationResult: (confirmationResult: any) => void;
   setIsOTPFormVisible: (isOTPFormVisible: boolean) => void;
 }
 
 export const PhoneLoginForm = ({
+  name,
   setConfirmationResult,
   setIsOTPFormVisible,
+  setName,
 }: IProps) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState({ code: "+91", symbol: "IN" });
-  const [name, setName] = useState("");
+  const [loginDisabled, setLoginDisabled] = useState(false);
 
   const handlePhoneLogin = async () => {
+    setLoginDisabled(true);
     const verifier = new RecaptchaVerifier(
       "sign-in-button",
       {
@@ -77,6 +82,7 @@ export const PhoneLoginForm = ({
         id="sign-in-button"
         onClick={handlePhoneLogin}
         disabled={
+          loginDisabled ||
           !(
             isValidPhoneNumber(phoneNumber, (country as any).symbol) &&
             isValidName(name)
