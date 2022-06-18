@@ -31,7 +31,7 @@ export const getMessageByIdFromFirestore = async (id: string) =>
   getFirebaseDoc("message", id) as Promise<IMessage | undefined>;
 
 // SUBSCRIBE to a firebase collection
-export const getMessagesInThreadSnapShot = async (
+export const getMessagesInThreadSnapShot = (
   threadId: string,
   callback: (snapShots: any) => void
 ) => {
@@ -45,26 +45,29 @@ export const getMessagesInThreadSnapShot = async (
 };
 
 // ADD document to a firebase collection
-export const addMessageToFirestore = async (
-  message: Omit<IMessage, "id" | "createdAt">
-) => {
-  const messageDocRef = await addDoc(collection(db, "message"), {
-    ...message,
-    createdAt: Timestamp.now(),
-  });
-  return messageDocRef.id;
-};
-
 export const addUserToFirestore = (userId: string, user: Omit<IUser, "id">) => {
   const userDocRef = doc(db, "user", userId);
   return setDoc(userDocRef, user, { merge: true });
 };
 
+export const addMessageToFirestore = (
+  message: Omit<IMessage, "id" | "createdAt">
+) => {
+  return addDoc(collection(db, "message"), {
+    ...message,
+    createdAt: Timestamp.now(),
+  });
+};
+
+export const addThreadToFirestore = (thread: IThread) => {
+  return addDoc(collection(db, "thread"), thread);
+};
+
 // UPDATE document in a firebase collection
-export const updateThreadInFirestore = async (
+export const updateThreadInFirestore = (
   id: string,
   thread: Partial<IThread>
 ) => {
   const threadDocRef = doc(db, "thread", id);
-  return await setDoc(threadDocRef, thread, { merge: true });
+  return setDoc(threadDocRef, thread, { merge: true });
 };
