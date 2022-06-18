@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 
 export const useActiveUser = () => {
-  const activeUser = useAppSelector((state) => state.activeUser.data);
+  const activeUser = useAppSelector((state) => state.activeUser?.data);
   const dispatch = useAppDispatch();
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
