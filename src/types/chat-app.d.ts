@@ -2,18 +2,19 @@ declare module "chat-app-types" {
   export interface IMessage {
     id: string;
     text: string;
-    senderName: string;
-    senderId: string;
-    createdAt: any;
+    sender: {
+      id: string;
+      name: string;
+    };
     threadId: string;
+    createdAt: any;
   }
   export interface IThread {
     id: string;
-    name?: string;
-    messages: IMessage[];
-    lastMessage: string;
-    lastMessagedAt: any;
-    photoURL?: string;
+    name: string | null;
+    private: boolean;
+    photoURL: string | null;
+    lastMessageId: string;
   }
   export interface IUser {
     id: string;
