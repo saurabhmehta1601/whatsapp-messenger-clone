@@ -24,18 +24,18 @@ const getFirebaseDoc = async (collectionName: string, docId: string) => {
 
 // GET single document from a firebase collection
 export const getUserByIdFromFirestore = async (id: string) =>
-  getFirebaseDoc("user", id) as Promise<IUser | undefined>;
+  getFirebaseDoc("users", id) as Promise<IUser | undefined>;
 export const getThreadByIdFromFirestore = async (id: string) =>
-  getFirebaseDoc("thread", id) as Promise<IThread | undefined>;
+  getFirebaseDoc("threads", id) as Promise<IThread | undefined>;
 export const getMessageByIdFromFirestore = async (id: string) =>
-  getFirebaseDoc("message", id) as Promise<IMessage | undefined>;
+  getFirebaseDoc("messages", id) as Promise<IMessage | undefined>;
 
 // SUBSCRIBE to a firebase collection
 export const getMessagesInThreadSnapShot = (
   threadId: string,
   callback: (snapShots: any) => void
 ) => {
-  const messageCollectionRef = collection(db, "message");
+  const messageCollectionRef = collection(db, "messages");
   const q = query(
     messageCollectionRef,
     where("threadId", "==", threadId),
@@ -46,21 +46,21 @@ export const getMessagesInThreadSnapShot = (
 
 // ADD document to a firebase collection
 export const addUserToFirestore = (userId: string, user: Omit<IUser, "id">) => {
-  const userDocRef = doc(db, "user", userId);
+  const userDocRef = doc(db, "users", userId);
   return setDoc(userDocRef, user, { merge: true });
 };
 
 export const addMessageToFirestore = (
   message: Omit<IMessage, "id" | "createdAt">
 ) => {
-  return addDoc(collection(db, "message"), {
+  return addDoc(collection(db, "messages"), {
     ...message,
     createdAt: Timestamp.now(),
   });
 };
 
 export const addThreadToFirestore = (thread: IThread) => {
-  return addDoc(collection(db, "thread"), thread);
+  return addDoc(collection(db, "threads"), thread);
 };
 
 // UPDATE document in a firebase collection
@@ -68,6 +68,6 @@ export const updateThreadInFirestore = (
   id: string,
   thread: Partial<IThread>
 ) => {
-  const threadDocRef = doc(db, "thread", id);
+  const threadDocRef = doc(db, "threads", id);
   return setDoc(threadDocRef, thread, { merge: true });
 };
