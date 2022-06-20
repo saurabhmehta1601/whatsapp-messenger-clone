@@ -2,16 +2,17 @@ import {
   collection,
   doc,
   getDoc,
-  onSnapshot,
-  query,
   addDoc,
-  where,
   Timestamp,
-  orderBy,
   setDoc,
 } from "firebase/firestore";
 import { db } from "@Firebase/app";
-import { IMessage, IThread, IUser } from "chat-app-types";
+import {
+  IMessage,
+  IThread,
+  IThreadWithLastMessage,
+  IUser,
+} from "chat-app-types";
 
 // returns a promise that resolves to a firebase document using id if not exists returns undefined
 const getFirebaseDoc = async (collectionName: string, docId: string) => {
@@ -29,33 +30,23 @@ export const getUserByIdFromFirestore = async (id: string) =>
 export const getMessageByIdFromFirestore = async (id: string) =>
   getFirebaseDoc("messages", id) as Promise<IMessage | undefined>;
 
-export const getThreadByIdFromFirestore = async (id: string) => {
-  const thread = await getFirebaseDoc("threads", id);
-  const lastMessage = await getMessageByIdFromFirestore(thread.lastMessageId);
+export const getThreadByIdFromFirestore = async (id: string) =>
+  getFirebaseDoc("threads", id) as Promise<IThread | undefined>;
 
+export const getThreadByIdWithLastMessageFromFirestore = async (
+  id: string
+): Promise<undefined | IThreadWithLastMessage | IThread> => {
+  const thread = await getThreadByIdFromFirestore(id);
   if (thread) {
-    return {
-      ...thread,
-      lastMessage: {
-        text: lastMessage?.text,
-        createdAt: lastMessage?.createdAt,
-      },
-    };
+    const message = await getMessageByIdFromFirestore(thread.lastMessageId);
+    if (message) {
+      return {
+        ...thread,
+        lastMessage: { text: message.text, createdAt: message.createdAt },
+      };
+    }
   }
-};
-
-// SUBSCRIBE to a firebase collection
-export const getMessagesInThreadSnapShot = (
-  threadId: string,
-  callback: (snapShots: any) => void
-) => {
-  const messageCollectionRef = collection(db, "messages");
-  const q = query(
-    messageCollectionRef,
-    where("threadId", "==", threadId),
-    orderBy("createdAt", "asc")
-  );
-  onSnapshot(q, callback);
+  return thread;
 };
 
 // ADD document to a firebase collection
