@@ -11,7 +11,7 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from "./styles.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
-import { getMessagesInThreadSnapShot } from "@Firebase/utils/db";
+import { getMessagesInThreadSnapShot } from "@Firebase/utils/db/snapshots";
 import { IMessage } from "chat-app-types";
 import { useAppSelector } from "@Redux/hooks";
 

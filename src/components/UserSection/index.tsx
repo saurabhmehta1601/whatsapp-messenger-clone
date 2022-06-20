@@ -12,7 +12,7 @@ import {
 } from "@Components/exports";
 import SearchIcon from "@mui/icons-material/Search";
 import { Container } from "@mui/system";
-import { getThreadByIdFromFirestore } from "@Firebase/utils/db";
+import { getThreadByIdWithLastMessageFromFirestore } from "@Firebase/utils/db/CRUD";
 import { useActiveUser } from "@Hooks/useActiveUser";
 import { signOutUser } from "@Firebase/utils/auth";
 import { useRouter } from "next/router";
@@ -33,7 +33,7 @@ export const UserSection = () => {
         // request to get all threads of active user
         const getThreadRequests: Promise<DocumentData | undefined>[] = [];
         activeUser.threadIds.forEach((id: string) => {
-          getThreadRequests.push(getThreadByIdFromFirestore(id));
+          getThreadRequests.push(getThreadByIdWithLastMessageFromFirestore(id));
         });
         // Promise.all resolves once all promises are resolved unlike promise.allSettled
         const threads = await Promise.all(getThreadRequests);

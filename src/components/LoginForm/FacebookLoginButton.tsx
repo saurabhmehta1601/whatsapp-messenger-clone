@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import { loginWithFacebook } from "@Firebase/utils/auth";
-import { addUserToFirestore } from "@Firebase/utils/db";
+import { addUserToFirestore } from "@Firebase/utils/db/CRUD";
 import { useRouter } from "next/router";
 
 export const FacebookLoginButton = () => {

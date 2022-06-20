@@ -1,12 +1,12 @@
 import { Avatar, Container, Stack } from "@mui/material";
 import { getFormattedTime } from "@Utils/time";
-import { IThread } from "chat-app-types";
+import { IThreadWithLastMessage } from "chat-app-types";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.scss";
 
 interface IProps {
-  threads: Array<IThread>;
+  threads: Array<IThreadWithLastMessage>;
 }
 
 export const UserChatList = ({ threads }: IProps) => {
@@ -14,6 +14,9 @@ export const UserChatList = ({ threads }: IProps) => {
   const navigateToThread = (threadId: string) => {
     router.replace("/thread/" + threadId);
   };
+
+  useEffect(() => {}, []);
+
   return (
     <Stack className={styles.chatList}>
       {threads.map((thread) => (
@@ -36,13 +39,13 @@ export const UserChatList = ({ threads }: IProps) => {
                 {thread.name ?? "College"}
               </div>
               <div className={styles.chatItemLastMessage}>
-                {thread.lastMessage.length > 20
-                  ? thread.lastMessage.substring(0, 20) + "..."
-                  : thread.lastMessage}
+                {thread.lastMessage.text.length > 20
+                  ? thread.lastMessage.text.substring(0, 20) + "..."
+                  : thread.lastMessage.text}
               </div>
             </div>
             <div className={styles.lastMessageTime}>
-              {getFormattedTime(thread.lastMessagedAt.seconds * 1000)}
+              {getFormattedTime(thread.lastMessage.createdAt.seconds * 1000)}
             </div>
           </div>
         </Container>

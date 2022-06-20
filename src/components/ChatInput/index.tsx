@@ -2,7 +2,7 @@ import { MicImg, PinImg, SmileyImg } from "@Components/exports";
 import {
   addMessageToFirestore,
   updateThreadInFirestore,
-} from "@Firebase/utils/db";
+} from "@Firebase/utils/db/CRUD";
 import { useActiveUser } from "@Hooks/useActiveUser";
 import { Box } from "@mui/material";
 import { setChatTextInput, toggleEmojiPicker } from "@Redux/features/ui";

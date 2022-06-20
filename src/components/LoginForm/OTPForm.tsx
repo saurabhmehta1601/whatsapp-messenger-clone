@@ -1,7 +1,7 @@
 import {
   addUserToFirestore,
   getUserByIdFromFirestore,
-} from "@Firebase/utils/db";
+} from "@Firebase/utils/db/CRUD";
 import { setActiveUser } from "@Redux/features/activeUser";
 import { useAppDispatch } from "@Redux/hooks";
 import { useRouter } from "next/router";

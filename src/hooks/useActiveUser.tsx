@@ -1,5 +1,5 @@
 import { auth } from "@Firebase/app";
-import { getUserByIdFromFirestore } from "@Firebase/utils/db";
+import { getUserByIdFromFirestore } from "@Firebase/utils/db/CRUD";
 import { setActiveUser } from "@Redux/features/activeUser";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { IUser } from "chat-app-types";
