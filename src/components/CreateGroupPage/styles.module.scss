@@ -1,0 +1,56 @@
+.page {
+  display: flex;
+  height: 100vh;
+
+  .createGroup {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--clr-dark-400);
+    .header {
+      padding: 4em 0.8em 1em;
+      font-weight: 600;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      column-gap: 0.5em;
+      background-color: var(--clr-dark-100);
+      color: var(--clr-gray-100);
+    }
+
+    .suggestedUsers {
+      padding: 0.8em;
+      flex: 1;
+      color: var(--clr-gray-100);
+      display: relative;
+      &::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .suggestedUser {
+        display: flex;
+        column-gap: 0.8em;
+        .photo {
+          img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+          }
+        }
+        .bio {
+          .name {
+            font-size: 1.1rem;
+          }
+          .status {
+            color: var(--clr-gray-200);
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }
+  .chat {
+    flex: 2;
+  }
+}
