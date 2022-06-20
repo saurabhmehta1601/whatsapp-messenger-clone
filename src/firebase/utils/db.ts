@@ -25,10 +25,24 @@ const getFirebaseDoc = async (collectionName: string, docId: string) => {
 // GET single document from a firebase collection
 export const getUserByIdFromFirestore = async (id: string) =>
   getFirebaseDoc("users", id) as Promise<IUser | undefined>;
-export const getThreadByIdFromFirestore = async (id: string) =>
-  getFirebaseDoc("threads", id) as Promise<IThread | undefined>;
+
 export const getMessageByIdFromFirestore = async (id: string) =>
   getFirebaseDoc("messages", id) as Promise<IMessage | undefined>;
+
+export const getThreadByIdFromFirestore = async (id: string) => {
+  const thread = await getFirebaseDoc("threads", id);
+  const lastMessage = await getMessageByIdFromFirestore(thread.lastMessageId);
+
+  if (thread) {
+    return {
+      ...thread,
+      lastMessage: {
+        text: lastMessage?.text,
+        createdAt: lastMessage?.createdAt,
+      },
+    };
+  }
+};
 
 // SUBSCRIBE to a firebase collection
 export const getMessagesInThreadSnapShot = (
