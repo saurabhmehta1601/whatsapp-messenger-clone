@@ -16,6 +16,13 @@ declare module "chat-app-types" {
     photoURL: string | null;
     lastMessageId: string;
   }
+
+  export interface IThreadWithLastMessage extends IThread {
+    lastMessage: {
+      text: string;
+      createdAt: any;
+    };
+  }
   export interface IUser {
     id: string;
     photoURL: string | null;
