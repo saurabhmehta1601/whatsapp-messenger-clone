@@ -1,5 +1,11 @@
-import { db } from "@Firebase/firebase";
-import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { db } from "@Firebase/app";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 
 // SUBSCRIBE to a firebase collection
 export const getMessagesInThreadSnapShot = (
