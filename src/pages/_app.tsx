@@ -8,7 +8,11 @@ import AlertTemplate from "react-alert-template-basic";
 function MyApp({ Component, pageProps }: AppProps) {
   // later I will set the activeUser using firebase auth
   return (
-    <AlertProvider template={AlertTemplate as any} timeout={3000}>
+    <AlertProvider
+      template={AlertTemplate as any}
+      timeout={3000}
+      transition="fade"
+    >
       <Provider store={store}>
         <CssBaseline />
         <Component {...pageProps} />
