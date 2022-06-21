@@ -1,43 +1,40 @@
-.chatContainer {
-  height: 100vh;
+.content {
   display: flex;
   flex-direction: column;
-  color: var(--clr-gray-100);
-  background-color: var(--clr-dark-100);
+}
 
-  .header {
-    display: flex;
-    align-items: center;
-    height: 10vh;
+.header {
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  padding: 1em;
+  .groupOrRecieverName {
+    font-size: 1.2rem;
     padding: 1em;
-    .groupOrRecieverName {
-      font-size: 1.2rem;
-      padding: 1em;
-      flex: 1;
-      font-weight: 600;
-      color: var(--clr-gray-400);
-    }
-    .iconGroup {
-      display: flex;
-      column-gap: 1.2em;
-    }
-  }
-  .chatMainSection {
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-      url("/chatBg.png");
-    background-position: center;
-    background-size: 47%;
-    position: relative;
     flex: 1;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding: 1em 2em;
+    font-weight: 600;
+    color: var(--clr-gray-400);
+  }
+  .iconGroup {
+    display: flex;
+    column-gap: 1.2em;
+  }
+}
+.chatMainSection {
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url("/chatBg.png");
+  background-position: center;
+  background-size: 47%;
+  position: relative;
+  flex: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 1em 2em;
 
-    .emojiPickerContainer {
-      position: absolute;
-      z-index: 13;
-      bottom: 4px;
-      left: 8px;
-    }
+  .emojiPickerContainer {
+    position: absolute;
+    z-index: 13;
+    bottom: 4px;
+    left: 8px;
   }
 }

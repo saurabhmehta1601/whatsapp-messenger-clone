@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import { DesktopImg, GadgetsImg, LockImg } from "@Components/exports";
 import styles from "./styles.module.scss";

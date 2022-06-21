@@ -3,7 +3,6 @@ export { LeftArrowImg } from "./images/LeftArrowImg";
 export { CreateGroupPage } from "./CreateGroupPage";
 export { DropDown } from "./DropDown";
 export { LoginForm } from "./LoginForm";
-export { ThreadPage } from "./ThreadPage";
 export { TailInImg } from "./images/TailInImg";
 export { TailOutImg } from "./images/TailOutImg";
 export { ChatMessage } from "./ChatMessage";

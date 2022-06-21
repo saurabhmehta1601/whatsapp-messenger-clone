@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import data from "@emoji-mart/data";
 import { Picker } from "emoji-mart";
-import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import { useAppDispatch } from "@Redux/hooks";
 import { addEmojiToChatTextInput } from "@Redux/features/ui";
 
 const EmojiPicker = (props: any) => {

@@ -1,8 +1,9 @@
-import { ThreadPage } from "@Components/exports";
 import React from "react";
+import { PageLayout } from "layouts/exports";
+import { UserSection, ChatSection } from "@Components/exports";
 
 export const ThreadId = () => {
-  return <ThreadPage />;
+  return <PageLayout sidebar={<UserSection />} content={<ChatSection />} />;
 };
 
 export default ThreadId;

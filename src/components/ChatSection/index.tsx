@@ -4,7 +4,6 @@ import {
   MenuImg,
   ChatMessage,
   EmojiPicker,
-  DefaultChatSection,
 } from "@Components/exports";
 import { Box } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
@@ -14,6 +13,7 @@ import { useRouter } from "next/router";
 import { getMessagesInThreadSnapShot } from "@Firebase/utils/db/snapshots";
 import { IMessage } from "chat-app-types";
 import { useAppSelector } from "@Redux/hooks";
+import { ContentLayout } from "layouts/ContentLayout";
 
 export const ChatSection = () => {
   const emojiPickerContainerRef = useRef<HTMLDivElement>(null);
@@ -25,6 +25,8 @@ export const ChatSection = () => {
   );
   const { threadId } = router.query;
   const chatMainRef = useRef<HTMLDivElement>(null);
+
+  // if threadId exists in route path then get messages for thread with this id
   useEffect(() => {
     (async () => {
       if (threadId) {
@@ -50,7 +52,7 @@ export const ChatSection = () => {
     }
   }, [messages]);
 
-  //
+  // make emoji picker stick to bottom of screen when scrolled
   useEffect(() => {
     let listener: any;
     if (chatMainRef.current) {
@@ -71,36 +73,31 @@ export const ChatSection = () => {
       }
     };
   }, []);
+
   return (
-    <>
-      {!threadId ? (
-        <DefaultChatSection />
-      ) : (
-        <Box className={styles.chatContainer}>
-          <Box className={styles.header}>
-            <AvatarImg />
-            <div className={styles.groupOrRecieverName}>{"Unnamed"}</div>
-            <div className={styles.iconGroup}>
-              <SearchIcon />
-              <MenuImg />
-            </div>
-          </Box>
-          <Box className={styles.chatMainSection} ref={chatMainRef}>
-            <div
-              className={styles.emojiPickerContainer}
-              ref={emojiPickerContainerRef}
-            >
-              {shouldShowEmojiPicker && (
-                <EmojiPicker onClick={() => alert("picker ckice")} />
-              )}
-            </div>
-            {messages?.map((message) => (
-              <ChatMessage key={message.id} message={message} />
-            ))}
-          </Box>
-          <ChatInput />
-        </Box>
-      )}
-    </>
+    <ContentLayout className={styles.content}>
+      <Box className={styles.header}>
+        <AvatarImg />
+        <div className={styles.groupOrRecieverName}>{"Unnamed"}</div>
+        <div className={styles.iconGroup}>
+          <SearchIcon />
+          <MenuImg />
+        </div>
+      </Box>
+      <Box className={styles.chatMainSection} ref={chatMainRef}>
+        <div
+          className={styles.emojiPickerContainer}
+          ref={emojiPickerContainerRef}
+        >
+          {shouldShowEmojiPicker && (
+            <EmojiPicker onClick={() => alert("picker ckice")} />
+          )}
+        </div>
+        {messages?.map((message) => (
+          <ChatMessage key={message.id} message={message} />
+        ))}
+      </Box>
+      <ChatInput />
+    </ContentLayout>
   );
 };

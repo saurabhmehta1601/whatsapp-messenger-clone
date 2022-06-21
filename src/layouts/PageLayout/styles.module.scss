@@ -1,7 +1,11 @@
 .page {
+  display: flex;
   background-color: var(--clr-dark-300);
   color: var(--clr-gray-100);
   height: 100vh;
   overflow-y: hidden;
   overflow-x: hidden;
+  & > * {
+    flex: 1;
+  }
 }
