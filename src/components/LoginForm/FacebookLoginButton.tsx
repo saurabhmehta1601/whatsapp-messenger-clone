@@ -3,9 +3,11 @@ import styles from "./styles.module.scss";
 import { loginWithFacebook } from "@Firebase/utils/auth";
 import { addUserToFirestore } from "@Firebase/utils/db/CRUD";
 import { useRouter } from "next/router";
+import { useAlert } from "react-alert";
 
 export const FacebookLoginButton = () => {
   const router = useRouter();
+  const alert = useAlert();
 
   const handleFacebookLogin = async () => {
     const { user } = await loginWithFacebook();
@@ -17,6 +19,7 @@ export const FacebookLoginButton = () => {
         threadIds: [],
       });
       console.log(user);
+      alert.success("Logged in successfully .");
       router.push("/thread");
     }
   };

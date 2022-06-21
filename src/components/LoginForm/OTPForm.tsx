@@ -6,6 +6,7 @@ import { setActiveUser } from "@Redux/features/activeUser";
 import { useAppDispatch } from "@Redux/hooks";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { useAlert } from "react-alert";
 import styles from "./styles.module.scss";
 
 interface IProps {
@@ -16,6 +17,7 @@ interface IProps {
 export const OTPForm = ({ confirmationResult, userName }: IProps) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const alert = useAlert();
 
   const [OTP, setOTP] = useState("");
   const [isFormDisabled, setIsFormDisabled] = useState(true);
@@ -49,9 +51,10 @@ export const OTPForm = ({ confirmationResult, userName }: IProps) => {
       } else {
         dispatch(setActiveUser(userWithId));
       }
+      alert.success("Logged in successfully .");
       router.push("/thread");
     } catch (error: any) {
-      alert(error.message);
+      alert.error(error.message);
     }
   };
 

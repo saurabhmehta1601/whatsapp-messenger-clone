@@ -16,15 +16,19 @@ import { getThreadByIdWithLastMessageFromFirestore } from "@Firebase/utils/db/CR
 import { useActiveUser } from "@Hooks/useActiveUser";
 import { signOutUser } from "@Firebase/utils/auth";
 import { useRouter } from "next/router";
+import { useAlert } from "react-alert";
 
 export const UserSection = () => {
   const [activeUserThreads, setActiveUserThreads] = useState<any>([]);
   const activeUser = useActiveUser();
   const router = useRouter();
+  const alert = useAlert();
 
   const handleLogOut = async () => {
     await signOutUser();
     router.replace("/");
+    alert.success("Logged out successfully .");
+    console.log("redirect to / after logout ");
   };
 
   useEffect(() => {
