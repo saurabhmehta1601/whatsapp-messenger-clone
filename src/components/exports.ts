@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 export { LeftArrowImg } from "./images/LeftArrowImg";
-export { CreateGroupPage } from "./CreateGroupPage";
+export { CreateGroupPage } from "./CreateGroupSidebar";
 export { DropDown } from "./DropDown";
 export { LoginForm } from "./LoginForm";
 export { TailInImg } from "./images/TailInImg";
@@ -19,7 +19,7 @@ export { StatusImg } from "./images/StatusImg";
 export { MenuImg } from "./images/MenuImg";
 export { AvatarImg } from "./images/AvatarImg";
 export { GadgetsImg } from "./images/GadgetsImg";
-export { UserSection } from "./UserSection";
+export { UserSection } from "./UserSectionSidebar";
 export { ChatSection } from "./ChatSection";
 export const EmojiPicker = dynamic(() => import("./EmojiPicker"), {
   ssr: false,
