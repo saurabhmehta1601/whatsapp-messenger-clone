@@ -5,6 +5,7 @@ import {
   addDoc,
   Timestamp,
   setDoc,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "@Firebase/app";
 import {
@@ -47,6 +48,16 @@ export const getThreadByIdWithLastMessageFromFirestore = async (
     }
   }
   return thread;
+};
+
+// GET all documents in a collection
+export const getAllUsers = async () => {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  const users: IUser[] = [];
+  querySnapshot.forEach((doc) => {
+    users.push({ id: doc.id, ...doc.data() as Omit<IUser, "id">});
+  });
+  return users;
 };
 
 // ADD document to a firebase collection
