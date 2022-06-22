@@ -4,12 +4,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface UIState {
   showEmojiPicker: boolean;
   chatTextInput: string;
+  showCreateGroupSidebar: boolean;
 }
 
 // Define the initial state using that type
 const initialState: UIState = {
   showEmojiPicker: false,
   chatTextInput: "",
+  showCreateGroupSidebar: false,
 };
 
 export const UISlice = createSlice({
@@ -26,11 +28,18 @@ export const UISlice = createSlice({
     addEmojiToChatTextInput: (state, action: PayloadAction<string>) => {
       state.chatTextInput += action.payload;
     },
+    toggleCreateGroupSidebar: (state) => {
+      state.showCreateGroupSidebar = !state.showCreateGroupSidebar;
+    },
   },
 });
 
-export const { toggleEmojiPicker, setChatTextInput, addEmojiToChatTextInput } =
-  UISlice.actions;
+export const {
+  toggleEmojiPicker,
+  setChatTextInput,
+  addEmojiToChatTextInput,
+  toggleCreateGroupSidebar,
+} = UISlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 
