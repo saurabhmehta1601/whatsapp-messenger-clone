@@ -1,0 +1,26 @@
+.chatSearch {
+  background-color: #111b21;
+  padding: 0.4em 0;
+  border-bottom: 2px solid #222d34;
+
+  .searchContainer {
+    display: flex;
+    align-items: center;
+    background-color: #202c33;
+    border-radius: 8px;
+    padding: 0.2em 2em 0.2em 1em;
+    .searchIcon {
+      color: #6d7c85;
+      margin-right: 1em;
+    }
+    .searchInput {
+      width: 100%;
+      color: white;
+      font-size: 1rem;
+      padding: 0.4em;
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+  }
+}
