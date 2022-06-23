@@ -7,11 +7,14 @@ import styles from "./styles.module.scss";
 import { signOutUser } from "@Firebase/utils/auth";
 import { useRouter } from "next/router";
 import { useAlert } from "react-alert";
+import { useAppDispatch } from "@Redux/hooks";
+import { toggleCreateGroupSidebar } from "@Redux/features/ui";
 
 export const Header = () => {
   const activeUser = useActiveUser();
   const router = useRouter();
   const alert = useAlert();
+  const dispatch = useAppDispatch();
 
   const onLogoutSelect = async () => {
     await signOutUser();
@@ -20,7 +23,10 @@ export const Header = () => {
     console.log("redirect to / after logout ");
   };
 
-  const onNewGroupSelect = () => {};
+  const onNewGroupSelect = () => {
+    dispatch(toggleCreateGroupSidebar());
+  };
+
   return (
     <HeaderLayout className={styles.header}>
       <Avatar
@@ -30,7 +36,6 @@ export const Header = () => {
       <div className={styles.iconGroup}>
         <StatusImg />
         <MessageImg />
-        {/* <MenuImg /> */}
         <DropDown
           options={[
             {

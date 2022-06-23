@@ -1,16 +1,14 @@
+import { useEffect, useState } from "react";
+import { ChatsList } from "@Components/exports";
 import { DocumentData } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import { UserChatList } from "@Components/exports";
+import { Header } from "./DefaultHeader";
 import { getThreadByIdWithLastMessageFromFirestore } from "@Firebase/utils/db/CRUD";
 import { useActiveUser } from "@Hooks/useActiveUser";
-import { Header } from "./Header";
-import { ChatSearch } from "./ChatSearch";
-import { SidebarLayout } from "layouts/SidebarLayout";
+import { ChatSearch } from "../ChatSearch/ChatSearch";
 
-export const UserSection = () => {
-  const [activeUserThreads, setActiveUserThreads] = useState<any>([]);
+export const DefaultSidebar = () => {
   const activeUser = useActiveUser();
-
+  const [activeUserThreads, setActiveUserThreads] = useState<any>([]);
 
   useEffect(() => {
     (async () => {
@@ -26,14 +24,14 @@ export const UserSection = () => {
       }
     })();
   }, [activeUser]);
+
   return (
-    <SidebarLayout>
-      {/* user section header */}
+    <>
       <Header />
       {/* chat search */}
       <ChatSearch />
       {/* user Chats  */}
-      <UserChatList threads={activeUserThreads} />
-    </SidebarLayout>
+      <ChatsList threads={activeUserThreads} />
+    </>
   );
 };

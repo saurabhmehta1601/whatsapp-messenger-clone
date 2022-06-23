@@ -1,0 +1,24 @@
+.iconGroup {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+  column-gap: 1em;
+}
+
+.createGroupSidebarHeader {
+  padding: 4em 1.5em 1em;
+  display: flex;
+  column-gap: 2em;
+  align-items: center;
+  margin-bottom: 1em;
+  .arrowImgContainer {
+    // background-color: red;
+    display: flex;
+    align-items: center;
+  }
+  h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+}
