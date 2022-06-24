@@ -14,6 +14,7 @@ import { getMessagesInThreadSnapShot } from "@Firebase/utils/db/snapshots";
 import { IMessage } from "chat-app-types";
 import { useAppSelector } from "@Redux/hooks";
 import { ContentLayout } from "layouts/ContentLayout";
+import { HeaderLayout } from "layouts/HeaderLayout";
 
 export const ChatSection = () => {
   const emojiPickerContainerRef = useRef<HTMLDivElement>(null);
@@ -76,14 +77,14 @@ export const ChatSection = () => {
 
   return (
     <ContentLayout className={styles.content}>
-      <Box className={styles.header}>
+      <HeaderLayout className={styles.header}>
         <AvatarImg />
         <div className={styles.groupOrRecieverName}>{"Unnamed"}</div>
         <div className={styles.iconGroup}>
           <SearchIcon />
           <MenuImg />
         </div>
-      </Box>
+      </HeaderLayout>
       <Box className={styles.chatMainSection} ref={chatMainRef}>
         <div
           className={styles.emojiPickerContainer}

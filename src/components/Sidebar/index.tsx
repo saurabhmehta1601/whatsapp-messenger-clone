@@ -1,16 +1,15 @@
 import { useAppSelector } from "@Redux/hooks";
 import { SidebarLayout } from "layouts/SidebarLayout";
 import { CreateGroupSidebar } from "./CreateGroupSidebar";
-import { ChatsSidebar } from "./DefaultSidebar";
+import { DefaultSidebar } from "./DefaultSidebar";
 
 export const UserSection = () => {
   const showCreateGroupSidebar = useAppSelector(
-    (state) => state.ui.showCreateGroupSidebar
+    (state) => state.ui.createGroupSidebar.isOpen
   );
   return (
     <SidebarLayout>
-      {showCreateGroupSidebar ? <CreateGroupSidebar />: <ChatsSidebar />}
-      
+      {showCreateGroupSidebar ? <CreateGroupSidebar /> : <DefaultSidebar />}
     </SidebarLayout>
   );
 };

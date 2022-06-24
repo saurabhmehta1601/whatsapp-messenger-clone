@@ -45,6 +45,7 @@ export const OTPForm = ({ confirmationResult, userName }: IProps) => {
           phoneNumber: result.user.phoneNumber,
           threadIds: [],
           photoURL: null,
+          status: "Hey there! I am using whatsApp.",
         };
         await addUserToFirestore(userId, newUser);
         dispatch(setActiveUser({ id: userId, ...newUser }));

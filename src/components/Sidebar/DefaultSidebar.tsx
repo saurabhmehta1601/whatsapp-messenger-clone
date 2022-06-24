@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChatsList } from "@Components/exports";
+import { RecentChatsList } from "@Components/exports";
 import { DocumentData } from "firebase/firestore";
 import { Header } from "./DefaultHeader";
 import { getThreadByIdWithLastMessageFromFirestore } from "@Firebase/utils/db/CRUD";
@@ -31,7 +31,7 @@ export const DefaultSidebar = () => {
       {/* chat search */}
       <ChatSearch />
       {/* user Chats  */}
-      <ChatsList threads={activeUserThreads} />
+      <RecentChatsList  threads={activeUserThreads} />
     </>
   );
 };

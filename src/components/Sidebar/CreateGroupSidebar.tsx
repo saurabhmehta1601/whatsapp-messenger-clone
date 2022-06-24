@@ -1,24 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { LeftArrowImg } from "@Components/exports";
-import { useAppDispatch } from "@Redux/hooks";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { HeaderLayout, SidebarLayout } from "layouts/exports";
 import styles from "./styles.module.scss";
-import { toggleCreateGroupSidebar } from "@Redux/features/ui";
+import {
+  toggleCreateGroupSidebar,
+  addUserToSelectedUsers,
+} from "@Redux/features/ui";
 import { IUser } from "chat-app-types";
 import { getAllUsers } from "@Firebase/utils/db/CRUD";
+import { UserCard } from "@Components/UserCard";
+import { SidebarListLayout } from "layouts/SidebarListLayout";
+import { useAlert } from "react-alert";
+import { UserBadge } from "@Components/UserBadge";
+import { Stack } from "@mui/material";
 
 export const CreateGroupSidebar = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
+  const selectedUsers = useAppSelector(
+    (state) => state.ui.createGroupSidebar.selectedUsers
+  );
+  const [allUsers, setAllUsers] = useState<IUser[]>([]);
   const dispatch = useAppDispatch();
+  const alert = useAlert();
+
   const closeCreateGroupSidebar = () => {
     dispatch(toggleCreateGroupSidebar());
   };
 
   useEffect(() => {
     (async () => {
-      setUsers(await getAllUsers());
+      try {
+        const fakeUsers: IUser[] = [
+          {
+            id: "1",
+            displayName: "Superman",
+            phoneNumber: "123456789",
+            photoURL: "",
+            status: "Hey there I am using whatsapp",
+            threadIds: [],
+          },
+          {
+            id: "2",
+            displayName: "Batman",
+            phoneNumber: "123456789",
+            photoURL: "",
+            status: "Hey there I am using whatsapp",
+            threadIds: [],
+          },
+        ];
+        // setUsers(await getAllUsers());
+        setAllUsers(fakeUsers);
+      } catch (error: any) {
+        alert.error(error.message);
+      }
     })();
-  }, [users]);
+  }, [allUsers]);
 
   return (
     <SidebarLayout>
@@ -33,11 +69,20 @@ export const CreateGroupSidebar = () => {
           Add group participants
         </h3>
       </HeaderLayout>
-      <div>
-        {users.map((user) => (
-          <p style={{ color: "yellow" }}>{user.displayName ?? user.id}</p>
+      <Stack className={styles.selectedUsers}>
+        {selectedUsers.map((user) => (
+          <UserBadge user={user} />
         ))}
-      </div>
+      </Stack>
+      <SidebarListLayout>
+        {allUsers.map((user) => (
+          <UserCard
+            key={user.id}
+            user={user}
+            onClick={() => dispatch(addUserToSelectedUsers(user))}
+          />
+        ))}
+      </SidebarListLayout>
     </SidebarLayout>
   );
 };

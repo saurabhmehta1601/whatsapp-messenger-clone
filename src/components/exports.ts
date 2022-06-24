@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
+export { CrossBtnImg } from "./images/CrossBtnImg";
 export { LeftArrowImg } from "./images/LeftArrowImg";
-export { CreateGroupPage } from "./CreateGroupSidebar";
 export { DropDown } from "./DropDown";
 export { LoginForm } from "./LoginForm";
 export { TailInImg } from "./images/TailInImg";
@@ -13,13 +13,13 @@ export { ChatInput } from "./ChatInput";
 export { LockImg } from "./images/LockImg";
 export { DesktopImg } from "./images/DesktopImg";
 export { DefaultChatSection } from "./DefaultChatSection";
-export { UserChatList } from "./UserChatList";
+export { RecentChatsList } from "./RecentChatsList";
 export { MessageImg } from "./images/MessageImg";
 export { StatusImg } from "./images/StatusImg";
 export { MenuImg } from "./images/MenuImg";
 export { AvatarImg } from "./images/AvatarImg";
 export { GadgetsImg } from "./images/GadgetsImg";
-export { UserSection } from "./UserSectionSidebar";
+export { UserSection } from "./Sidebar";
 export { ChatSection } from "./ChatSection";
 export const EmojiPicker = dynamic(() => import("./EmojiPicker"), {
   ssr: false,

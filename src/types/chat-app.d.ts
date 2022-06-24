@@ -17,7 +17,8 @@ declare module "chat-app-types" {
     lastMessageId: string;
   }
 
-  export interface IThreadWithLastMessage extends IThread {
+  export interface IThreadWithLastMessage
+    extends Omit<IThread, "lastMessageId"> {
     lastMessage: {
       text: string;
       createdAt: any;
@@ -29,5 +30,6 @@ declare module "chat-app-types" {
     displayName: string | null;
     phoneNumber: string | null;
     threadIds: string[];
+    status: string | null;
   }
 }

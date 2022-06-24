@@ -7,10 +7,10 @@
   display: flex;
   cursor: pointer;
   align-items: center;
-  .chatItemAvatar {
+  .avatarContainer {
     margin-right: 1.4em;
   }
-  .chatItemInfo {
+  .itemInfo {
     display: flex;
     padding: 0.4em;
     align-items: center;
@@ -19,16 +19,18 @@
     .chatSenderAndLastMessage {
       flex: 1;
     }
-    .chatItemSenderName {
+    .itemTitle {
       font-size: 1.2rem;
-    }
-    .chatItemLastMessage {
-      font-size: 0.96rem;
-      color: #8696a0;
     }
     .lastMessageTime {
       color: #8696a0;
       font-size: 0.9rem;
     }
   }
+}
+
+.lastMessageText,
+.userStatus {
+  font-size: 0.96rem;
+  color: #8696a0;
 }

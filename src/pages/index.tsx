@@ -7,7 +7,9 @@ const Home = () => {
   const [isLoginFormShown, setIsLoginFormShown] = React.useState(false);
   return (
     <div className={styles.page}>
-      <div className={styles.welcome}>Welcome to Whatsapp</div>
+      <div className={styles.welcome} data-testid="welcome-to-whatsapp">
+        Welcome to Whatsapp
+      </div>
       <div className={styles.whatsappLogoContainer}>
         <Image
           width={128}
@@ -31,7 +33,10 @@ const Home = () => {
             </a>
             .
           </div>
-          <button onClick={() => setIsLoginFormShown(true)}>
+          <button
+            onClick={() => setIsLoginFormShown(true)}
+            data-testid="agree-and-continue"
+          >
             AGREE AND CONTINUE
           </button>
         </>

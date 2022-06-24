@@ -19,15 +19,19 @@ export const ChatInput = () => {
   const router = useRouter();
   const sendMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      const messageId = await addMessageToFirestore({
-        senderId: activeUser.id,
-        senderName: activeUser.displayName,
+      const message = await addMessageToFirestore({
         text: chatTextInput,
         threadId: router.query.threadId as string,
+        sender: {
+          id: activeUser?.id ?? "",
+          name: activeUser?.displayName ?? "",
+        },
       });
-      await updateThreadInFirestore(router.query.threadId as string, { lastMessage: chatTextInput , lastMessagedAt: Timestamp.now()});
+      await updateThreadInFirestore(router.query.threadId as string, {
+        lastMessageId: message.id,
+      });
       dispatch(setChatTextInput(""));
-      console.log("message added to firebase with id", messageId);
+      console.log("message added to firebase with id", message.id);
     }
   };
   return (
