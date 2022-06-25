@@ -1,0 +1,12 @@
+.wrapper {
+  background-color: var(--clr-green-100);
+  display: grid;
+  place-items: center;
+  width: fit-content;
+  margin: auto;
+  border-radius: 50%;
+  padding: 0.6em;
+  &:hover {
+    cursor: pointer;
+  }
+}
