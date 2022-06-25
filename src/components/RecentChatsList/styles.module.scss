@@ -1,0 +1,36 @@
+.chatList {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.chatItem {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  .avatarContainer {
+    margin-right: 1.4em;
+  }
+  .itemInfo {
+    display: flex;
+    padding: 0.4em;
+    align-items: center;
+    flex: 1;
+    border-bottom: 2px solid #222d34;
+    .chatSenderAndLastMessage {
+      flex: 1;
+    }
+    .itemTitle {
+      font-size: 1.2rem;
+    }
+    .lastMessageTime {
+      color: #8696a0;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.lastMessageText,
+.userStatus {
+  font-size: 0.96rem;
+  color: #8696a0;
+}

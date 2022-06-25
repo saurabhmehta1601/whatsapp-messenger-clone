@@ -1,0 +1,72 @@
+:root {
+  --clr-gray-100: #fff;
+  --clr-gray-200: #8696a0;
+  --clr-gray-300: #667781;
+  --clr-gray-400: #d1d6d8;
+  --clr-green-100: #13896d;
+  --clr-green-200: #06cf9c;
+  --clr-dark-100: #222e35;
+  --clr-dark-200: #364147;
+  --clr-dark-300: #202c33;
+  --clr-dark-400: #111b21;
+  --clr-dark-500: #101a20;
+
+  --clr-blue-100: #53bdeb;
+  --clr-blue-200: #3b5998;
+  --text-xs: 0.85rem;
+  --text-sm: 0.95rem;
+}
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+
+svg:hover {
+  cursor: pointer;
+}
+
+input {
+  outline: none;
+}
+
+/* scollbar */
+*::-webkit-scrollbar {
+  width: 9px;
+}
+/* Track */
+*::-webkit-scrollbar-track {
+  background: #111b21;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: #374045;
+  max-height: 20px;
+}
+
+/* remove arrows from number input on hover  */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Select tag arrows */
+select {
+  -webkit-appearance: none;
+}

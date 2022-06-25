@@ -1,0 +1,38 @@
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  .groupOrRecieverName {
+    font-size: 1.2rem;
+    flex: 1;
+    margin-left: 1em;
+    font-weight: 600;
+    color: var(--clr-gray-400);
+  }
+  .iconGroup {
+    margin-left: auto;
+    display: flex;
+    column-gap: 1.2em;
+  }
+}
+
+.chatMainSection {
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url("/chatBg.png");
+  background-position: center;
+  background-size: 47%;
+  position: relative;
+  flex: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 1em 2em;
+
+  .emojiPickerContainer {
+    position: absolute;
+    z-index: 13;
+    bottom: 4px;
+    left: 8px;
+  }
+}

@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  place-items: center;
+  cursor: pointer;
+  .avatarContainer {
+    margin-right: 1.4em;
+  }
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    padding: 0.4em;
+    flex: 1;
+    .displayName {
+      font-size: 1.2rem;
+    }
+    .userStatus {
+      font-size: 0.96rem;
+      color: var(--clr-gray-200);
+    }
+  }
+}
