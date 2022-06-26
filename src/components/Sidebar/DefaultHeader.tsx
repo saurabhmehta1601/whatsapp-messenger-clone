@@ -8,7 +8,7 @@ import { signOutUser } from "@Firebase/utils/auth";
 import { useRouter } from "next/router";
 import { useAlert } from "react-alert";
 import { useAppDispatch } from "@Redux/hooks";
-import { toggleCreateGroupSidebar } from "@Redux/features/ui";
+import { toggleCreateGroupSidebar } from "@Redux/features/createGroupSidebar";
 
 export const Header = () => {
   const activeUser = useActiveUser();

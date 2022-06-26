@@ -1,9 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import UIReducer from "./features/ui";
 import activeUserReducer from "./features/activeUser";
+import createGroupSidebarReducer from "./features/createGroupSidebar";
 
 export const store = configureStore({
-  reducer: { ui: UIReducer, activeUser: activeUserReducer },
+  reducer: {
+    ui: UIReducer,
+    activeUser: activeUserReducer,
+    createGroupSidebar: createGroupSidebarReducer,
+  },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

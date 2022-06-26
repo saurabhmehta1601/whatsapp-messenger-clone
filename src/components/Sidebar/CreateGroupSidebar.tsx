@@ -6,7 +6,7 @@ import styles from "./styles.module.scss";
 import {
   toggleCreateGroupSidebar,
   addUserToSelectedUsers,
-} from "@Redux/features/ui";
+} from "@Redux/features/createGroupSidebar";
 import { IUser } from "chat-app-types";
 import { getAllUsers } from "@Firebase/utils/db/CRUD";
 import { UserCard } from "@Components/UserCard";
@@ -18,7 +18,7 @@ import { FloatingActionButton } from "@Components/FloatingActionButton";
 
 export const CreateGroupSidebar = () => {
   const selectedUsers = useAppSelector(
-    (state) => state.ui.createGroupSidebar.selectedUsers
+    (state) => state.createGroupSidebar.selectedUsers
   );
   const [allUsers, setAllUsers] = useState<IUser[]>([]);
   const dispatch = useAppDispatch();
@@ -28,42 +28,22 @@ export const CreateGroupSidebar = () => {
     dispatch(toggleCreateGroupSidebar());
   };
 
-  const Superman = {
-    id: "1",
-    displayName: "Superman",
-    phoneNumber: "123456789",
-    photoURL: "",
-    status: "Hey there I am using whatsapp",
-    threadIds: [],
-  };
-  const Batman = {
-    id: "2",
-    displayName: "Batman",
-    phoneNumber: "123456789",
-    photoURL: "",
-    status: "Hey there I am using whatsapp",
-    threadIds: [],
+  const handleUserCardClick = (user: IUser) => {
+    if (!selectedUsers.some((u) => u.id === user.id)) {
+      // if user not in selected list add
+      dispatch(addUserToSelectedUsers(user));
+    }
   };
 
   useEffect(() => {
     (async () => {
       try {
-        const fakeUsers: IUser[] = [
-          Superman,
-          Batman,
-          Batman,
-          Batman,
-          Batman,
-          Batman,
-          Batman,
-        ];
-        // setUsers(await getAllUsers());
-        setAllUsers(fakeUsers);
+        setAllUsers(await getAllUsers());
       } catch (error: any) {
         alert.error(error.message);
       }
     })();
-  }, [allUsers]);
+  }, []);
 
   return (
     <SidebarLayout style={{ display: "flex", flexDirection: "column" }}>
@@ -78,19 +58,25 @@ export const CreateGroupSidebar = () => {
           Add group participants
         </h3>
       </HeaderLayout>
-      <Stack className={styles.selectedUsers} style={{ maxHeight: "20vh", overflowY:"scroll" }}>
+      <Stack
+        className={styles.selectedUsers}
+        style={{ maxHeight: "20vh", overflowY: "scroll" }}
+      >
         {selectedUsers.map((user) => (
           <UserBadge user={user} />
         ))}
       </Stack>
       <SidebarListLayout style={{ flex: 1, overflowY: "scroll" }}>
-        {allUsers.map((user) => (
-          <UserCard
-            key={user.id}
-            user={user}
-            onClick={() => dispatch(addUserToSelectedUsers(user))}
-          />
-        ))}
+        {/* Show users which are not selected */}
+        {allUsers
+          .filter((u) => !selectedUsers.some((su) => su.id === u.id))
+          .map((user) => (
+            <UserCard
+              key={user.id}
+              user={user}
+              onClick={() => handleUserCardClick(user)}
+            />
+          ))}
       </SidebarListLayout>
       <div className={styles.btnContainer}>
         <FloatingActionButton />

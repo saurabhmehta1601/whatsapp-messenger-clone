@@ -1,6 +1,6 @@
 import { CrossBtnImg } from "@Components/exports";
 import { Avatar } from "@mui/material";
-import { removeUserFromSelectedUsers } from "@Redux/features/ui";
+import { removeUserFromSelectedUsers } from "@Redux/features/createGroupSidebar";
 import { useAppDispatch } from "@Redux/hooks";
 import { IUser } from "chat-app-types";
 import React, { ComponentPropsWithoutRef } from "react";
@@ -12,6 +12,11 @@ interface IProps extends ComponentPropsWithoutRef<"div"> {
 
 export const UserBadge = ({ user }: IProps) => {
   const dispatch = useAppDispatch();
+  
+  const handleOnClick = () => {
+    dispatch(removeUserFromSelectedUsers(user.id));
+  };
+
   return (
     <div className={styles.container}>
       <Avatar
@@ -20,10 +25,7 @@ export const UserBadge = ({ user }: IProps) => {
         className={styles.avatar}
       />
       <div>{user.displayName}</div>
-      <div
-        className={styles.crossBtnContainer}
-        onClick={() => dispatch(removeUserFromSelectedUsers(user.id))}
-      >
+      <div className={styles.crossBtnContainer} onClick={handleOnClick}>
         <CrossBtnImg />
       </div>
     </div>

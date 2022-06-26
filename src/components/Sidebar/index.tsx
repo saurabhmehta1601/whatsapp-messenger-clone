@@ -5,7 +5,7 @@ import { DefaultSidebar } from "./DefaultSidebar";
 
 export const UserSection = () => {
   const showCreateGroupSidebar = useAppSelector(
-    (state) => state.ui.createGroupSidebar.isOpen
+    (state) => state.createGroupSidebar.isOpen
   );
   return (
     <SidebarLayout>
