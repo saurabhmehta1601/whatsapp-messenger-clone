@@ -1,4 +1,8 @@
 import dynamic from "next/dynamic";
+export { ChatSearch } from "./ChatSearch/ChatSearch";
+export { UserCard } from "./UserCard";
+export { UserBadge } from "./UserBadge";
+export { FloatingActionButton } from "./FloatingActionButton";
 export { CrossBtnImg } from "./images/CrossBtnImg";
 export { LeftArrowImg } from "./images/LeftArrowImg";
 export { DropDown } from "./DropDown";
