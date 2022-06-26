@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.createGroupSidebarHeader {
+  padding: 4em 1.5em 1em;
+  display: flex;
+  column-gap: 2em;
+  align-items: center;
+  margin-bottom: 1em;
+  .arrowImgContainer {
+    // background-color: red;
+    display: flex;
+    align-items: center;
+  }
+  h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+}
+
+.btnContainer {
+  padding: 1.5em;
+  text-align: center;
+}
+
+.children {
+  flex: 1;
+}
