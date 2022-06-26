@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { LeftArrowImg } from "@Components/exports";
-import { useAppDispatch, useAppSelector } from "@Redux/hooks";
-import { HeaderLayout, SidebarLayout } from "layouts/exports";
-import styles from "./styles.module.scss";
-import {
-  toggleCreateGroupSidebar,
-  addUserToSelectedUsers,
-} from "@Redux/features/createGroupSidebar";
-import { IUser } from "chat-app-types";
+import { UserBadge, UserCard } from "@Components/exports";
 import { getAllUsers } from "@Firebase/utils/db/CRUD";
-import { UserCard } from "@Components/UserCard";
-import { SidebarListLayout } from "layouts/SidebarListLayout";
-import { useAlert } from "react-alert";
-import { UserBadge } from "@Components/UserBadge";
 import { Stack } from "@mui/material";
-import { FloatingActionButton } from "@Components/FloatingActionButton";
+import {
+  addUserToSelectedUsers,
+  toggleCreateGroupSidebar,
+} from "@Redux/features/createGroupSidebar";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import { IUser } from "chat-app-types";
+import { CreateGroupSidebarLayout, SidebarListLayout } from "layouts/exports";
+import React, { ComponentPropsWithoutRef, useEffect, useState } from "react";
+import { useAlert } from "react-alert";
+import styles from "./styles.module.scss";
 
-export const CreateGroupSidebar = () => {
+interface IProps extends ComponentPropsWithoutRef<"div"> {
+  handleNextState: () => void;
+  handlePrevState:() => void;
+}
+
+export const AddGroupParticipants = (props: IProps) => {
   const selectedUsers = useAppSelector(
     (state) => state.createGroupSidebar.selectedUsers
   );
   const [allUsers, setAllUsers] = useState<IUser[]>([]);
   const dispatch = useAppDispatch();
   const alert = useAlert();
-
-  const closeCreateGroupSidebar = () => {
-    dispatch(toggleCreateGroupSidebar());
-  };
 
   const handleUserCardClick = (user: IUser) => {
     if (!selectedUsers.some((u) => u.id === user.id)) {
@@ -44,20 +41,12 @@ export const CreateGroupSidebar = () => {
       }
     })();
   }, []);
-
   return (
-    <SidebarLayout style={{ display: "flex", flexDirection: "column" }}>
-      <HeaderLayout className={styles.createGroupSidebarHeader}>
-        <div
-          className={styles.arrowImgContainer}
-          onClick={closeCreateGroupSidebar}
-        >
-          <LeftArrowImg />
-        </div>
-        <h3 className={styles.addParticipantsHeading}>
-          Add group participants
-        </h3>
-      </HeaderLayout>
+    <CreateGroupSidebarLayout
+      headerText="Add group participants"
+      hideFloatBtn={selectedUsers.length === 0}
+      {...props}
+    >
       <Stack
         className={styles.selectedUsers}
         style={{ maxHeight: "20vh", overflowY: "scroll" }}
@@ -78,9 +67,6 @@ export const CreateGroupSidebar = () => {
             />
           ))}
       </SidebarListLayout>
-      <div className={styles.btnContainer}>
-        <FloatingActionButton />
-      </div>
-    </SidebarLayout>
+    </CreateGroupSidebarLayout>
   );
 };

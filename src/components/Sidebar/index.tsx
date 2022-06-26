@@ -1,7 +1,7 @@
 import { useAppSelector } from "@Redux/hooks";
 import { SidebarLayout } from "layouts/SidebarLayout";
 import { CreateGroupSidebar } from "./CreateGroupSidebar";
-import { DefaultSidebar } from "./DefaultSidebar";
+import { RecentChatsSidebar } from "./RecentChatsSidebar";
 
 export const UserSection = () => {
   const showCreateGroupSidebar = useAppSelector(
@@ -9,7 +9,7 @@ export const UserSection = () => {
   );
   return (
     <SidebarLayout>
-      {showCreateGroupSidebar ? <CreateGroupSidebar /> : <DefaultSidebar />}
+      {showCreateGroupSidebar ? <CreateGroupSidebar /> : <RecentChatsSidebar />}
     </SidebarLayout>
   );
 };

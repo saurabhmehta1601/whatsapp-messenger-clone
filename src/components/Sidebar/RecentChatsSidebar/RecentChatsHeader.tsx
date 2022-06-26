@@ -10,7 +10,7 @@ import { useAlert } from "react-alert";
 import { useAppDispatch } from "@Redux/hooks";
 import { toggleCreateGroupSidebar } from "@Redux/features/createGroupSidebar";
 
-export const Header = () => {
+export const RecentChatsHeader = () => {
   const activeUser = useActiveUser();
   const router = useRouter();
   const alert = useAlert();
@@ -28,7 +28,7 @@ export const Header = () => {
   };
 
   return (
-    <HeaderLayout className={styles.header}>
+    <HeaderLayout>
       <Avatar
         src={activeUser?.photoURL ?? ""}
         alt={activeUser?.displayName ?? ""}

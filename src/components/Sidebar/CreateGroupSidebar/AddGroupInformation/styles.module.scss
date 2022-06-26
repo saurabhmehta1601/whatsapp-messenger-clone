@@ -1,0 +1,35 @@
+.groupIconUpload {
+  position: relative;
+  input {
+    display: none;
+  }
+  label {
+    background-color: var(--clr-dark-200);
+    background: linear-gradient(
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.2)
+    );
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    .groupIcon {
+      font-size: 20vh;
+      color: var(--clr-gray-200);
+    }
+    .centerOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+      .centeredContent {
+        text-align: center;
+        color: white;
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
