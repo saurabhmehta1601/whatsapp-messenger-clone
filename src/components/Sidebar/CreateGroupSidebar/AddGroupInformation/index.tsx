@@ -3,6 +3,7 @@ import React, { ComponentPropsWithoutRef } from "react";
 import styles from "./styles.module.scss";
 import GroupIcon from "@mui/icons-material/Group";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import DoneIcon from "@mui/icons-material/Done";
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   handleNextState: () => void;
   handlePrevState: () => void;
@@ -22,6 +23,7 @@ export const AddGroupInformation = (props: IProps) => {
     <CreateGroupSidebarLayout
       headerText="New group"
       hideFloatBtn={false}
+      floatBtnIcon={<DoneIcon />}
       {...props}
     >
       <div className={styles.groupIconUpload}>

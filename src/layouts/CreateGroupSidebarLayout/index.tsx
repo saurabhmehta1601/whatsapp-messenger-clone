@@ -7,6 +7,7 @@ interface IProps extends ComponentPropsWithoutRef<"div"> {
   handleNextState?: () => void;
   handlePrevState?: () => void;
   hideFloatBtn?: boolean;
+  floatBtnIcon?: React.ReactNode;
   headerText: string;
 }
 
@@ -25,7 +26,10 @@ export const CreateGroupSidebarLayout = (props: IProps) => {
       <div className={styles.children}>{props.children}</div>
       <div className={styles.btnContainer}>
         {!props.hideFloatBtn && (
-          <FloatingActionButton onClick={props.handleNextState} />
+          <FloatingActionButton
+            onClick={props.handleNextState}
+            icon={props.floatBtnIcon}
+          />
         )}
       </div>
     </SidebarLayout>
