@@ -3,13 +3,19 @@ import React, { ComponentPropsWithoutRef } from "react";
 import styles from "./styles.module.scss";
 import GroupIcon from "@mui/icons-material/Group";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   handleNextState: () => void;
   handlePrevState: () => void;
 }
 
 export const AddGroupInformation = (props: IProps) => {
+  const [groupName, setGroupName] = React.useState("");
+  const handleGroupSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length <= 25) {
+      setGroupName(e.target.value);
+    }
+  };
+
   return (
     <CreateGroupSidebarLayout
       headerText="New group"
@@ -17,19 +23,7 @@ export const AddGroupInformation = (props: IProps) => {
       {...props}
     >
       <div className={styles.groupIconUpload}>
-        <label
-          htmlFor="uploadImg"
-          style={{
-            color: "black",
-            height: "35vh",
-            width: "35vh",
-            margin: "0 auto",
-            display: "grid",
-            placeItems: "center",
-            borderRadius: "50%",
-          }}
-          className={styles.label}
-        >
+        <label htmlFor="uploadImg">
           <GroupIcon className={styles.groupIcon} />
           <div className={styles.centerOverlay}>
             <div className={styles.centeredContent}>
@@ -47,6 +41,15 @@ export const AddGroupInformation = (props: IProps) => {
           id="uploadImg"
           name="uploadImg"
           accept="image/png, image/jpeg"
+        />
+      </div>
+      <div className={styles.groupSubjectContainer}>
+        <input
+          type="text"
+          className={styles.groupSubjectInput}
+          placeholder="Group Subject"
+          value={groupName}
+          onChange={handleGroupSubjectChange}
         />
       </div>
     </CreateGroupSidebarLayout>
