@@ -7,7 +7,6 @@ import { useActiveUser } from "@Hooks/useActiveUser";
 import { Box } from "@mui/material";
 import { setChatTextInput, toggleEmojiPicker } from "@Redux/features/ui";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
-import { Timestamp } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "./styles.module.scss";

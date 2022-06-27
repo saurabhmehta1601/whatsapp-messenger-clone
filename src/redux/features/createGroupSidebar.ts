@@ -5,12 +5,14 @@ import { IUser } from "chat-app-types";
 interface CreateGroupSidebarState {
   selectedUsers: IUser[];
   isOpen: boolean;
+  groupSubject: string;
 }
 
 // Define the initial state using that type
 const initialState: CreateGroupSidebarState = {
   isOpen: false,
   selectedUsers: [],
+  groupSubject: "",
 };
 
 export const CreateGroupSidebarSlice = createSlice({
@@ -34,6 +36,9 @@ export const CreateGroupSidebarSlice = createSlice({
         (user) => user.id != action.payload
       );
     },
+    setGroupSubject: (state, action: PayloadAction<string>) => {
+      state.groupSubject = action.payload;
+    },
   },
 });
 
@@ -41,6 +46,7 @@ export const {
   toggleCreateGroupSidebar,
   addUserToSelectedUsers,
   removeUserFromSelectedUsers,
+  setGroupSubject,
 } = CreateGroupSidebarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

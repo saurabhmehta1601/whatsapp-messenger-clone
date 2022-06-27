@@ -12,7 +12,6 @@ declare module "chat-app-types" {
   export interface IThread {
     id: string;
     name: string | null;
-    private: boolean;
     photoURL: string | null;
     lastMessageId: string;
   }

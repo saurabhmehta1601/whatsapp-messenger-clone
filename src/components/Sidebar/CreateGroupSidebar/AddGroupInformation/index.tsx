@@ -4,6 +4,8 @@ import styles from "./styles.module.scss";
 import GroupIcon from "@mui/icons-material/Group";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import DoneIcon from "@mui/icons-material/Done";
+import { setGroupSubject } from "@Redux/features/createGroupSidebar";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   handleNextState: () => void;
   handlePrevState: () => void;
@@ -12,10 +14,14 @@ interface IProps extends ComponentPropsWithoutRef<"div"> {
 const GROUP_NAME_LENGTH_LIMIT = 25;
 
 export const AddGroupInformation = (props: IProps) => {
-  const [groupName, setGroupName] = React.useState("");
+  const dispatch = useAppDispatch();
+  const groupSubject = useAppSelector(
+    (state) => state.createGroupSidebar.groupSubject
+  );
+
   const handleGroupSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= GROUP_NAME_LENGTH_LIMIT) {
-      setGroupName(e.target.value);
+      dispatch(setGroupSubject(e.target.value));
     }
   };
 
@@ -52,11 +58,11 @@ export const AddGroupInformation = (props: IProps) => {
           type="text"
           className={styles.groupSubjectInput}
           placeholder="Group Subject"
-          value={groupName}
+          value={groupSubject}
           onChange={handleGroupSubjectChange}
         />
         <span className={styles.groupNameLimit}>
-          {GROUP_NAME_LENGTH_LIMIT - groupName.length}
+          {GROUP_NAME_LENGTH_LIMIT - groupSubject.length}
         </span>
       </div>
     </CreateGroupSidebarLayout>
