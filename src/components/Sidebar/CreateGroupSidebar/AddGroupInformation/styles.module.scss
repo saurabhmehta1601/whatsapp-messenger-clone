@@ -12,6 +12,13 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    height: 35vh;
+    width: 35vh;
+    margin: 0 auto;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+
     .groupIcon {
       font-size: 20vh;
       color: var(--clr-gray-200);
