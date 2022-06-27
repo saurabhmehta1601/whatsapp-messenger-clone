@@ -8,10 +8,12 @@ interface IProps extends ComponentPropsWithoutRef<"div"> {
   handlePrevState: () => void;
 }
 
+const GROUP_NAME_LENGTH_LIMIT = 25;
+
 export const AddGroupInformation = (props: IProps) => {
   const [groupName, setGroupName] = React.useState("");
   const handleGroupSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length <= 25) {
+    if (e.target.value.length <= GROUP_NAME_LENGTH_LIMIT) {
       setGroupName(e.target.value);
     }
   };
@@ -51,6 +53,9 @@ export const AddGroupInformation = (props: IProps) => {
           value={groupName}
           onChange={handleGroupSubjectChange}
         />
+        <span className={styles.groupNameLimit}>
+          {GROUP_NAME_LENGTH_LIMIT - groupName.length}
+        </span>
       </div>
     </CreateGroupSidebarLayout>
   );

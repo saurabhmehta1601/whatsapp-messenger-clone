@@ -40,3 +40,22 @@
     }
   }
 }
+
+.groupSubjectContainer {
+  display: flex;
+  margin: 4em 2em 2em;
+  border-bottom: 2.5px solid var(--clr-gray-300);
+  padding-right: 0.1em;
+  .groupSubjectInput {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 500;
+    padding-bottom: 0.5em;
+    background: none;
+    border: none;
+    color: var(--clr-gray-200);
+  }
+}
+.groupNameLimit {
+  color: var(--clr-gray-300);
+}
