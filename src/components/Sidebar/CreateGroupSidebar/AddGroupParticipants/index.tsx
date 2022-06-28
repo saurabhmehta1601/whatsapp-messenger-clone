@@ -1,10 +1,7 @@
 import { UserBadge, UserCard } from "@Components/exports";
 import { getAllUsers } from "@Firebase/utils/db/CRUD";
 import { Stack } from "@mui/material";
-import {
-  addUserToSelectedUsers,
-  toggleCreateGroupSidebar,
-} from "@Redux/features/createGroupSidebar";
+import { addUserToSelectedUsers } from "@Redux/features/createGroupSidebar";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { IUser } from "chat-app-types";
 import { CreateGroupSidebarLayout, SidebarListLayout } from "layouts/exports";
@@ -14,10 +11,11 @@ import styles from "./styles.module.scss";
 
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   handleNextState: () => void;
-  handlePrevState:() => void;
+  handlePrevState: () => void;
 }
 
 export const AddGroupParticipants = (props: IProps) => {
+  const activeUserId = useAppSelector((state) => state.activeUser.data?.id);
   const selectedUsers = useAppSelector(
     (state) => state.createGroupSidebar.selectedUsers
   );
@@ -35,7 +33,10 @@ export const AddGroupParticipants = (props: IProps) => {
   useEffect(() => {
     (async () => {
       try {
-        setAllUsers(await getAllUsers());
+        const allUsers = (await getAllUsers()).filter(
+          (user) => user.id !== activeUserId
+        );
+        setAllUsers(allUsers);
       } catch (error: any) {
         alert.error(error.message);
       }
