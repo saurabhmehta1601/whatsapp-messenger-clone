@@ -9,6 +9,8 @@ declare module "chat-app-types" {
     groupId: string;
     createdAt: any;
   }
+
+  type INewMessage = Omit<IMessage, "id" | "createdAt">;
   export interface IGroup {
     id: string;
     name: string | null;
