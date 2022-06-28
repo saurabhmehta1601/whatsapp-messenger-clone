@@ -8,14 +8,14 @@ import {
 } from "firebase/firestore";
 
 // SUBSCRIBE to a firebase collection
-export const getMessagesInThreadSnapShot = (
-  threadId: string,
+export const getMessagesInGroupSnapShot = (
+  groupId: string,
   callback: (snapShots: any) => void
 ) => {
   const messageCollectionRef = collection(db, "messages");
   const q = query(
     messageCollectionRef,
-    where("threadId", "==", threadId),
+    where("groupId", "==", groupId),
     orderBy("createdAt", "asc")
   );
   onSnapshot(q, callback);

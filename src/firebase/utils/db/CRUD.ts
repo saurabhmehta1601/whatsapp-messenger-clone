@@ -6,13 +6,18 @@ import {
   Timestamp,
   setDoc,
   getDocs,
+  updateDoc,
+  FieldValue,
+  arrayUnion,
 } from "firebase/firestore";
 import { db } from "@Firebase/app";
 import {
   IMessage,
-  IThread,
-  IThreadWithLastMessage,
+  IGroup,
+  IGroupWithLastMessage,
   IUser,
+  INewGroup,
+  INewMessage,
 } from "chat-app-types";
 
 // returns a promise that resolves to a firebase document using id if not exists returns undefined
@@ -31,23 +36,23 @@ export const getUserByIdFromFirestore = async (id: string) =>
 export const getMessageByIdFromFirestore = async (id: string) =>
   getFirebaseDoc("messages", id) as Promise<IMessage | undefined>;
 
-export const getThreadByIdFromFirestore = async (id: string) =>
-  getFirebaseDoc("threads", id) as Promise<IThread | undefined>;
+export const getGroupByIdFromFirestore = async (id: string) =>
+  getFirebaseDoc("groups", id) as Promise<IGroup | undefined>;
 
-export const getThreadByIdWithLastMessageFromFirestore = async (
+export const getGroupByIdWithLastMessageFromFirestore = async (
   id: string
-): Promise<undefined | IThreadWithLastMessage | IThread> => {
-  const thread = await getThreadByIdFromFirestore(id);
-  if (thread) {
-    const message = await getMessageByIdFromFirestore(thread.lastMessageId);
+): Promise<undefined | IGroupWithLastMessage | IGroup> => {
+  const group = await getGroupByIdFromFirestore(id);
+  if (group && group.lastMessageId) {
+    const message = await getMessageByIdFromFirestore(group.lastMessageId);
     if (message) {
       return {
-        ...thread,
+        ...group,
         lastMessage: { text: message.text, createdAt: message.createdAt },
       };
     }
   }
-  return thread;
+  return group;
 };
 
 // GET all documents in a collection
@@ -55,7 +60,7 @@ export const getAllUsers = async () => {
   const querySnapshot = await getDocs(collection(db, "users"));
   const users: IUser[] = [];
   querySnapshot.forEach((doc) => {
-    users.push({ id: doc.id, ...doc.data() as Omit<IUser, "id">});
+    users.push({ id: doc.id, ...(doc.data() as Omit<IUser, "id">) });
   });
   return users;
 };
@@ -66,24 +71,27 @@ export const addUserToFirestore = (userId: string, user: Omit<IUser, "id">) => {
   return setDoc(userDocRef, user, { merge: true });
 };
 
-export const addMessageToFirestore = (
-  message: Omit<IMessage, "id" | "createdAt">
-) => {
+export const addMessageToFirestore = (message: INewMessage) => {
   return addDoc(collection(db, "messages"), {
     ...message,
     createdAt: Timestamp.now(),
   });
 };
 
-export const addThreadToFirestore = (thread: IThread) => {
-  return addDoc(collection(db, "threads"), thread);
+export const addGroupToFirestore = (group: INewGroup) => {
+  return addDoc(collection(db, "groups"), group);
 };
 
 // UPDATE document in a firebase collection
-export const updateThreadInFirestore = (
-  id: string,
-  thread: Partial<IThread>
+export const updateGroupInFirestore = (id: string, group: Partial<IGroup>) => {
+  const groupDocRef = doc(db, "groups", id);
+  return setDoc(groupDocRef, group, { merge: true });
+};
+
+export const addGroupIdToUserInFirestore = (
+  userId: string,
+  groupId: string
 ) => {
-  const threadDocRef = doc(db, "threads", id);
-  return setDoc(threadDocRef, thread, { merge: true });
+  const userRef = doc(db, "users", userId);
+  return updateDoc(userRef, { groupIds: arrayUnion(groupId) });
 };
