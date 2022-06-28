@@ -6,18 +6,19 @@ declare module "chat-app-types" {
       id: string;
       name: string;
     };
-    threadId: string;
+    groupId: string;
     createdAt: any;
   }
-  export interface IThread {
+  export interface IGroup {
     id: string;
     name: string | null;
     photoURL: string | null;
-    lastMessageId: string;
+    lastMessageId: string | null;
   }
 
-  export interface IThreadWithLastMessage
-    extends Omit<IThread, "lastMessageId"> {
+  export type INewGroup = Omit<IGroup, "id" | "lastMessageId">;
+
+  export interface IGroupWithLastMessage extends Omit<IGroup, "lastMessageId"> {
     lastMessage: {
       text: string;
       createdAt: any;
@@ -28,7 +29,7 @@ declare module "chat-app-types" {
     photoURL: string | null;
     displayName: string | null;
     phoneNumber: string | null;
-    threadIds: string[];
+    groupIds: string[];
     status: string | null;
   }
 }
