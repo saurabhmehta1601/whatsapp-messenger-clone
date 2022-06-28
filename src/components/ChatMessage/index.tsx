@@ -13,7 +13,7 @@ interface IProps {
 export const ChatMessage = ({ message }: IProps) => {
   const activeUser = useActiveUser();
 
-  const isYourMessage = message.senderId === activeUser.id;
+  const isYourMessage = message.sender.id === activeUser?.id;
   return (
     <Box className={`${styles.container} ${isYourMessage ? styles.sent : ""}`}>
       <div className={styles.sender}>
@@ -26,7 +26,7 @@ export const ChatMessage = ({ message }: IProps) => {
             <TailOutImg />
           </div>
         )}
-        {isYourMessage ? "YOU" : message.senderName}
+        {isYourMessage ? "YOU" : message.sender.name}
       </div>
       <div className={styles.text}>{message.text}</div>
       <div className={styles.time}>
