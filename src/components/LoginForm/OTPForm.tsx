@@ -43,7 +43,7 @@ export const OTPForm = ({ confirmationResult, userName }: IProps) => {
         const newUser = {
           displayName: userName,
           phoneNumber: result.user.phoneNumber,
-          threadIds: [],
+          groupIds: [],
           photoURL: null,
           status: "Hey there! I am using whatsApp.",
         };
@@ -53,7 +53,7 @@ export const OTPForm = ({ confirmationResult, userName }: IProps) => {
         dispatch(setActiveUser(userWithId));
       }
       alert.success("Logged in successfully .");
-      router.push("/thread");
+      router.push("/group");
     } catch (error: any) {
       alert.error(error.message);
     }

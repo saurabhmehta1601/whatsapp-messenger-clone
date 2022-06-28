@@ -17,12 +17,12 @@ export const FacebookLoginButton = () => {
           displayName: user.displayName,
           phoneNumber: user.phoneNumber,
           photoURL: user.photoURL,
-          threadIds: [],
-          status: "Hey there! I am using whatsApp."
+          groupIds: [],
+          status: "Hey there! I am using whatsApp.",
         });
         console.log(user);
         alert.success("Logged in successfully .");
-        router.push("/thread");
+        router.push("/group");
       }
     } catch (error: any) {
       alert.error(error.message);

@@ -6,6 +6,7 @@ interface CreateGroupSidebarState {
   selectedUsers: IUser[];
   isOpen: boolean;
   groupSubject: string;
+  groupImg: null | string;
 }
 
 // Define the initial state using that type
@@ -13,6 +14,7 @@ const initialState: CreateGroupSidebarState = {
   isOpen: false,
   selectedUsers: [],
   groupSubject: "",
+  groupImg: null,
 };
 
 export const CreateGroupSidebarSlice = createSlice({
@@ -39,6 +41,9 @@ export const CreateGroupSidebarSlice = createSlice({
     setGroupSubject: (state, action: PayloadAction<string>) => {
       state.groupSubject = action.payload;
     },
+    setGroupImg: (state, action: PayloadAction<string>) => {
+      state.groupImg = action.payload;
+    },
   },
 });
 
@@ -47,6 +52,7 @@ export const {
   addUserToSelectedUsers,
   removeUserFromSelectedUsers,
   setGroupSubject,
+  setGroupImg,
 } = CreateGroupSidebarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

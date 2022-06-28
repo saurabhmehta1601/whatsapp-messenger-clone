@@ -2,24 +2,24 @@ import { useEffect, useState } from "react";
 import { RecentChatsList, ChatSearch } from "@Components/exports";
 import { DocumentData } from "firebase/firestore";
 import { RecentChatsHeader } from "./RecentChatsHeader";
-import { getThreadByIdWithLastMessageFromFirestore } from "@Firebase/utils/db/CRUD";
+import { getGroupByIdWithLastMessageFromFirestore } from "@Firebase/utils/db/CRUD";
 import { useActiveUser } from "@Hooks/useActiveUser";
 
 export const RecentChatsSidebar = () => {
   const activeUser = useActiveUser();
-  const [activeUserThreads, setActiveUserThreads] = useState<any>([]);
+  const [activeUserGroups, setActiveUserGroups] = useState<any>([]);
 
   useEffect(() => {
     (async () => {
       if (activeUser) {
-        // request to get all threads of active user
-        const getThreadRequests: Promise<DocumentData | undefined>[] = [];
-        activeUser.threadIds.forEach((id: string) => {
-          getThreadRequests.push(getThreadByIdWithLastMessageFromFirestore(id));
+        // request to get all groups of active user
+        const getGroupRequests: Promise<DocumentData | undefined>[] = [];
+        activeUser.groupIds.forEach((id: string) => {
+          getGroupRequests.push(getGroupByIdWithLastMessageFromFirestore(id));
         });
         // Promise.all resolves once all promises are resolved unlike promise.allSettled
-        const threads = await Promise.all(getThreadRequests);
-        setActiveUserThreads(threads);
+        const groups = await Promise.all(getGroupRequests);
+        setActiveUserGroups(groups);
       }
     })();
   }, [activeUser]);
@@ -30,7 +30,7 @@ export const RecentChatsSidebar = () => {
       {/* chat search */}
       <ChatSearch />
       {/* user Chats  */}
-      <RecentChatsList threads={activeUserThreads} />
+      <RecentChatsList groups={activeUserGroups} />
     </>
   );
 };

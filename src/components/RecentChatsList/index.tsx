@@ -1,4 +1,4 @@
-import { IThreadWithLastMessage } from "chat-app-types";
+import { IGroupWithLastMessage } from "chat-app-types";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "./styles.module.scss";
@@ -6,20 +6,20 @@ import { ChatItem } from "./ChatItem";
 import { Stack } from "@mui/material";
 
 interface IProps {
-  threads: Array<IThreadWithLastMessage>;
+  groups: Array<IGroupWithLastMessage>;
 }
 
-export const RecentChatsList = ({ threads }: IProps) => {
+export const RecentChatsList = ({ groups }: IProps) => {
   const router = useRouter();
 
-  const navigateToThread = (threadId: string) => {
-    router.replace("/thread/" + threadId);
+  const navigateToGroup = (groupId: string) => {
+    router.replace("/group/" + groupId);
   };
 
   return (
     <Stack className={styles.chatList}>
-      {threads.map((thread) => (
-        <ChatItem thread={thread} onClick={() => navigateToThread(thread.id)} />
+      {groups.map((group) => (
+        <ChatItem group={group} onClick={() => navigateToGroup(group.id)} />
       ))}
     </Stack>
   );

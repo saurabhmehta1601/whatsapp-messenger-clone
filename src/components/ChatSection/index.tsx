@@ -10,28 +10,34 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from "./styles.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
-import { getMessagesInThreadSnapShot } from "@Firebase/utils/db/snapshots";
-import { IMessage } from "chat-app-types";
+import { getMessagesInGroupSnapShot } from "@Firebase/utils/db/snapshots";
+import { IGroup, IMessage } from "chat-app-types";
 import { useAppSelector } from "@Redux/hooks";
 import { ContentLayout } from "layouts/ContentLayout";
 import { HeaderLayout } from "layouts/HeaderLayout";
+import { getGroupByIdFromFirestore } from "@Firebase/utils/db/CRUD";
 
 export const ChatSection = () => {
   const emojiPickerContainerRef = useRef<HTMLDivElement>(null);
-  // if threadId not exists in route path return Default Chat Section
+  // if groupId not exists in route path return Default Chat Section
   const [messages, setMessages] = useState<IMessage[] | null>(null);
+  const [activeGroup, setActiveGroup] = useState<IGroup | null>(null);
   const router = useRouter();
   const shouldShowEmojiPicker = useAppSelector(
     (state) => state.ui.showEmojiPicker
   );
-  const { threadId } = router.query;
+  const { groupId } = router.query;
   const chatMainRef = useRef<HTMLDivElement>(null);
 
-  // if threadId exists in route path then get messages for thread with this id
+  // if groupId exists in route path then get messages for group with this id
   useEffect(() => {
     (async () => {
-      if (threadId) {
-        getMessagesInThreadSnapShot(threadId as string, (snapShot) => {
+      if (groupId) {
+        // GET group by id
+        const group = await getGroupByIdFromFirestore(groupId as string);
+        if (group) setActiveGroup(group);
+        // GET all messages in the group
+        getMessagesInGroupSnapShot(groupId as string, (snapShot) => {
           const messages = snapShot.docs.map((doc: any) => ({
             ...doc.data(),
             id: doc.id,
@@ -79,7 +85,7 @@ export const ChatSection = () => {
     <ContentLayout className={styles.content}>
       <HeaderLayout className={styles.header}>
         <AvatarImg />
-        <div className={styles.groupOrRecieverName}>{"Unnamed"}</div>
+        <div className={styles.groupName}>{activeGroup?.name}</div>
         <div className={styles.iconGroup}>
           <SearchIcon />
           <MenuImg />

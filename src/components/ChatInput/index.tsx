@@ -1,7 +1,7 @@
 import { MicImg, PinImg, SmileyImg } from "@Components/exports";
 import {
   addMessageToFirestore,
-  updateThreadInFirestore,
+  updateGroupInFirestore,
 } from "@Firebase/utils/db/CRUD";
 import { useActiveUser } from "@Hooks/useActiveUser";
 import { Box } from "@mui/material";
@@ -20,13 +20,13 @@ export const ChatInput = () => {
     if (e.key === "Enter") {
       const message = await addMessageToFirestore({
         text: chatTextInput,
-        threadId: router.query.threadId as string,
+        groupId: router.query.groupId as string,
         sender: {
           id: activeUser?.id ?? "",
           name: activeUser?.displayName ?? "",
         },
       });
-      await updateThreadInFirestore(router.query.threadId as string, {
+      await updateGroupInFirestore(router.query.groupId as string, {
         lastMessageId: message.id,
       });
       dispatch(setChatTextInput(""));

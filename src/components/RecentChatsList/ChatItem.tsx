@@ -1,34 +1,36 @@
 import React, { ComponentPropsWithoutRef } from "react";
 import { Avatar, Container } from "@mui/material";
 import { getFormattedTime } from "@Utils/time";
-import { IThreadWithLastMessage, IUser } from "chat-app-types";
+import { IGroupWithLastMessage, IUser } from "chat-app-types";
 import styles from "./styles.module.scss";
 
 interface IProps extends ComponentPropsWithoutRef<"div"> {
-  thread?: IThreadWithLastMessage;
+  group?: IGroupWithLastMessage;
   user?: IUser;
 }
 
-export const ChatItem = ({ thread, user, ...props }: IProps) => {
+export const ChatItem = ({ group, user, ...props }: IProps) => {
   return (
     <Container
-      key={thread?.id || user?.id}
+      key={group?.id || user?.id}
       className={styles.chatItem}
       {...props}
     >
       <div className={styles.avatarContainer}>
-        <Avatar src={(thread?.photoURL || user?.photoURL) ?? ""} />
+        <Avatar src={(group?.photoURL || user?.photoURL) ?? ""} />
       </div>
       <div className={styles.itemInfo}>
         <div className={styles.chatSenderAndLastMessage}>
           <div className={styles.itemTitle}>
-            {(thread?.name || user?.displayName) ?? "Unnamed"}
+            {(group?.name || user?.displayName) ?? "Unnamed"}
           </div>
-          {thread ? (
+          {group ? (
             <div className={styles.lastMessageText}>
-              {thread.lastMessage.text.length > 20
-                ? thread.lastMessage.text.substring(0, 20) + "..."
-                : thread.lastMessage.text}
+              {group.lastMessage
+                ? group.lastMessage.text.length > 20
+                  ? group.lastMessage.text.substring(0, 20) + "..."
+                  : group.lastMessage.text
+                : "No messages"}
             </div>
           ) : (
             <div className={styles.userStatus}>
@@ -40,8 +42,9 @@ export const ChatItem = ({ thread, user, ...props }: IProps) => {
           )}
         </div>
         <div className={styles.lastMessageTime}>
-          {thread &&
-            getFormattedTime(thread.lastMessage.createdAt.seconds * 1000)}
+          {group &&
+            group.lastMessage &&
+            getFormattedTime(group.lastMessage.createdAt.seconds * 1000)}
         </div>
       </div>
     </Container>
