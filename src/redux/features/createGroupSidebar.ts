@@ -22,8 +22,11 @@ export const CreateGroupSidebarSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    toggleCreateGroupSidebar: (state) => {
-      state.isOpen = !state.isOpen;
+    openCreateGroupSidebar: (state) => {
+      state.isOpen = true;
+    },
+    closeCreateGroupSidebar: (state) => {
+      state.isOpen = false;
     },
     addUserToSelectedUsers: (state, action: PayloadAction<IUser>) => {
       const newUsers = action.payload;
@@ -38,6 +41,9 @@ export const CreateGroupSidebarSlice = createSlice({
         (user) => user.id != action.payload
       );
     },
+    clearSelectedUsers: (state) => {
+      state.selectedUsers = [];
+    },
     setGroupSubject: (state, action: PayloadAction<string>) => {
       state.groupSubject = action.payload;
     },
@@ -48,11 +54,13 @@ export const CreateGroupSidebarSlice = createSlice({
 });
 
 export const {
-  toggleCreateGroupSidebar,
   addUserToSelectedUsers,
   removeUserFromSelectedUsers,
   setGroupSubject,
   setGroupImg,
+  clearSelectedUsers,
+  closeCreateGroupSidebar,
+  openCreateGroupSidebar,
 } = CreateGroupSidebarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

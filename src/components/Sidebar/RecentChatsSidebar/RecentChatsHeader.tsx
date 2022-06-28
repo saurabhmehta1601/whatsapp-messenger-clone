@@ -8,7 +8,7 @@ import { signOutUser } from "@Firebase/utils/auth";
 import { useRouter } from "next/router";
 import { useAlert } from "react-alert";
 import { useAppDispatch } from "@Redux/hooks";
-import { toggleCreateGroupSidebar } from "@Redux/features/createGroupSidebar";
+import { openCreateGroupSidebar } from "@Redux/features/createGroupSidebar";
 
 export const RecentChatsHeader = () => {
   const activeUser = useActiveUser();
@@ -24,7 +24,7 @@ export const RecentChatsHeader = () => {
   };
 
   const onNewGroupSelect = () => {
-    dispatch(toggleCreateGroupSidebar());
+    dispatch(openCreateGroupSidebar());
   };
 
   return (

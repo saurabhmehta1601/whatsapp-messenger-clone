@@ -4,7 +4,11 @@ import styles from "./styles.module.scss";
 import GroupIcon from "@mui/icons-material/Group";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import DoneIcon from "@mui/icons-material/Done";
-import { setGroupSubject } from "@Redux/features/createGroupSidebar";
+import {
+  clearSelectedUsers,
+  closeCreateGroupSidebar,
+  setGroupSubject,
+} from "@Redux/features/createGroupSidebar";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { useAlert } from "react-alert";
 import { createGroup } from "@Firebase/utils/db/createGroup";
@@ -72,6 +76,11 @@ export const AddGroupInformation = (props: IProps) => {
         };
 
         await createGroup(newGroup);
+        dispatch(closeCreateGroupSidebar());
+
+        dispatch(setGroupSubject(""));
+        dispatch(clearSelectedUsers());
+        alert.success("Group created successfully");
         router.push("/group");
       }
     } catch (error: any) {

@@ -1,5 +1,4 @@
-import { createGroup } from "@Firebase/utils/db/createGroup";
-import { toggleCreateGroupSidebar } from "@Redux/features/createGroupSidebar";
+import { closeCreateGroupSidebar } from "@Redux/features/createGroupSidebar";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -18,7 +17,7 @@ export const CreateGroupSidebar = () => {
     <>
       {!canEditGroupInfo ? (
         <AddGroupParticipants
-          handlePrevState={() => dispatch(toggleCreateGroupSidebar())}
+          handlePrevState={() => dispatch(closeCreateGroupSidebar())}
           handleNextState={() => {
             shouldEditGroupInfo(true);
           }}
