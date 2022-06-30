@@ -11,14 +11,14 @@ interface IProps extends ComponentPropsWithoutRef<"div"> {
 
 export const ChatItem = ({ group, user, ...props }: IProps) => {
   return (
-    <Container
-      key={group?.id || user?.id}
-      className={styles.chatItem}
+    <div
       {...props}
+      className={[styles.chatItem, props.className ?? ""].join(" ")}
     >
-      <div className={styles.avatarContainer}>
-        <Avatar src={(group?.photoURL || user?.photoURL) ?? ""} />
-      </div>
+      <Avatar
+        src={(group?.photoURL || user?.photoURL) ?? ""}
+        className={styles.avatar}
+      />
       <div className={styles.itemInfo}>
         <div className={styles.chatSenderAndLastMessage}>
           <div className={styles.itemTitle}>
@@ -47,6 +47,6 @@ export const ChatItem = ({ group, user, ...props }: IProps) => {
             getFormattedTime(group.lastMessage.createdAt.seconds * 1000)}
         </div>
       </div>
-    </Container>
+    </div>
   );
 };

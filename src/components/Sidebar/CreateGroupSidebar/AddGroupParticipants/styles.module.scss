@@ -1,4 +1,16 @@
-
 .selectedUsers {
+  max-height: 20vh;
+  overflow-y: scroll;
   margin: 1em;
+}
+
+.noSuggestion {
+  color: var(--clr-gray-200);
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.sidebarListLayout {
+  flex: 1;
+  overflow-y: scroll;
 }

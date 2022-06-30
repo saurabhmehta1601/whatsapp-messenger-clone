@@ -48,26 +48,27 @@ export const AddGroupParticipants = (props: IProps) => {
       hideFloatBtn={selectedUsers.length === 0}
       {...props}
     >
-      <Stack
-        className={styles.selectedUsers}
-        style={{ maxHeight: "20vh", overflowY: "scroll" }}
-      >
+      <Stack className={styles.selectedUsers} style={{}}>
         {selectedUsers.map((user) => (
           <UserBadge user={user} />
         ))}
       </Stack>
-      <SidebarListLayout style={{ flex: 1, overflowY: "scroll" }}>
-        {/* Show users which are not selected */}
-        {allUsers
-          .filter((u) => !selectedUsers.some((su) => su.id === u.id))
-          .map((user) => (
-            <UserCard
-              key={user.id}
-              user={user}
-              onClick={() => handleUserCardClick(user)}
-            />
-          ))}
-      </SidebarListLayout>
+      {allUsers.length === 0 ? (
+        <div className={styles.noSuggestion}> No suggestions</div>
+      ) : (
+        <SidebarListLayout className={styles.sidebarListLayout}>
+          {/* Show users which are not selected */}
+          {allUsers
+            .filter((u) => !selectedUsers.some((su) => su.id === u.id))
+            .map((user) => (
+              <UserCard
+                key={user.id}
+                user={user}
+                onClick={() => handleUserCardClick(user)}
+              />
+            ))}
+        </SidebarListLayout>
+      )}
     </CreateGroupSidebarLayout>
   );
 };
