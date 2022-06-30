@@ -1,10 +1,11 @@
 .wrapper {
   display: flex;
+  padding: 0 0.8em;
   flex-wrap: nowrap;
   place-items: center;
   cursor: pointer;
   .avatarContainer {
-    margin-right: 1.4em;
+    margin-right: 1em;
   }
   .userInfo {
     display: flex;
@@ -12,7 +13,7 @@
     padding: 0.4em;
     flex: 1;
     .displayName {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
     .userStatus {
       font-size: 0.96rem;

@@ -10,7 +10,7 @@ interface IProps extends ComponentPropsWithoutRef<"div"> {
 
 export const UserCard = ({ user, ...props }: IProps) => {
   return (
-    <Container
+    <div
       {...props}
       className={[styles.wrapper, props.className ?? ""].join(" ")}
     >
@@ -25,6 +25,6 @@ export const UserCard = ({ user, ...props }: IProps) => {
           {user.status && truncateText(user.status, 35)}
         </div>
       </div>
-    </Container>
+    </div>
   );
 };

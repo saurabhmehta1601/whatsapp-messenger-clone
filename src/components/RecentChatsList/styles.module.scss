@@ -12,13 +12,16 @@
     margin-right: 0.75em;
   }
   .itemInfo {
-    padding: 0.4em;
+    padding: 0.6em;
     border-bottom: 2px solid #222d34;
     flex: 1;
+    display: flex;
+    align-items: center;
     .chatSenderAndLastMessage {
+      flex: 1;
     }
     .itemTitle {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
     .lastMessageTime {
       color: #8696a0;
