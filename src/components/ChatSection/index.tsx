@@ -96,9 +96,7 @@ export const ChatSection = () => {
           className={styles.emojiPickerContainer}
           ref={emojiPickerContainerRef}
         >
-          {shouldShowEmojiPicker && (
-            <EmojiPicker onClick={() => alert("picker ckice")} />
-          )}
+          {shouldShowEmojiPicker && <EmojiPicker />}
         </div>
         {messages?.map((message) => (
           <ChatMessage key={message.id} message={message} />
