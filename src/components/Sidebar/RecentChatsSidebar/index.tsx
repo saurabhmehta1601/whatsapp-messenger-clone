@@ -19,7 +19,7 @@ export const RecentChatsSidebar = () => {
         });
         // Promise.all resolves once all promises are resolved unlike promise.allSettled
         const groups = await Promise.all(getGroupRequests);
-        setActiveUserGroups(groups);
+        setActiveUserGroups(groups.filter((group) => group != undefined));
       }
     })();
   }, [activeUser]);
