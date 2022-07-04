@@ -44,6 +44,7 @@ export const getGroupByIdWithLastMessageFromFirestore = async (
 ): Promise<undefined | IGroupWithLastMessage | IGroup> => {
   const group = await getGroupByIdFromFirestore(id);
   if (group && group.lastMessageId) {
+    group.id = id;
     const message = await getMessageByIdFromFirestore(group.lastMessageId);
     if (message) {
       return {
