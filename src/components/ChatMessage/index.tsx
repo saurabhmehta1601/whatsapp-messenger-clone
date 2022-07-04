@@ -3,15 +3,15 @@ import { TailOutImg, TailInImg } from "@Components/exports";
 import React from "react";
 import styles from "./styles.module.scss";
 import { IMessage } from "chat-app-types";
-import { useActiveUser } from "@Hooks/useActiveUser";
 import { getFormattedTime } from "@Utils/time";
+import { useAppSelector } from "@Redux/hooks";
 
 interface IProps {
   message: IMessage;
 }
 
 export const ChatMessage = ({ message }: IProps) => {
-  const activeUser = useActiveUser();
+  const activeUser = useAppSelector((state) => state.activeUser.data);
 
   const isYourMessage = message.sender.id === activeUser?.id;
   return (

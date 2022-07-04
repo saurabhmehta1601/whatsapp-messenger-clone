@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+export { ActiveUserProvider } from "./UserProvider";
 export { ChatSearch } from "./ChatSearch/ChatSearch";
 export { UserCard } from "./UserCard";
 export { UserBadge } from "./UserBadge";

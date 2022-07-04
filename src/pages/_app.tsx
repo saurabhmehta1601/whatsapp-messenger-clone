@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "@Redux/store";
 import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import { ActiveUserProvider } from "@Components/exports";
 function MyApp({ Component, pageProps }: AppProps) {
   // later I will set the activeUser using firebase auth
   return (
@@ -14,8 +15,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       transition="fade"
     >
       <Provider store={store}>
-        <CssBaseline />
-        <Component {...pageProps} />
+        <ActiveUserProvider>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ActiveUserProvider>
       </Provider>
     </AlertProvider>
   );

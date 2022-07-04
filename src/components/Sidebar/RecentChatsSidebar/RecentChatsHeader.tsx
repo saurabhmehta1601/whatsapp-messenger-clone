@@ -1,5 +1,4 @@
 import { StatusImg, MessageImg, DropDown, MenuImg } from "@Components/exports";
-import { useActiveUser } from "@Hooks/useActiveUser";
 import { Avatar } from "@mui/material";
 import { HeaderLayout } from "layouts/HeaderLayout";
 import React from "react";
@@ -7,11 +6,11 @@ import styles from "./styles.module.scss";
 import { signOutUser } from "@Firebase/utils/auth";
 import { useRouter } from "next/router";
 import { useAlert } from "react-alert";
-import { useAppDispatch } from "@Redux/hooks";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { openCreateGroupSidebar } from "@Redux/features/createGroupSidebar";
 
 export const RecentChatsHeader = () => {
-  const activeUser = useActiveUser();
+  const activeUser = useAppSelector((state) => state.activeUser.data);
   const router = useRouter();
   const alert = useAlert();
   const dispatch = useAppDispatch();

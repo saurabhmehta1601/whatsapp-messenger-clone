@@ -3,7 +3,6 @@ import {
   addMessageToFirestore,
   updateGroupInFirestore,
 } from "@Firebase/utils/db/CRUD";
-import { useActiveUser } from "@Hooks/useActiveUser";
 import { Box } from "@mui/material";
 import { setChatTextInput, toggleEmojiPicker } from "@Redux/features/ui";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
@@ -14,16 +13,19 @@ import styles from "./styles.module.scss";
 export const ChatInput = () => {
   const dispatch = useAppDispatch();
   const chatTextInput = useAppSelector((state) => state.ui.chatTextInput);
-  const activeUser = useActiveUser();
+  const activeUser = useAppSelector((state) => state.activeUser.data);
   const router = useRouter();
+
   const sendMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!activeUser) return;
+
     if (e.key === "Enter") {
       const message = await addMessageToFirestore({
         text: chatTextInput,
         groupId: router.query.groupId as string,
         sender: {
-          id: activeUser?.id ?? "",
-          name: activeUser?.displayName ?? "",
+          id: activeUser.id ?? "",
+          name: activeUser.displayName ?? "",
         },
       });
       await updateGroupInFirestore(router.query.groupId as string, {
