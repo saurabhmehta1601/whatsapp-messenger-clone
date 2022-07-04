@@ -16,7 +16,7 @@ export const RecentChatsList = ({ groups }: IProps) => {
       ) : (
         <Stack className={styles.chatList}>
           {groups.map((group) => (
-            <Link href={"/group/" + group.id}>
+            <Link href={"/group/" + group.id} key={group.id}>
               <ChatItem group={group} />
             </Link>
           ))}
