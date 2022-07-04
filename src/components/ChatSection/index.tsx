@@ -47,7 +47,7 @@ export const ChatSection = () => {
         });
       }
     })();
-  }, []);
+  }, [router]);
 
   // when messages update smooth scroll to bottom
   useEffect(() => {
