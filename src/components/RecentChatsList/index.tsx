@@ -10,12 +10,18 @@ interface IProps {
 
 export const RecentChatsList = ({ groups }: IProps) => {
   return (
-    <Stack className={styles.chatList}>
-      {groups.map((group) => (
-        <Link href={"/group/" + group.id}>
-          <ChatItem group={group} />
-        </Link>
-      ))}
-    </Stack>
+    <>
+      {groups.length === 0 ? (
+        <div className={styles.noChats}> No chats yet </div>
+      ) : (
+        <Stack className={styles.chatList}>
+          {groups.map((group) => (
+            <Link href={"/group/" + group.id}>
+              <ChatItem group={group} />
+            </Link>
+          ))}
+        </Stack>
+      )}
+    </>
   );
 };

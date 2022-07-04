@@ -1,5 +1,5 @@
 import React, { ComponentPropsWithoutRef } from "react";
-import { Avatar, Container } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { getFormattedTime } from "@Utils/time";
 import { IGroupWithLastMessage, IUser } from "chat-app-types";
 import styles from "./styles.module.scss";
@@ -21,9 +21,7 @@ export const ChatItem = ({ group, user, ...props }: IProps) => {
       />
       <div className={styles.itemInfo}>
         <div className={styles.chatSenderAndLastMessage}>
-          <div className={styles.itemTitle}>
-            {(group?.name || user?.displayName) ?? "Unnamed"}
-          </div>
+          <div className={styles.itemTitle}>{group?.name ?? "Unnamed"}</div>
           {group ? (
             <div className={styles.lastMessageText}>
               {group.lastMessage
