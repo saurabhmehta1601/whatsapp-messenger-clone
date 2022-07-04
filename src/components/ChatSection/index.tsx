@@ -5,7 +5,7 @@ import {
   ChatMessage,
   EmojiPicker,
 } from "@Components/exports";
-import { Box } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./styles.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
@@ -84,7 +84,7 @@ export const ChatSection = () => {
   return (
     <ContentLayout className={styles.content}>
       <HeaderLayout className={styles.header}>
-        <AvatarImg />
+        <Avatar src={activeGroup?.photoURL ?? ""} />
         <div className={styles.groupName}>{activeGroup?.name}</div>
         <div className={styles.iconGroup}>
           <SearchIcon />

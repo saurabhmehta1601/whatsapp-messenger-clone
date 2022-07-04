@@ -22,7 +22,7 @@ export const RecentChatsSidebar = () => {
         setActiveUserGroups(groups.filter((group) => group != undefined));
       }
     })();
-  }, [activeUser]);
+  }, []);
 
   return (
     <>
