@@ -15,6 +15,7 @@ const Home = () => {
           width={128}
           height={128}
           src="/whatsapp-logo.svg"
+          alt="logo"
           className={styles.whatsappLogo}
         />
       </div>
@@ -45,7 +46,7 @@ const Home = () => {
       <div className={styles.pageBottom}>
         <div className={styles.from}>from</div>
         <div className={styles.facebook}>
-          META <Image width={32} height={32} src="/meta.svg" />
+          META <Image width={32} height={32} src="/meta.svg" alt="meta logo" />
         </div>
       </div>
     </div>
