@@ -26,12 +26,12 @@ export const ChatSection = () => {
   const shouldShowEmojiPicker = useAppSelector(
     (state) => state.ui.showEmojiPicker
   );
-  const { groupId } = router.query;
   const chatMainRef = useRef<HTMLDivElement>(null);
 
   // if groupId exists in route path then get messages for group with this id
   useEffect(() => {
     (async () => {
+      const { groupId } = router.query;
       if (groupId) {
         // GET group by id
         const group = await getGroupByIdFromFirestore(groupId as string);

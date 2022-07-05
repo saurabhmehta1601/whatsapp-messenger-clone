@@ -17,7 +17,7 @@ const EmojiPicker = (props: any) => {
         dispatch(addEmojiToChatTextInput(emoji.native));
       },
     });
-  }, []);
+  }, [props, dispatch]);
 
   return <div ref={ref} />;
 };

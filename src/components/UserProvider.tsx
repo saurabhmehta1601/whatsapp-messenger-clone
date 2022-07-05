@@ -8,6 +8,7 @@ import { ReactNode, useEffect, useState } from "react";
 export const ActiveUserProvider = (props: { children: ReactNode }) => {
   const dispatch = useAppDispatch();
   const [loadingUser, setLoadingUser] = useState(true);
+
   useEffect(() => {
     (() => {
       onAuthStateChanged(auth, async (authUser) => {
@@ -19,7 +20,8 @@ export const ActiveUserProvider = (props: { children: ReactNode }) => {
         setLoadingUser(false);
       });
     })();
-  }, []);
+  }, [dispatch]);
+
   if (loadingUser) return null;
   return <>{props.children}</>;
 };

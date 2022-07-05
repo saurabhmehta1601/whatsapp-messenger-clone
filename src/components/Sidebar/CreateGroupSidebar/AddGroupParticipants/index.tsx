@@ -41,7 +41,7 @@ export const AddGroupParticipants = (props: IProps) => {
         alert.error(error.message);
       }
     })();
-  }, []);
+  }, [activeUserId, alert]);
   return (
     <CreateGroupSidebarLayout
       headerText="Add group participants"
