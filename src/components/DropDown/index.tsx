@@ -33,6 +33,7 @@ export const DropDown = (props: IProps) => {
         >
           {props.options.map((option) => (
             <div
+              key={option.label}
               onClick={() => handleOptionSelect(option.label)}
               className={styles.item}
             >

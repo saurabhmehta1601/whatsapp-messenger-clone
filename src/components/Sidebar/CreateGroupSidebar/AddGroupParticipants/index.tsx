@@ -50,7 +50,7 @@ export const AddGroupParticipants = (props: IProps) => {
     >
       <Stack className={styles.selectedUsers} style={{}}>
         {selectedUsers.map((user) => (
-          <UserBadge user={user} />
+          <UserBadge user={user} key={user.id} />
         ))}
       </Stack>
       {allUsers.length === 0 ? (
