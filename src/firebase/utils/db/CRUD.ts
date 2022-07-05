@@ -67,9 +67,15 @@ export const getAllUsers = async () => {
 };
 
 // ADD document to a firebase collection
-export const addUserToFirestore = (userId: string, user: Omit<IUser, "id">) => {
+export const addUserToFirestoreIfNotExists = async (
+  userId: string,
+  user: Omit<IUser, "id">
+) => {
   const userDocRef = doc(db, "users", userId);
-  return setDoc(userDocRef, user, { merge: true });
+  const userSnap = await getDoc(userDocRef);
+  if (userSnap.exists()) {
+    return { id: userSnap.id, ...userSnap.data() };
+  } else return setDoc(userDocRef, user, { merge: true });
 };
 
 export const addMessageToFirestore = (message: INewMessage) => {

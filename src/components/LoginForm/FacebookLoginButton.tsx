@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import { loginWithFacebook } from "@Firebase/utils/auth";
-import { addUserToFirestore } from "@Firebase/utils/db/CRUD";
+import { addUserToFirestoreIfNotExists } from "@Firebase/utils/db/CRUD";
 import { useRouter } from "next/router";
 import { useAlert } from "react-alert";
 
@@ -13,7 +13,7 @@ export const FacebookLoginButton = () => {
     try {
       const { user } = await loginWithFacebook();
       if (user) {
-        await addUserToFirestore(user.uid, {
+        await addUserToFirestoreIfNotExists(user.uid, {
           displayName: user.displayName,
           phoneNumber: user.phoneNumber,
           photoURL: user.photoURL,

@@ -82,6 +82,8 @@ export const AddGroupInformation = (props: IProps) => {
         dispatch(clearSelectedUsers());
         alert.success("Group created successfully");
         router.push("/group");
+      }else{
+        console.log("user not logged in ")
       }
     } catch (error: any) {
       alert.error(error.message);

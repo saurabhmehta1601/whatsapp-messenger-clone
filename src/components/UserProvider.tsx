@@ -17,10 +17,10 @@ export const ActiveUserProvider = (props: { children: ReactNode }) => {
           user = (await getUserByIdFromFirestore(authUser.uid)) ?? null;
         }
         dispatch(setActiveUser(user));
-        setLoadingUser(false);
       });
+      setLoadingUser(false);
     })();
-  }, [dispatch]);
+  }, []);
 
   if (loadingUser) return null;
   return <>{props.children}</>;
