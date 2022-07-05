@@ -27,7 +27,7 @@ const Home = () => {
             <a href="https://www.whatsapp.com/legal/privacy-policy/">
               Privacy Policy
             </a>
-            . Tap "Agree and continue " to accept the{" "}
+            . Tap &quot;Agree and continue&quot; to accept the{" "}
             <a href="https://www.whatsapp.com/legal/terms-of-service">
               Terms of Service
             </a>
