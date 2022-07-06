@@ -20,6 +20,9 @@ export const ChatInput = () => {
     if (!activeUser) return;
 
     if (e.key === "Enter") {
+      // clear chat input
+      dispatch(setChatTextInput(""));
+
       const message = await addMessageToFirestore({
         text: chatTextInput,
         groupId: router.query.groupId as string,
@@ -31,7 +34,6 @@ export const ChatInput = () => {
       await updateGroupInFirestore(router.query.groupId as string, {
         lastMessageId: message.id,
       });
-      dispatch(setChatTextInput(""));
       console.log("message added to firebase with id", message.id);
     }
   };
