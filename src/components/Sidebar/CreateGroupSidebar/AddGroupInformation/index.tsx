@@ -1,5 +1,5 @@
 import { CreateGroupSidebarLayout } from "layouts/CreateGroupSidebarLayout";
-import React, { ComponentPropsWithoutRef, useRef } from "react";
+import React, { ComponentPropsWithoutRef, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import GroupIcon from "@mui/icons-material/Group";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
@@ -20,6 +20,8 @@ interface IProps extends ComponentPropsWithoutRef<"div"> {
 const GROUP_NAME_LENGTH_LIMIT = 25;
 
 export const AddGroupInformation = (props: IProps) => {
+  const [previewSrc, setPreviewSrc] = useState("");
+
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const alert = useAlert();
@@ -90,6 +92,18 @@ export const AddGroupInformation = (props: IProps) => {
     }
   };
 
+  const handleGroupImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      if (file) {
+        const fileURL = URL.createObjectURL(file);
+        setPreviewSrc(fileURL);
+      }else{
+        setPreviewSrc("")
+      }
+    }
+  };
+
   return (
     <CreateGroupSidebarLayout
       headerText="New group"
@@ -99,8 +113,11 @@ export const AddGroupInformation = (props: IProps) => {
       {...props}
     >
       <div className={styles.groupIconUpload}>
-        <label htmlFor="uploadImg">
-          <GroupIcon className={styles.groupIcon} />
+        <label
+          htmlFor="uploadImg"
+          style={previewSrc ? { backgroundImage: `url(${previewSrc})` } : {}}
+        >
+          {!previewSrc && <GroupIcon className={styles.groupIcon} />}
           <div className={styles.centerOverlay}>
             <div className={styles.centeredContent}>
               <div>
@@ -114,6 +131,7 @@ export const AddGroupInformation = (props: IProps) => {
         </label>
         <input
           ref={fileInputRef}
+          onChange={handleGroupImgChange}
           type="file"
           id="uploadImg"
           name="uploadImg"
