@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useAlert } from "react-alert";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { openCreateGroupSidebar } from "@Redux/features/createGroupSidebar";
+import { setActiveUser } from "@Redux/features/activeUser";
 
 export const RecentChatsHeader = () => {
   const activeUser = useAppSelector((state) => state.activeUser.data);
@@ -17,9 +18,10 @@ export const RecentChatsHeader = () => {
 
   const onLogoutSelect = async () => {
     await signOutUser();
+    dispatch(setActiveUser(null));
+
     router.replace("/");
     alert.success("Logged out successfully .");
-    console.log("redirect to / after logout ");
   };
 
   const onNewGroupSelect = () => {

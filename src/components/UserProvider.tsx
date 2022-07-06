@@ -1,5 +1,6 @@
 import { auth } from "@Firebase/app";
 import { getUserByIdFromFirestore } from "@Firebase/utils/db/CRUD";
+import { getUserSnapshot } from "@Firebase/utils/db/snapshots";
 import { setActiveUser } from "@Redux/features/activeUser";
 import { useAppDispatch } from "@Redux/hooks";
 import { onAuthStateChanged } from "firebase/auth";
@@ -12,11 +13,16 @@ export const ActiveUserProvider = (props: { children: ReactNode }) => {
   useEffect(() => {
     (() => {
       onAuthStateChanged(auth, async (authUser) => {
-        let user = null;
         if (authUser) {
-          user = (await getUserByIdFromFirestore(authUser.uid)) ?? null;
+          getUserSnapshot(authUser.uid, (snap) => {
+            if (snap.exists()) {
+              const userData = snap.data();
+              dispatch(setActiveUser({ ...userData, id: authUser.uid }));
+            }
+          });
+        } else {
+          dispatch(setActiveUser(null));
         }
-        dispatch(setActiveUser(user));
       });
       setLoadingUser(false);
     })();

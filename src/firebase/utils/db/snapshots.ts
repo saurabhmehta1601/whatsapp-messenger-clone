@@ -1,6 +1,7 @@
 import { db } from "@Firebase/app";
 import {
   collection,
+  doc,
   onSnapshot,
   orderBy,
   query,
@@ -19,4 +20,12 @@ export const getMessagesInGroupSnapShot = (
     orderBy("createdAt", "asc")
   );
   onSnapshot(q, callback);
+};
+
+export const getUserSnapshot = (
+  userId: string,
+  callback: (snapShots: any) => void
+) => {
+  const userRef = doc(db, "users", userId);
+  return onSnapshot(userRef, callback);
 };

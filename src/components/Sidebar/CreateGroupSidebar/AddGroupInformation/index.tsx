@@ -12,7 +12,6 @@ import {
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { useAlert } from "react-alert";
 import { createGroup } from "@Firebase/utils/db/createGroup";
-import { Router } from "@mui/icons-material";
 import { useRouter } from "next/router";
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   handlePrevState: () => void;
@@ -76,14 +75,15 @@ export const AddGroupInformation = (props: IProps) => {
         };
 
         await createGroup(newGroup);
-        dispatch(closeCreateGroupSidebar());
 
+        dispatch(closeCreateGroupSidebar());
         dispatch(setGroupSubject(""));
         dispatch(clearSelectedUsers());
+
         alert.success("Group created successfully");
         router.push("/group");
-      }else{
-        console.log("user not logged in ")
+      } else {
+        console.log("user not logged in ");
       }
     } catch (error: any) {
       alert.error(error.message);
