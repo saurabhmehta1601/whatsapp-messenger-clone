@@ -1,5 +1,5 @@
 import {
-  addUserToFirestore,
+  addUserToFirestoreIfNotExists,
   getUserByIdFromFirestore,
 } from "@Firebase/utils/db/CRUD";
 import { setActiveUser } from "@Redux/features/activeUser";
@@ -47,7 +47,7 @@ export const OTPForm = ({ confirmationResult, userName }: IProps) => {
           photoURL: null,
           status: "Hey there! I am using whatsApp.",
         };
-        await addUserToFirestore(userId, newUser);
+        await addUserToFirestoreIfNotExists(userId, newUser);
         dispatch(setActiveUser({ id: userId, ...newUser }));
       } else {
         dispatch(setActiveUser(userWithId));
@@ -55,7 +55,8 @@ export const OTPForm = ({ confirmationResult, userName }: IProps) => {
       alert.success("Logged in successfully .");
       router.push("/group");
     } catch (error: any) {
-      alert.error(error.message);
+      console.log(error.message);
+      setIsFormDisabled(false);
     }
   };
 
