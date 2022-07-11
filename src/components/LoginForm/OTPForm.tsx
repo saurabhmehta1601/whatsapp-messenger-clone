@@ -55,7 +55,13 @@ export const OTPForm = ({ confirmationResult, userName }: IProps) => {
       alert.success("Logged in successfully .");
       router.push("/group");
     } catch (error: any) {
-      console.log(error.message);
+      if (error.code === "auth/code-expired") {
+        alert.error("OTP expired. Please try again.");
+      } else if (error.code === "auth/invalid-verification-code") {
+        alert.error("Invalid OTP. Please try again.");
+      } else {
+        console.log("error code ", error.code);
+      }
       setIsFormDisabled(false);
     }
   };
