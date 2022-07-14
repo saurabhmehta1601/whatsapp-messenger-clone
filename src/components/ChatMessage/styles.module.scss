@@ -9,12 +9,14 @@
   border-top-left-radius: 0;
   position: relative;
   z-index: 11;
+  text-overflow: ellipsis;
 
   .sender {
     color: var(--clr-blue-100);
   }
   .text {
     font-size: var(--text-sm);
+    overflow-wrap: break-word;
   }
   .time {
     text-align: end;
@@ -30,7 +32,7 @@
   }
 }
 
-.sent{
+.sent {
   margin-left: auto;
   border-radius: 8px;
   border-top-right-radius: 0;
