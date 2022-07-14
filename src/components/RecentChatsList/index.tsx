@@ -1,23 +1,22 @@
-import { IGroupWithLastMessage } from "chat-app-types";
 import React from "react";
 import styles from "./styles.module.scss";
 import { ChatItem } from "./ChatItem";
 import { Stack } from "@mui/material";
 import Link from "next/link";
-interface IProps {
-  groups: Array<IGroupWithLastMessage>;
-}
+import { useAppSelector } from "@Redux/hooks";
 
-export const RecentChatsList = ({ groups }: IProps) => {
+export const RecentChatsList = () => {
+  const groupIds = useAppSelector((state) => state.activeUser.data?.groupIds);
+
   return (
     <>
-      {groups.length === 0 ? (
+      {!groupIds ? (
         <div className={styles.noChats}> No chats yet </div>
       ) : (
         <Stack className={styles.chatList}>
-          {groups.map((group) => (
-            <Link href={"/group/" + group?.id} key={group?.id}>
-              <ChatItem group={group} />
+          {groupIds.map((groupId) => (
+            <Link href={"/group/" + groupId} key={groupId}>
+              <ChatItem groupId={groupId} />
             </Link>
           ))}
         </Stack>

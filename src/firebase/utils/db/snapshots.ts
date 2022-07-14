@@ -2,6 +2,7 @@ import { db } from "@Firebase/app";
 import {
   collection,
   doc,
+  DocumentSnapshot,
   onSnapshot,
   orderBy,
   query,
@@ -28,4 +29,12 @@ export const getUserSnapshot = (
 ) => {
   const userRef = doc(db, "users", userId);
   return onSnapshot(userRef, callback);
+};
+
+export const getGroupSnapshot = (
+  groupId: string,
+  callback: (snap: DocumentSnapshot) => void
+) => {
+  const groupRef = doc(db, "groups", groupId);
+  return onSnapshot(groupRef, callback);
 };
