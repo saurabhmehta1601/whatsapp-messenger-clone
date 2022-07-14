@@ -60,7 +60,7 @@ export const ChatItem = ({ groupId, ...props }: IProps) => {
                       lastMessage.text
                     )
                   ) : (
-                    <b>"No messages"</b>
+                    <i>&quot;No messages&quot;</i>
                   )}
                 </div>
               )}

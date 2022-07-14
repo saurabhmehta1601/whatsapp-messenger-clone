@@ -26,7 +26,7 @@ export const ActiveUserProvider = (props: { children: ReactNode }) => {
       });
       setLoadingUser(false);
     })();
-  }, []);
+  }, [dispatch]);
 
   if (loadingUser) return null;
   return <>{props.children}</>;
