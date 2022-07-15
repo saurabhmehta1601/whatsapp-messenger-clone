@@ -43,7 +43,7 @@ export const ChatItem = ({ groupId, ...props }: IProps) => {
     };
   });
 
-  if (!group?.name?.startsWith(searchChatInput)) return null;
+  if (!group?.name?.includes(searchChatInput)) return null;
   return (
     <>
       {group && (
