@@ -96,10 +96,14 @@ export const AddGroupInformation = (props: IProps) => {
     if (e.target.files) {
       const file = e.target.files[0];
       if (file) {
+        if (file.size > 1000000) {
+          alert.error("File size should be less than 1MB");
+          return;
+        }
         const fileURL = URL.createObjectURL(file);
         setPreviewSrc(fileURL);
-      }else{
-        setPreviewSrc("")
+      } else {
+        setPreviewSrc("");
       }
     }
   };
