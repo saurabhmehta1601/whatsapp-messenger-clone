@@ -6,6 +6,7 @@ import styles from "./styles.module.scss";
 import { DocumentData } from "firebase/firestore";
 import { getGroupSnapshot } from "@Firebase/utils/db/snapshots";
 import { getMessageByIdFromFirestore } from "@Firebase/utils/db/CRUD";
+import { useAppSelector } from "@Redux/hooks";
 
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   groupId: string;
@@ -15,6 +16,7 @@ export const ChatItem = ({ groupId, ...props }: IProps) => {
   const [lastMessage, setLastMessage] =
     React.useState<Partial<IMessage> | null>(null);
   const [group, setGroup] = React.useState<IGroup | null>(null);
+  const searchChatInput = useAppSelector((state) => state.ui.searchChatInput);
 
   useEffect(() => {
     const unsubscribe = getGroupSnapshot(groupId, async (snap) => {
@@ -40,6 +42,8 @@ export const ChatItem = ({ groupId, ...props }: IProps) => {
       unsubscribe();
     };
   });
+
+  if (!group?.name?.startsWith(searchChatInput)) return null;
   return (
     <>
       {group && (
