@@ -6,6 +6,8 @@ import { store } from "@Redux/store";
 import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { ActiveUserProvider } from "@Components/exports";
+import dynamic from "next/dynamic";
+
 function MyApp({ Component, pageProps }: AppProps) {
   // later I will set the activeUser using firebase auth
   return (
@@ -24,4 +26,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default dynamic(() => Promise.resolve(MyApp), {
+  ssr: false,
+});
