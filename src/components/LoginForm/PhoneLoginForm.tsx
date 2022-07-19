@@ -5,6 +5,8 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@Firebase/app";
 import { isValidPhoneNumber } from "react-phone-number-input";
+import { AlternateEmail } from "@mui/icons-material";
+import { useAlert } from "react-alert";
 
 const isValidName = (name: string) => {
   return name.length >= 3 && name.length <= 20;
@@ -23,33 +25,38 @@ export const PhoneLoginForm = ({
   setIsOTPFormVisible,
   setName,
 }: IProps) => {
+  const alert = useAlert();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState({ code: "+91", symbol: "IN" });
   const [loginDisabled, setLoginDisabled] = useState(false);
 
   const handlePhoneLogin = async () => {
     setLoginDisabled(true);
-    const verifier = new RecaptchaVerifier(
-      "sign-in-button",
-      {
-        size: "invisible",
-        callback: (response: any) => {
-          console.log("response from recaptcha callback", response);
+    try {
+      const verifier = new RecaptchaVerifier(
+        "sign-in-button",
+        {
+          size: "invisible",
+          callback: (response: any) => {
+            console.log("response from recaptcha callback", response);
+          },
+          "expired-callback": () => {
+            alert.error("Recaptch Expired");
+          },
         },
-        "expired-callback": () => {
-          console.log("recaptch is expired");
-        },
-      },
-      auth
-    );
+        auth
+      );
 
-    const confirmationResult = await signInWithPhoneNumber(
-      auth,
-      country.code + phoneNumber,
-      verifier
-    );
-    setConfirmationResult(confirmationResult);
-    console.log("confirmationResult", confirmationResult);
+      const confirmationResult = await signInWithPhoneNumber(
+        auth,
+        country.code + phoneNumber,
+        verifier
+      );
+      setConfirmationResult(confirmationResult);
+      console.log("confirmationResult", confirmationResult);
+    } catch (error) {
+      console.log("error is", error);
+    }
     setIsOTPFormVisible(true);
   };
 

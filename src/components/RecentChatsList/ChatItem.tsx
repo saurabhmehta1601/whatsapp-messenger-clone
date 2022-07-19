@@ -44,7 +44,8 @@ export const ChatItem = ({ groupId, ...props }: IProps) => {
     return () => {
       unsubscribe();
     };
-  }, [groupId]);
+    // Don't add groupId to dependency array
+  }, []);
 
   useEffect(() => {
     (async function setIntialGroupInfo() {
@@ -54,7 +55,8 @@ export const ChatItem = ({ groupId, ...props }: IProps) => {
         setGroupImg(group.photoURL ?? "");
       }
     })();
-  }, [groupId]);
+    // Don't add groupId to dependency array
+  }, []);
 
   return (
     <>
