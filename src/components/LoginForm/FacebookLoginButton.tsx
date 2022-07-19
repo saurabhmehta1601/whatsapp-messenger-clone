@@ -25,7 +25,12 @@ export const FacebookLoginButton = () => {
         router.push("/group");
       }
     } catch (error: any) {
-      alert.error(error.message);
+      switch (error.code) {
+        case "AUTH/POPUP-CLOSED-BY-USER":
+          break;
+        default:
+          console.log(error.message);
+      }
     }
   };
 
