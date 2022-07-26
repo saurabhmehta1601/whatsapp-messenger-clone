@@ -2,7 +2,7 @@
 
 # firebase log files
 *.log
-
+firestore-debug.log
 # dependencies
 /node_modules
 /.pnp
