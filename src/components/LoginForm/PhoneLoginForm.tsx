@@ -5,7 +5,6 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@Firebase/app";
 import { isValidPhoneNumber } from "react-phone-number-input";
-import { AlternateEmail } from "@mui/icons-material";
 import { useAlert } from "react-alert";
 
 const isValidName = (name: string) => {
