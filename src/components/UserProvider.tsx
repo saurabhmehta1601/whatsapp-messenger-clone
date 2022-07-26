@@ -1,5 +1,4 @@
 import { auth } from "@Firebase/app";
-import { getUserByIdFromFirestore } from "@Firebase/utils/db/CRUD";
 import { getUserSnapshot } from "@Firebase/utils/db/snapshots";
 import { setActiveUser } from "@Redux/features/activeUser";
 import { useAppDispatch } from "@Redux/hooks";
@@ -13,6 +12,7 @@ export const ActiveUserProvider = (props: { children: ReactNode }) => {
   useEffect(() => {
     (() => {
       onAuthStateChanged(auth, async (authUser) => {
+        console.log("active user is ", authUser);
         if (authUser) {
           getUserSnapshot(authUser.uid, (snap) => {
             if (snap.exists()) {

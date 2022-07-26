@@ -1,10 +1,9 @@
 import React from "react";
 import styles from "@Styles/Home.module.scss";
 import Image from "next/image";
-import { LoginForm } from "@Components/exports";
+import Link from "next/link";
 
 const Home = () => {
-  const [isLoginFormShown, setIsLoginFormShown] = React.useState(false);
   return (
     <div className={styles.page}>
       <div className={styles.welcome} data-testid="welcome-to-whatsapp">
@@ -19,29 +18,20 @@ const Home = () => {
           className={styles.whatsappLogo}
         />
       </div>
-      {isLoginFormShown ? (
-        <LoginForm />
-      ) : (
-        <>
-          <div className={styles.termsAndConditions}>
-            Read our{" "}
-            <a href="https://www.whatsapp.com/legal/privacy-policy/">
-              Privacy Policy
-            </a>
-            . Tap &quot;Agree and continue&quot; to accept the{" "}
-            <a href="https://www.whatsapp.com/legal/terms-of-service">
-              Terms of Service
-            </a>
-            .
-          </div>
-          <button
-            onClick={() => setIsLoginFormShown(true)}
-            data-testid="agree-and-continue"
-          >
-            AGREE AND CONTINUE
-          </button>
-        </>
-      )}
+      <div className={styles.termsAndConditions}>
+        Read our{" "}
+        <a href="https://www.whatsapp.com/legal/privacy-policy/">
+          Privacy Policy
+        </a>
+        . Tap &quot;Agree and continue&quot; to accept the{" "}
+        <a href="https://www.whatsapp.com/legal/terms-of-service">
+          Terms of Service
+        </a>
+        .
+      </div>
+      <Link href={"/login"}>
+        <button data-testid="agree-and-continue">AGREE AND CONTINUE</button>
+      </Link>
 
       <div className={styles.pageBottom}>
         <div className={styles.from}>from</div>

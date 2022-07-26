@@ -1,0 +1,38 @@
+.page {
+  height: 100vh;
+  background-color: var(--clr-dark-300);
+  color: var(--clr-gray-100);
+  text-align: center;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  .heading {
+    font-size: 3rem;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .formWrapper {
+    margin-bottom: 7em;
+    margin-top: 2em;
+  }
+
+  a {
+    color: var(--clr-blue-100);
+    text-decoration: none;
+  }
+
+  button {
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    background-color: var(--clr-green-200);
+    padding: 0.8em 5em;
+    font-size: 1rem;
+    margin-top: 1em;
+    font-weight: 600;
+  }
+}

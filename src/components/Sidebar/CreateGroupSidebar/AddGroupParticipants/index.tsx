@@ -40,7 +40,7 @@ export const AddGroupParticipants = (props: IProps) => {
       } catch (error: any) {
         alert.error(error.message);
       }
-    })();
+    })();;
   }, [activeUserId, alert]);
   return (
     <CreateGroupSidebarLayout

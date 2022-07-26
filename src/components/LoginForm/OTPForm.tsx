@@ -3,27 +3,25 @@ import {
   getUserByIdFromFirestore,
 } from "@Firebase/utils/db/CRUD";
 import { setActiveUser } from "@Redux/features/activeUser";
-import { useAppDispatch } from "@Redux/hooks";
+import { setOTP } from "@Redux/features/auth";
+import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useAlert } from "react-alert";
 import styles from "./styles.module.scss";
 
-interface IProps {
-  confirmationResult: any;
-  userName: string;
-}
-
-export const OTPForm = ({ confirmationResult, userName }: IProps) => {
+export const OTPForm = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { username, confirmationResult, OTP } = useAppSelector(
+    (state) => state.auth
+  );
   const alert = useAlert();
 
-  const [OTP, setOTP] = useState("");
   const [isFormDisabled, setIsFormDisabled] = useState(true);
 
   const handleOTPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOTP(e.target.value);
+    dispatch(setOTP(e.target.value));
     if (e.target.value.length === 6) {
       setIsFormDisabled(false);
     } else {
@@ -34,6 +32,11 @@ export const OTPForm = ({ confirmationResult, userName }: IProps) => {
   const handleOTPVerification = async () => {
     setIsFormDisabled(true);
     try {
+      if (!confirmationResult) {
+        alert.error("Something went wrong. Please try again.");
+        return;
+      }
+
       const result = await confirmationResult.confirm(OTP);
       console.log("result = confirmationResult.confirm", result);
       const userId = result.user.uid;
@@ -41,7 +44,7 @@ export const OTPForm = ({ confirmationResult, userName }: IProps) => {
       console.log("found user is ", userWithId);
       if (!userWithId) {
         const newUser = {
-          displayName: userName,
+          displayName: username,
           phoneNumber: result.user.phoneNumber,
           groupIds: [],
           photoURL: null,

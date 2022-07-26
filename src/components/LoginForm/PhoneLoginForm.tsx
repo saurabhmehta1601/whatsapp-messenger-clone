@@ -5,6 +5,9 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@Firebase/app";
 import { isValidPhoneNumber } from "react-phone-number-input";
+import { useRouter } from "next/router";
+import { useAppDispatch } from "@Redux/hooks";
+import { setConfirmationResult } from "@Redux/features/auth";
 import { useAlert } from "react-alert";
 
 const isValidName = (name: string) => {
@@ -14,20 +17,15 @@ const isValidName = (name: string) => {
 interface IProps {
   name: string;
   setName: (name: string) => void;
-  setConfirmationResult: (confirmationResult: any) => void;
-  setIsOTPFormVisible: (isOTPFormVisible: boolean) => void;
 }
 
-export const PhoneLoginForm = ({
-  name,
-  setConfirmationResult,
-  setIsOTPFormVisible,
-  setName,
-}: IProps) => {
-  const alert = useAlert();
+export const PhoneLoginForm = ({ name, setName }: IProps) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState({ code: "+91", symbol: "IN" });
   const [loginDisabled, setLoginDisabled] = useState(false);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const alert = useAlert();
 
   const handlePhoneLogin = async () => {
     setLoginDisabled(true);
@@ -51,12 +49,13 @@ export const PhoneLoginForm = ({
         country.code + phoneNumber,
         verifier
       );
-      setConfirmationResult(confirmationResult);
+      if (confirmationResult)
+        dispatch(setConfirmationResult(confirmationResult));
       console.log("confirmationResult", confirmationResult);
+      router.push("/verify-otp");
     } catch (error) {
-      console.log("error is", error);
+      console.log("error", error);
     }
-    setIsOTPFormVisible(true);
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {

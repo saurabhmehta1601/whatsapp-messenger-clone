@@ -7,10 +7,10 @@ import { useAppSelector } from "@Redux/hooks";
 
 export const RecentChatsList = () => {
   const groupIds = useAppSelector((state) => state.activeUser.data?.groupIds);
-
+  console.log("groupIds ", groupIds);
   return (
     <>
-      {!groupIds ? (
+      {!groupIds || (groupIds && groupIds.length == 0) ? (
         <div className={styles.noChats}> No chats yet </div>
       ) : (
         <Stack className={styles.chatList}>
