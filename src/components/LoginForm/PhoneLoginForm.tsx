@@ -54,6 +54,7 @@ export const PhoneLoginForm = ({ name, setName }: IProps) => {
       console.log("confirmationResult", confirmationResult);
       router.push("/verify-otp");
     } catch (error) {
+      setLoginDisabled(false);
       console.log("error", error);
     }
   };
