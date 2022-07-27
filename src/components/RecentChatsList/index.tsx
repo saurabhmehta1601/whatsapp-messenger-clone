@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { ChatItem } from "./ChatItem";
+import { ChatItem } from "./RecentChatItem";
 import { Stack } from "@mui/material";
 import Link from "next/link";
 import { useAppSelector } from "@Redux/hooks";

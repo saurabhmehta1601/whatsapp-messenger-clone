@@ -5,7 +5,7 @@ import { storage } from "@Firebase/app";
 import { setDoc } from "firebase/firestore";
 
 export const createGroup = async (group: {
-  img: { name: string; content: File };
+  img: { name: string; content: File } | null;
   info: INewGroup;
   membersId: string[];
 }) => {
@@ -15,12 +15,17 @@ export const createGroup = async (group: {
   group.membersId.forEach((memberId) => {
     addGroupIdToUserInFirestore(memberId, newGroupRef.id);
   });
-  //  Upload groupImg to firebase store
-  const storageRef = ref(storage, group.img.name);
-  const snap = await uploadBytes(storageRef, group.img.content);
-  console.log("uploaded snap", snap);
-  const downloadURL = await getDownloadURL(storageRef);
-  //  set uploaded image url to group photURL
-  setDoc(newGroupRef, { photoURL: downloadURL }, { merge: true });
+
+  // if group image uploaded
+  if (group.img) {
+    //  Upload groupImg to firebase storage
+    const storageRef = ref(storage, group.img.name);
+    const snap = await uploadBytes(storageRef, group.img.content);
+    console.log("uploaded snap", snap);
+    const downloadURL = await getDownloadURL(storageRef);
+    //  set uploaded image url to group photURL
+    setDoc(newGroupRef, { photoURL: downloadURL }, { merge: true });
+  }
+
   return newGroupRef;
 };

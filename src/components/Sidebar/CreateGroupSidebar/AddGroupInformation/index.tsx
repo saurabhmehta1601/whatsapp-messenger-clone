@@ -1,9 +1,7 @@
-import { CreateGroupSidebarLayout } from "layouts/CreateGroupSidebarLayout";
-import React, { ComponentPropsWithoutRef, useRef, useState } from "react";
-import styles from "./styles.module.scss";
-import GroupIcon from "@mui/icons-material/Group";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import DoneIcon from "@mui/icons-material/Done";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import GroupIcon from "@mui/icons-material/Group";
+import { CreateGroupSidebarLayout } from "layouts/CreateGroupSidebarLayout";
 import {
   clearSelectedUsers,
   closeCreateGroupSidebar,
@@ -13,6 +11,8 @@ import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { useAlert } from "react-alert";
 import { createGroup } from "@Firebase/utils/db/createGroup";
 import { useRouter } from "next/router";
+import { ComponentPropsWithoutRef, useRef, useState } from "react";
+import styles from "./styles.module.scss";
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   handlePrevState: () => void;
 }
@@ -43,53 +43,54 @@ export const AddGroupInformation = (props: IProps) => {
   };
 
   const createNewGroup = async () => {
+    let img = null,
+      membersId: string[] = [];
+
+    // check if group name is empty
     if (groupSubject.length === 0) {
       alert.error("Please enter group subject");
       return;
     }
 
+    // set group image
+    if (fileInputRef.current?.files && fileInputRef.current?.files.length > 0) {
+      img = {
+        name: fileInputRef.current.files[0].name,
+        content: fileInputRef.current.files[0],
+      };
+    }
+
+    // set group members
+    if (activeUserId) {
+      membersId = createGroupSidebar.selectedUsers.map((user) => user.id);
+      membersId.push(activeUserId);
+    }
+
+    const newGroup = {
+      img,
+      info: {
+        name: groupSubject,
+        photoURL: "",
+      },
+      membersId,
+    };
+
+    // create group
     try {
       console.log("creating new group");
-      if (activeUserId && fileInputRef.current && fileInputRef.current.files) {
-        const files = fileInputRef.current.files;
-        if (files.length === 0) {
-          alert.error("please select a group image");
-          return;
-        }
-
-        const file = files[0];
-        const membersId = createGroupSidebar.selectedUsers.map(
-          (user) => user.id
-        );
-        membersId.push(activeUserId);
-        const groupName = createGroupSidebar.groupSubject;
-
-        const newGroup = {
-          img: {
-            name: file.name,
-            content: file,
-          },
-          info: {
-            name: groupName,
-            photoURL: "",
-          },
-          membersId,
-        };
-
-        await createGroup(newGroup);
-
-        dispatch(closeCreateGroupSidebar());
-        dispatch(setGroupSubject(""));
-        dispatch(clearSelectedUsers());
-
-        alert.success("Group created successfully");
-        router.push("/group");
-      } else {
-        console.log("user not logged in ");
-      }
-    } catch (error: any) {
-      alert.error(error.message);
+      await createGroup(newGroup);
+    } catch (error) {
+      console.log("ERROR CREATING GROUP", error);
     }
+
+    // reset group information form
+    dispatch(closeCreateGroupSidebar());
+    dispatch(setGroupSubject(""));
+    dispatch(clearSelectedUsers());
+
+    // alert and redirect to group page
+    alert.success("Group created successfully");
+    router.push("/group");
   };
 
   const handleGroupImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {

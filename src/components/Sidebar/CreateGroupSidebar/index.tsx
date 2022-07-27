@@ -1,5 +1,5 @@
 import { closeCreateGroupSidebar } from "@Redux/features/createGroupSidebar";
-import { useAppDispatch, useAppSelector } from "@Redux/hooks";
+import { useAppDispatch} from "@Redux/hooks";
 import { useState } from "react";
 import { AddGroupInformation } from "./AddGroupInformation";
 import { AddGroupParticipants } from "./AddGroupParticipants";
