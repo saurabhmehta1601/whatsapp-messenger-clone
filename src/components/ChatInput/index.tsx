@@ -25,6 +25,7 @@ export const ChatInput = () => {
 
       const message = await addMessageToFirestore({
         text: chatTextInput,
+        type: "text" ,
         groupId: router.query.groupId as string,
         sender: {
           id: activeUser.id ?? "",

@@ -1,6 +1,7 @@
 declare module "chat-app-types" {
   export interface IMessage {
     id: string;
+    type: "text" | "image" | "video" | "file";
     text: string;
     sender: {
       id: string;
