@@ -13,6 +13,7 @@ import { createGroup } from "@Firebase/utils/db/createGroup";
 import { useRouter } from "next/router";
 import { ComponentPropsWithoutRef, useRef, useState } from "react";
 import styles from "./styles.module.scss";
+import { motion } from "framer-motion";
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   handlePrevState: () => void;
 }
@@ -117,44 +118,46 @@ export const AddGroupInformation = (props: IProps) => {
       handleNextState={createNewGroup}
       {...props}
     >
-      <div className={styles.groupIconUpload}>
-        <label
-          htmlFor="uploadImg"
-          style={previewSrc ? { backgroundImage: `url(${previewSrc})` } : {}}
-        >
-          {!previewSrc && <GroupIcon className={styles.groupIcon} />}
-          <div className={styles.centerOverlay}>
-            <div className={styles.centeredContent}>
-              <div>
-                <CameraAltIcon fontSize="large" />
+      <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }}>
+        <motion.div className={styles.groupIconUpload}>
+          <label
+            htmlFor="uploadImg"
+            style={previewSrc ? { backgroundImage: `url(${previewSrc})` } : {}}
+          >
+            {!previewSrc && <GroupIcon className={styles.groupIcon} />}
+            <div className={styles.centerOverlay}>
+              <div className={styles.centeredContent}>
+                <div>
+                  <CameraAltIcon fontSize="large" />
+                </div>
+                <p>
+                  ADD GROUP <br /> ICON
+                </p>
               </div>
-              <p>
-                ADD GROUP <br /> ICON
-              </p>
             </div>
-          </div>
-        </label>
-        <input
-          ref={fileInputRef}
-          onChange={handleGroupImgChange}
-          type="file"
-          id="uploadImg"
-          name="uploadImg"
-          accept="image/png, image/jpeg"
-        />
-      </div>
-      <div className={styles.groupSubjectContainer}>
-        <input
-          type="text"
-          className={styles.groupSubjectInput}
-          placeholder="Group Subject"
-          value={groupSubject}
-          onChange={handleGroupSubjectChange}
-        />
-        <span className={styles.groupNameLimit}>
-          {GROUP_NAME_LENGTH_LIMIT - groupSubject.length}
-        </span>
-      </div>
+          </label>
+          <input
+            ref={fileInputRef}
+            onChange={handleGroupImgChange}
+            type="file"
+            id="uploadImg"
+            name="uploadImg"
+            accept="image/png, image/jpeg"
+          />
+        </motion.div>
+        <div className={styles.groupSubjectContainer}>
+          <input
+            type="text"
+            className={styles.groupSubjectInput}
+            placeholder="Group Subject"
+            value={groupSubject}
+            onChange={handleGroupSubjectChange}
+          />
+          <span className={styles.groupNameLimit}>
+            {GROUP_NAME_LENGTH_LIMIT - groupSubject.length}
+          </span>
+        </div>
+      </motion.div>
     </CreateGroupSidebarLayout>
   );
 };

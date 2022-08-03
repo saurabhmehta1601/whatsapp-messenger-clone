@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import styles from "./styles.module.scss";
 
 interface IProps {
@@ -18,7 +19,7 @@ export const DropDown = (props: IProps) => {
     props.options.find((option) => option.label === label)?.onSelect();
   };
   return (
-    <span className={styles.container} style={props.containerStyle}>
+    <motion.span className={styles.container} style={props.containerStyle}>
       <div
         onClick={() =>
           setIsDropDownVisible((isDropDownVisible) => !isDropDownVisible)
@@ -42,6 +43,6 @@ export const DropDown = (props: IProps) => {
           ))}
         </div>
       )}
-    </span>
+    </motion.span>
   );
 };

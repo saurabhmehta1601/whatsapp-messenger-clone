@@ -8,6 +8,7 @@ import { CreateGroupSidebarLayout, SidebarListLayout } from "layouts/exports";
 import React, { ComponentPropsWithoutRef, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import styles from "./styles.module.scss";
+import { motion } from "framer-motion";
 
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   handleNextState: () => void;
@@ -40,7 +41,7 @@ export const AddGroupParticipants = (props: IProps) => {
       } catch (error: any) {
         alert.error(error.message);
       }
-    })();;
+    })();
   }, [activeUserId, alert]);
   return (
     <CreateGroupSidebarLayout
@@ -48,27 +49,29 @@ export const AddGroupParticipants = (props: IProps) => {
       hideFloatBtn={selectedUsers.length === 0}
       {...props}
     >
-      <Stack className={styles.selectedUsers} style={{}}>
-        {selectedUsers.map((user) => (
-          <UserBadge user={user} key={user.id} />
-        ))}
-      </Stack>
-      {allUsers.length === 0 ? (
-        <div className={styles.noSuggestion}> No suggestions</div>
-      ) : (
-        <SidebarListLayout className={styles.sidebarListLayout}>
-          {/* Show users which are not selected */}
-          {allUsers
-            .filter((u) => !selectedUsers.some((su) => su.id === u.id))
-            .map((user) => (
-              <UserCard
-                key={user.id}
-                user={user}
-                onClick={() => handleUserCardClick(user)}
-              />
-            ))}
-        </SidebarListLayout>
-      )}
+      <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }}>
+        <Stack className={styles.selectedUsers} style={{}}>
+          {selectedUsers.map((user) => (
+            <UserBadge user={user} key={user.id} />
+          ))}
+        </Stack>
+        {allUsers.length === 0 ? (
+          <div className={styles.noSuggestion}> No suggestions</div>
+        ) : (
+          <SidebarListLayout className={styles.sidebarListLayout}>
+            {/* Show users which are not selected */}
+            {allUsers
+              .filter((u) => !selectedUsers.some((su) => su.id === u.id))
+              .map((user) => (
+                <UserCard
+                  key={user.id}
+                  user={user}
+                  onClick={() => handleUserCardClick(user)}
+                />
+              ))}
+          </SidebarListLayout>
+        )}
+      </motion.div>
     </CreateGroupSidebarLayout>
   );
 };

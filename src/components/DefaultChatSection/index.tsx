@@ -2,10 +2,15 @@ import { Box } from "@mui/material";
 import React from "react";
 import { DesktopImg, GadgetsImg, LockImg } from "@Components/exports";
 import styles from "./styles.module.scss";
+import { motion } from "framer-motion";
 
 export const DefaultChatSection = () => {
   return (
-    <Box className={styles.chatSectionContainer}>
+    <motion.div
+      initial={{ scale: 0.8 }}
+      animate={{ scale: 1 }}
+      className={styles.chatSectionContainer}
+    >
       <GadgetsImg />
       <div className={styles.heroSection}>
         <h3 className={styles.heroTitle}>
@@ -28,6 +33,6 @@ export const DefaultChatSection = () => {
           End-to-end encrypted
         </div>
       </div>
-    </Box>
+    </motion.div>
   );
 };
