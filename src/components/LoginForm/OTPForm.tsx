@@ -38,7 +38,6 @@ export const OTPForm = () => {
       }
 
       const result = await confirmationResult.confirm(OTP);
-      console.log("result = confirmationResult.confirm", result);
       const userId = result.user.uid;
       const userWithId = await getUserByIdFromFirestore(userId);
       console.log("found user is ", userWithId);

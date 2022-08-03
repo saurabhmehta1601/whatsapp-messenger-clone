@@ -10,7 +10,7 @@ export { DropDown } from "./DropDown";
 export { LoginForm } from "./LoginForm";
 export { TailInImg } from "./images/TailInImg";
 export { TailOutImg } from "./images/TailOutImg";
-export { ChatMessage } from "./ChatMessage";
+export { TextMessage } from "./ChatMessage/TextMessage";
 export { MicImg } from "./images/MicImg";
 export { PinImg } from "./images/PinImg";
 export { SmileyImg } from "./images/SmileyImg";
