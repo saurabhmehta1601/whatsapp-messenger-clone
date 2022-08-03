@@ -18,7 +18,7 @@ export const MediaMessage = ({ message }: IProps) => {
   return (
     <div className={styles.mediaMessage}>
       {extensions.image.includes(message.extention) && (
-        <a target="_blank" href={message.mediaURL}>
+        <a target="_blank" href={message.mediaURL} rel="noreferrer">
           <img className={styles.imageMessage} src={message.mediaURL} />
           <div className={styles.time}>
             {getFormattedTime(message.createdAt.seconds * 1000)}
