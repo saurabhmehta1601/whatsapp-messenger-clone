@@ -11,6 +11,7 @@
     "prod": "next export",
     "start": "next start",
     "lint": "next lint",
+    "ts:lint": "tsc --project tsconfig.json",
     "cypress:open": "cypress open"
   },
   "dependencies": {

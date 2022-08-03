@@ -1,7 +1,6 @@
 declare module "chat-app-types" {
   export interface IMessage {
     id: string;
-    text: string;
     sender: {
       id: string;
       name: string;
@@ -10,7 +9,29 @@ declare module "chat-app-types" {
     createdAt: any;
   }
 
-  type INewMessage = Omit<IMessage, "id" | "createdAt">;
+  interface ITextMessage extends IMessage {
+    type: "text";
+    text: string;
+  }
+  interface IMediaMessage extends IMessage {
+    type: "media";
+    mediaURL: string;
+    extention: string;
+  }
+
+  export type IChatMessage = IMediaMessage | ITextMessage;
+  interface INewTextMessage extends Omit<IMessage, "id" | "createdAt"> {
+    type: "text";
+    text: string;
+  }
+
+  interface IMediaMessageInput extends Omit<IMessage, "id" | "createdAt"> {
+    type: "media";
+    name: string;
+    file: File;
+  }
+
+  type INewChatMessage = INewTextMessage | INewMediaMessage;
   export interface IGroup {
     id: string;
     name: string | null;

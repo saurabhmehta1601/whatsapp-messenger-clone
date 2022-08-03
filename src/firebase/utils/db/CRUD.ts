@@ -7,18 +7,18 @@ import {
   setDoc,
   getDocs,
   updateDoc,
-  FieldValue,
   arrayUnion,
 } from "firebase/firestore";
-import { db } from "@Firebase/app";
+import { db, storage } from "@Firebase/app";
 import {
-  IMessage,
   IGroup,
   IGroupWithLastMessage,
   IUser,
   INewGroup,
-  INewMessage,
+  INewChatMessage,
+  ITextMessage,
 } from "chat-app-types";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 // returns a promise that resolves to a firebase document using id if not exists returns undefined
 const getFirebaseDoc = async (collectionName: string, docId: string) => {
@@ -34,7 +34,7 @@ export const getUserByIdFromFirestore = async (id: string) =>
   getFirebaseDoc("users", id) as Promise<IUser | undefined>;
 
 export const getMessageByIdFromFirestore = async (id: string) =>
-  getFirebaseDoc("messages", id) as Promise<IMessage | undefined>;
+  getFirebaseDoc("messages", id) as Promise<ITextMessage | undefined>;
 
 export const getGroupByIdFromFirestore = async (id: string) =>
   getFirebaseDoc("groups", id) as Promise<IGroup | undefined>;
@@ -78,7 +78,7 @@ export const addUserToFirestoreIfNotExists = async (
   } else return setDoc(userDocRef, user, { merge: true });
 };
 
-export const addMessageToFirestore = (message: INewMessage) => {
+export const addMessageToFirestore = (message: INewChatMessage) => {
   return addDoc(collection(db, "messages"), {
     ...message,
     createdAt: Timestamp.now(),
@@ -101,4 +101,12 @@ export const addGroupIdToUserInFirestore = (
 ) => {
   const userRef = doc(db, "users", userId);
   return updateDoc(userRef, { groupIds: arrayUnion(groupId) });
+};
+
+export const uploadFile = async (media : { name: string; file: File }) => {
+  const storageRef = ref(storage, media.name);
+  const snap = await uploadBytes(storageRef, media.file);
+  console.log("uploaded snap", snap);
+  const downloadURL = await getDownloadURL(storageRef);
+  return downloadURL;
 };

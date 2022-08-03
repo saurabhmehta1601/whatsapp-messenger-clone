@@ -1,8 +1,7 @@
 import {
-  AvatarImg,
   ChatInput,
   MenuImg,
-  ChatMessage,
+  TextMessage,
   EmojiPicker,
 } from "@Components/exports";
 import { Avatar, Box } from "@mui/material";
@@ -11,16 +10,17 @@ import styles from "./styles.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
 import { getMessagesInGroupSnapShot } from "@Firebase/utils/db/snapshots";
-import { IGroup, IMessage } from "chat-app-types";
+import { IChatMessage, IGroup, IMessage } from "chat-app-types";
 import { useAppSelector } from "@Redux/hooks";
 import { ContentLayout } from "layouts/ContentLayout";
 import { HeaderLayout } from "layouts/HeaderLayout";
 import { getGroupByIdFromFirestore } from "@Firebase/utils/db/CRUD";
+import { ChatMessage } from "@Components/ChatMessage";
 
 export const ChatSection = () => {
   const emojiPickerContainerRef = useRef<HTMLDivElement>(null);
   // if groupId not exists in route path return Default Chat Section
-  const [messages, setMessages] = useState<IMessage[] | null>(null);
+  const [messages, setMessages] = useState<IChatMessage[] | null>(null);
   const [activeGroup, setActiveGroup] = useState<IGroup | null>(null);
   const router = useRouter();
   const shouldShowEmojiPicker = useAppSelector(
@@ -98,9 +98,9 @@ export const ChatSection = () => {
         >
           {shouldShowEmojiPicker && <EmojiPicker />}
         </div>
-        {messages?.map((message) => (
-          <ChatMessage key={message.id} message={message} />
-        ))}
+        {messages?.map((message) => {
+          return <ChatMessage key={message.id} message={message} />;
+        })}
       </Box>
       <ChatInput />
     </ContentLayout>

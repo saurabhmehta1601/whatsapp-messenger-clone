@@ -1,7 +1,7 @@
 import React, { ComponentPropsWithoutRef, useEffect } from "react";
 import { Avatar } from "@mui/material";
 import { getFormattedTime } from "@Utils/time";
-import { IGroup, IMessage } from "chat-app-types";
+import { IChatMessage, IGroup, IMessage } from "chat-app-types";
 import styles from "./styles.module.scss";
 import { DocumentData } from "firebase/firestore";
 import { getGroupSnapshot } from "@Firebase/utils/db/snapshots";
@@ -16,8 +16,9 @@ interface IProps extends ComponentPropsWithoutRef<"div"> {
 }
 
 export const ChatItem = ({ groupId, ...props }: IProps) => {
-  const [lastMessage, setLastMessage] =
-    React.useState<Partial<IMessage> | null>(null);
+  const [lastMessage, setLastMessage] = React.useState<IChatMessage | null>(
+    null
+  );
   const [group, setGroup] = React.useState<IGroup | null>(null);
   const [groupName, setGroupName] = React.useState<string>("Unnamed");
   const [groupImg, setGroupImg] = React.useState<string>("");
@@ -33,10 +34,18 @@ export const ChatItem = ({ groupId, ...props }: IProps) => {
             groupData.lastMessageId
           );
           if (lastMessage) {
-            setLastMessage({
-              text: lastMessage.text,
-              createdAt: lastMessage.createdAt,
-            } as Partial<IMessage> | null);
+            if (lastMessage.type === "text") {
+              setLastMessage({
+                type: "text",
+                text: lastMessage.text,
+                createdAt: lastMessage.createdAt,
+              } as any);
+            } else if (lastMessage.type === "image") {
+              setLastMessage({
+                type: "image",
+                createdAt: lastMessage.createdAt,
+              } as any);
+            }
           }
         }
       }
@@ -81,14 +90,18 @@ export const ChatItem = ({ groupId, ...props }: IProps) => {
               <div className={styles.itemTitle}>{groupName ?? "GROUP"}</div>
               {group && (
                 <div className={styles.lastMessageText}>
-                  {lastMessage && lastMessage.text ? (
-                    lastMessage.text.length > 20 ? (
-                      lastMessage.text.substring(0, 20) + "..."
+                  {lastMessage ? (
+                    lastMessage.type === "text" ? (
+                      lastMessage.text.length > 20 ? (
+                        lastMessage.text.substring(0, 20) + "..."
+                      ) : (
+                        lastMessage.text
+                      )
                     ) : (
-                      lastMessage.text
+                      <b>{lastMessage.type}</b>
                     )
                   ) : (
-                    <i>&quot;No messages&quot;</i>
+                    <b>No messages</b>
                   )}
                 </div>
               )}

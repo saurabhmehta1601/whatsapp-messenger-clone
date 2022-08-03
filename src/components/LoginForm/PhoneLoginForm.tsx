@@ -34,9 +34,7 @@ export const PhoneLoginForm = ({ name, setName }: IProps) => {
         "sign-in-button",
         {
           size: "invisible",
-          callback: (response: any) => {
-            console.log("response from recaptcha callback", response);
-          },
+          callback: (response: any) => {},
           "expired-callback": () => {
             alert.error("Recaptch Expired");
           },
