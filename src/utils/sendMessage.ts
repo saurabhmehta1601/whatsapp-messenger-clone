@@ -13,12 +13,17 @@ export const sendMessage = async (message: INewChatMessage) => {
       name: message.name,
       file: message.file,
     });
+
     const newMediaMessage: Omit<IMediaMessage, "id" | "createdAt"> = {
       type: "media",
+      fileName:
+        message.name.split(".")[0] < 15
+          ? message.name
+          : message.name.substring(0, 15) + "..." + message.extension,
       mediaURL: downloadURL,
       sender: message.sender,
       groupId: message.groupId,
-      extention: message.extension
+      extention: message.extension,
     };
     createdMessage = await addMessageToFirestore(newMediaMessage as any);
   }

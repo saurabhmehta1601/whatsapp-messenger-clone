@@ -15,6 +15,7 @@ declare module "chat-app-types" {
   }
   interface IMediaMessage extends IMessage {
     type: "media";
+    fileName: string;
     mediaURL: string;
     extention: string;
   }

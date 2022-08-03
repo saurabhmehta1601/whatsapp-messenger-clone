@@ -1,6 +1,9 @@
 import React from "react";
+import DescriptionIcon from "@mui/icons-material/Description";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import { IMediaMessage } from "chat-app-types";
 import styles from "./styles.module.scss";
+import { getFormattedTime } from "@Utils/time";
 
 interface IProps {
   message: IMediaMessage;
@@ -14,13 +17,28 @@ export const MediaMessage = ({ message }: IProps) => {
   console.log("media message is ", message);
   return (
     <div className={styles.mediaMessage}>
-      <div className={styles.sender}>{message.sender.name}</div>
       {extensions.image.includes(message.extention) && (
-        <img
-          className={styles.imageMessage}
-          src={message.mediaURL}
-          style={{}}
-        />
+        <a target="_blank" href={message.mediaURL}>
+          <img className={styles.imageMessage} src={message.mediaURL} />
+          <div className={styles.time}>
+            {getFormattedTime(message.createdAt.seconds * 1000)}
+          </div>
+        </a>
+      )}
+      {!extensions.image.includes(message.extention) && (
+        <div className={styles.documentMessage}>
+          <DescriptionIcon
+            fontSize={"large"}
+            className={styles.descriptionIcon}
+          />
+          <div>{message.fileName}</div>
+          <a href={message.mediaURL}>
+            <ArrowCircleDownIcon
+              fontSize={"large"}
+              className={styles.downloadIcon}
+            />
+          </a>
+        </div>
       )}
     </div>
   );

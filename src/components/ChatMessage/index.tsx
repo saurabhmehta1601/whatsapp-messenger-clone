@@ -1,3 +1,4 @@
+import { TailOutImg, TailInImg } from "@Components/exports";
 import { IMediaMessage, ITextMessage } from "chat-app-types";
 import React from "react";
 import { TextMessage } from "./TextMessage";
@@ -19,6 +20,18 @@ export const ChatMessage = ({ message }: IProps) => {
       <Box
         className={`${styles.container} ${isYourMessage ? styles.sent : ""}`}
       >
+        <div className={styles.sender}>
+          {!isYourMessage ? (
+            <div className={styles.tailInImg}>
+              <TailInImg />
+            </div>
+          ) : (
+            <div className={styles.tailOutImg}>
+              <TailOutImg />
+            </div>
+          )}
+          {isYourMessage ? "YOU" : message.sender.name}
+        </div>
         {message.type === "text" && (
           <TextMessage message={message as ITextMessage} />
         )}
