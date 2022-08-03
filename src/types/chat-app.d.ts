@@ -13,23 +13,25 @@ declare module "chat-app-types" {
     type: "text";
     text: string;
   }
-  interface IImageMessage extends IMessage {
-    type: "image";
-    imageURL: string;
+  interface IMediaMessage extends IMessage {
+    type: "media";
+    mediaURL: string;
+    extention: string;
   }
 
-  export type IChatMessage = IImageMessage | ITextMessage;
+  export type IChatMessage = IMediaMessage | ITextMessage;
   interface INewTextMessage extends Omit<IMessage, "id" | "createdAt"> {
     type: "text";
     text: string;
   }
 
-  interface INewImageMessage extends Omit<IMessage, "id" | "createdAt"> {
-    type: "image";
-    image: File;
+  interface IMediaMessageInput extends Omit<IMessage, "id" | "createdAt"> {
+    type: "media";
+    name: string;
+    file: File;
   }
 
-  type INewChatMessage = INewTextMessage | INewImageMessage;
+  type INewChatMessage = INewTextMessage | INewMediaMessage;
   export interface IGroup {
     id: string;
     name: string | null;
