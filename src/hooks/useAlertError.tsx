@@ -12,7 +12,7 @@ const useAlertError = () => {
         alert.error("Invalid OTP. Please try again.");
         break;
       default:
-        console.log("error code ", error.code);
+        alert.error(error.message);
     }
   };
 };

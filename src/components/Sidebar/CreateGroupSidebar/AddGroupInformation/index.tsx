@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { ComponentPropsWithoutRef, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import { motion } from "framer-motion";
+import useAlertError from "@Hooks/useAlertError";
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   handlePrevState: () => void;
 }
@@ -26,6 +27,8 @@ export const AddGroupInformation = (props: IProps) => {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const alert = useAlert();
+    const alertError = useAlertError()
+
   const dispatch = useAppDispatch();
   const createGroupSidebar = useAppSelector(
     (state) => state.createGroupSidebar
@@ -44,54 +47,58 @@ export const AddGroupInformation = (props: IProps) => {
   };
 
   const createNewGroup = async () => {
-    let img = null,
-      membersId: string[] = [];
-
-    // check if group name is empty
-    if (groupSubject.length === 0) {
-      alert.error("Please enter group subject");
-      return;
-    }
-
-    // set group image
-    if (fileInputRef.current?.files && fileInputRef.current?.files.length > 0) {
-      img = {
-        name: fileInputRef.current.files[0].name,
-        content: fileInputRef.current.files[0],
-      };
-    }
-
-    // set group members
-    if (activeUserId) {
-      membersId = createGroupSidebar.selectedUsers.map((user) => user.id);
-      membersId.push(activeUserId);
-    }
-
-    const newGroup = {
-      img,
-      info: {
-        name: groupSubject,
-        photoURL: "",
-      },
-      membersId,
-    };
-
-    // create group
     try {
+      let img = null,
+        membersId: string[] = [];
+
+      // check if group name is empty
+      if (groupSubject.length === 0) {
+        throw new Error("Please enter group subject");
+        return;
+      }
+
+      // set group image
+      if (
+        fileInputRef.current?.files &&
+        fileInputRef.current?.files.length > 0
+      ) {
+        img = {
+          name: fileInputRef.current.files[0].name,
+          content: fileInputRef.current.files[0],
+        };
+      }
+
+      // set group members
+      if (activeUserId) {
+        membersId = createGroupSidebar.selectedUsers.map((user) => user.id);
+        membersId.push(activeUserId);
+      }
+
+      const newGroup = {
+        img,
+        info: {
+          name: groupSubject,
+          photoURL: "",
+        },
+        membersId,
+      };
+
+      // create group
       console.log("creating new group");
       await createGroup(newGroup);
+      throw new Error("ERROR CREATING GROUP");
+
+      // reset group information form
+      dispatch(closeCreateGroupSidebar());
+      dispatch(setGroupSubject(""));
+      dispatch(clearSelectedUsers());
+
+      // alert and redirect to group page
+      alert.success("Group created successfully");
+      router.push("/group");
     } catch (error) {
-      console.log("ERROR CREATING GROUP", error);
+      alertError(error)
     }
-
-    // reset group information form
-    dispatch(closeCreateGroupSidebar());
-    dispatch(setGroupSubject(""));
-    dispatch(clearSelectedUsers());
-
-    // alert and redirect to group page
-    alert.success("Group created successfully");
-    router.push("/group");
   };
 
   const handleGroupImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
