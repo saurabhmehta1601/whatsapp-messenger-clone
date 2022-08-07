@@ -2,6 +2,7 @@ import {
   addUserToFirestoreIfNotExists,
   getUserByIdFromFirestore,
 } from "@Firebase/utils/db/CRUD";
+import useAlertError from "@Hooks/useAlertError";
 import { setActiveUser } from "@Redux/features/activeUser";
 import { setOTP } from "@Redux/features/auth";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
@@ -17,6 +18,7 @@ export const OTPForm = () => {
     (state) => state.auth
   );
   const alert = useAlert();
+  const alertError = useAlertError();
 
   const [isFormDisabled, setIsFormDisabled] = useState(true);
 
@@ -57,13 +59,7 @@ export const OTPForm = () => {
       alert.success("Logged in successfully .");
       router.push("/group");
     } catch (error: any) {
-      if (error.code === "auth/code-expired") {
-        alert.error("OTP expired. Please try again.");
-      } else if (error.code === "auth/invalid-verification-code") {
-        alert.error("Invalid OTP. Please try again.");
-      } else {
-        console.log("error code ", error.code);
-      }
+      alertError(error);
       setIsFormDisabled(false);
     }
   };
