@@ -1,6 +1,10 @@
-import { Box } from "@mui/material";
 import React from "react";
-import { DesktopImg, GadgetsImg, LockImg } from "@Components/exports";
+import {
+  DesktopImg,
+  GadgetsImg,
+  LockImg,
+  ImageUpload,
+} from "@Components/exports";
 import styles from "./styles.module.scss";
 import { motion } from "framer-motion";
 

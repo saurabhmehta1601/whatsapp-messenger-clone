@@ -1,6 +1,4 @@
 import DoneIcon from "@mui/icons-material/Done";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import GroupIcon from "@mui/icons-material/Group";
 import { CreateGroupSidebarLayout } from "layouts/CreateGroupSidebarLayout";
 import {
   clearSelectedUsers,
@@ -15,6 +13,7 @@ import { ComponentPropsWithoutRef, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import { motion } from "framer-motion";
 import useAlertError from "@Hooks/useAlertError";
+import { ImageUpload } from "@Components/ImageUpload";
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   handlePrevState: () => void;
 }
@@ -27,7 +26,7 @@ export const AddGroupInformation = (props: IProps) => {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const alert = useAlert();
-    const alertError = useAlertError()
+  const alertError = useAlertError();
 
   const dispatch = useAppDispatch();
   const createGroupSidebar = useAppSelector(
@@ -86,7 +85,6 @@ export const AddGroupInformation = (props: IProps) => {
       // create group
       console.log("creating new group");
       await createGroup(newGroup);
-      throw new Error("ERROR CREATING GROUP");
 
       // reset group information form
       dispatch(closeCreateGroupSidebar());
@@ -97,7 +95,7 @@ export const AddGroupInformation = (props: IProps) => {
       alert.success("Group created successfully");
       router.push("/group");
     } catch (error) {
-      alertError(error)
+      alertError(error);
     }
   };
 
@@ -126,32 +124,11 @@ export const AddGroupInformation = (props: IProps) => {
       {...props}
     >
       <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }}>
-        <motion.div className={styles.groupIconUpload}>
-          <label
-            htmlFor="uploadImg"
-            style={previewSrc ? { backgroundImage: `url(${previewSrc})` } : {}}
-          >
-            {!previewSrc && <GroupIcon className={styles.groupIcon} />}
-            <div className={styles.centerOverlay}>
-              <div className={styles.centeredContent}>
-                <div>
-                  <CameraAltIcon fontSize="large" />
-                </div>
-                <p>
-                  ADD GROUP <br /> ICON
-                </p>
-              </div>
-            </div>
-          </label>
-          <input
-            ref={fileInputRef}
-            onChange={handleGroupImgChange}
-            type="file"
-            id="uploadImg"
-            name="uploadImg"
-            accept="image/png, image/jpeg"
-          />
-        </motion.div>
+        <ImageUpload
+          previewSrc={previewSrc}
+          handleImageChange={handleGroupImgChange}
+          fileInputRef={fileInputRef}
+        ></ImageUpload>
         <div className={styles.groupSubjectContainer}>
           <input
             type="text"
