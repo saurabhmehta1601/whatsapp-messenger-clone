@@ -6,6 +6,7 @@ import {
 import UIReducer from "./features/ui";
 import activeUserReducer from "./features/activeUser";
 import createGroupSidebarReducer from "./features/createGroupSidebar";
+import activeChatGroupReducer from "./features/activeChatGroup";
 import authReducer from "./features/auth";
 
 const serializableMiddleware = createSerializableStateInvariantMiddleware({
@@ -16,6 +17,7 @@ export const store = configureStore({
   reducer: {
     ui: UIReducer,
     activeUser: activeUserReducer,
+    activeChatGroup: activeChatGroupReducer,
     createGroupSidebar: createGroupSidebarReducer,
     auth: authReducer,
   },
