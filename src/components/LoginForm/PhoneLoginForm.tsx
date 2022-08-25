@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import PersonIcon from "@mui/icons-material/Person";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@Firebase/app";
@@ -10,16 +9,36 @@ import { useAppDispatch } from "@Redux/hooks";
 import { setConfirmationResult } from "@Redux/features/auth";
 import { useAlert } from "react-alert";
 
-const isValidName = (name: string) => {
-  return name.length >= 3 && name.length <= 20;
-};
+/**
+ * 
+ *
+  const isValidName = (name: string) => {
+    return name.length >= 3 && name.length <= 20;
+  };
+
+  import PersonIcon from "@mui/icons-material/Person";
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length <= 20) setName(e.target.value);
+  };
+ * 
+      <div className={styles.formControl}>
+        <PersonIcon />
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={handleNameChange}
+        />
+      </div>
+ */
+
 
 interface IProps {
   name: string;
   setName: (name: string) => void;
 }
 
-export const PhoneLoginForm = ({ name, setName }: IProps) => {
+export const PhoneLoginForm = ({ name }: IProps) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState({ code: "+91", symbol: "IN" });
   const [loginDisabled, setLoginDisabled] = useState(false);
@@ -57,21 +76,9 @@ export const PhoneLoginForm = ({ name, setName }: IProps) => {
     }
   };
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length <= 20) setName(e.target.value);
-  };
 
   return (
     <div className={styles.form}>
-      <div className={styles.formControl}>
-        <PersonIcon />
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={handleNameChange}
-        />
-      </div>
       <div className={styles.formControl}>
         <PhoneIcon />
         <span>{country.code}</span>
@@ -86,11 +93,7 @@ export const PhoneLoginForm = ({ name, setName }: IProps) => {
         id="sign-in-button"
         onClick={handlePhoneLogin}
         disabled={
-          loginDisabled ||
-          !(
-            isValidPhoneNumber(phoneNumber, (country as any).symbol) &&
-            isValidName(name)
-          )
+          loginDisabled || !( isValidPhoneNumber(phoneNumber, (country as any).symbol) )
         }
       >
         CONFIRM
