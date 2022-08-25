@@ -14,7 +14,7 @@ import styles from "./styles.module.scss";
 export const OTPForm = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { username, confirmationResult, OTP } = useAppSelector(
+  const {  confirmationResult, OTP } = useAppSelector(
     (state) => state.auth
   );
   const alert = useAlert();
@@ -41,23 +41,14 @@ export const OTPForm = () => {
 
       const result = await confirmationResult.confirm(OTP);
       const userId = result.user.uid;
-      const userWithId = await getUserByIdFromFirestore(userId);
-      console.log("found user is ", userWithId);
-      if (!userWithId) {
-        const newUser = {
-          displayName: username,
-          phoneNumber: result.user.phoneNumber,
-          groupIds: [],
-          photoURL: null,
-          status: "Hey there! I am using whatsApp.",
-        };
-        await addUserToFirestoreIfNotExists(userId, newUser);
-        dispatch(setActiveUser({ id: userId, ...newUser }));
-      } else {
-        dispatch(setActiveUser(userWithId));
+      const existingUser = await getUserByIdFromFirestore(userId);
+      console.log("found user is ", existingUser);
+      if (!existingUser) { router.push("/profile/" + userId); }
+      else {
+        dispatch(setActiveUser(existingUser)); 
+        router.push("/group");
       }
       alert.success("Logged in successfully .");
-      router.push("/group");
     } catch (error: any) {
       alertError(error);
       setIsFormDisabled(false);
