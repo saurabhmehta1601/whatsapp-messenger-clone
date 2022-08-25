@@ -1,14 +1,8 @@
-import {
-  ChatInput,
-  MenuImg,
-  TextMessage,
-  EmojiPicker,
-} from "@Components/exports";
+import { ChatInput, MenuImg, EmojiPicker } from "@Components/exports";
 import { Avatar, Box } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./styles.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
-import { useRouter } from "next/router";
 import { getMessagesInGroupSnapShot } from "@Firebase/utils/db/snapshots";
 import { IChatMessage, IGroup, IMessage } from "chat-app-types";
 import { useAppSelector } from "@Redux/hooks";
@@ -22,7 +16,7 @@ export const ChatSection = () => {
   // if groupId not exists in route path return Default Chat Section
   const [messages, setMessages] = useState<IChatMessage[] | null>(null);
   const [activeGroup, setActiveGroup] = useState<IGroup | null>(null);
-  const router = useRouter();
+  const activeChatGroupId = useAppSelector((state) => state.activeChatGroup.id);
   const shouldShowEmojiPicker = useAppSelector(
     (state) => state.ui.showEmojiPicker
   );
@@ -31,13 +25,12 @@ export const ChatSection = () => {
   // if groupId exists in route path then get messages for group with this id
   useEffect(() => {
     (async () => {
-      const { groupId } = router.query;
-      if (groupId) {
-        // GET group by id
-        const group = await getGroupByIdFromFirestore(groupId as string);
+      // GET group by id
+      if (activeChatGroupId) {
+        const group = await getGroupByIdFromFirestore(activeChatGroupId);
         if (group) setActiveGroup(group);
         // GET all messages in the group
-        getMessagesInGroupSnapShot(groupId as string, (snapShot) => {
+        getMessagesInGroupSnapShot(activeChatGroupId, (snapShot) => {
           const messages = snapShot.docs.map((doc: any) => ({
             ...doc.data(),
             id: doc.id,
@@ -47,7 +40,7 @@ export const ChatSection = () => {
         });
       }
     })();
-  }, [router]);
+  }, [activeChatGroupId]);
 
   // when messages update smooth scroll to bottom
   useEffect(() => {

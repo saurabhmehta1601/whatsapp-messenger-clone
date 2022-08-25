@@ -2,7 +2,6 @@ import { MicImg, PinImg, SmileyImg } from "@Components/exports";
 import { Box } from "@mui/material";
 import { setChatTextInput, toggleEmojiPicker } from "@Redux/features/ui";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
-import { useRouter } from "next/router";
 import React from "react";
 import styles from "./styles.module.scss";
 
@@ -12,7 +11,7 @@ export const ChatInput = () => {
   const dispatch = useAppDispatch();
   const chatTextInput = useAppSelector((state) => state.ui.chatTextInput);
   const activeUser = useAppSelector((state) => state.activeUser.data);
-  const router = useRouter();
+  const activeChatGroupId = useAppSelector((state) => state.activeChatGroup.id);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const handleTextMessageSubmit = async (
@@ -27,7 +26,7 @@ export const ChatInput = () => {
       await sendMessage({
         text: chatTextInput,
         type: "text",
-        groupId: router.query.groupId as string,
+        groupId: activeChatGroupId,
         sender: {
           id: activeUser.id ?? "",
           name: activeUser.displayName ?? "",
@@ -54,7 +53,7 @@ export const ChatInput = () => {
           id: activeUser.id,
           name: activeUser.displayName ?? "",
         },
-        groupId: router.query.groupId as string,
+        groupId: activeChatGroupId,
       });
     }
   };
