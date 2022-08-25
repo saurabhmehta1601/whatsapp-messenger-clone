@@ -4,7 +4,7 @@ import { Stack } from "@mui/material";
 import { addUserToSelectedUsers } from "@Redux/features/createGroupSidebar";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { IUser } from "chat-app-types";
-import { CreateGroupSidebarLayout, SidebarListLayout } from "layouts/exports";
+import { CreateGroupSidebarLayout } from "layouts/exports";
 import React, { ComponentPropsWithoutRef, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import styles from "./styles.module.scss";
@@ -58,7 +58,7 @@ export const AddGroupParticipants = (props: IProps) => {
         {allUsers.length === 0 ? (
           <div className={styles.noSuggestion}> No suggestions</div>
         ) : (
-          <SidebarListLayout className={styles.sidebarListLayout}>
+          <div className={styles.sidebarListWrapper}>
             {/* Show users which are not selected */}
             {allUsers
               .filter((u) => !selectedUsers.some((su) => su.id === u.id))
@@ -69,7 +69,7 @@ export const AddGroupParticipants = (props: IProps) => {
                   onClick={() => handleUserCardClick(user)}
                 />
               ))}
-          </SidebarListLayout>
+          </div>
         )}
       </motion.div>
     </CreateGroupSidebarLayout>

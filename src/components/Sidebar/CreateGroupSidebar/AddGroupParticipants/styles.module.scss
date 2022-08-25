@@ -10,7 +10,19 @@
   text-align: center;
 }
 
-.sidebarListLayout {
+.sidebarListWrapper {
+  display: flex;
   flex: 1;
   overflow-y: scroll;
+  flex-direction: column;
+  row-gap: 0.4em;
+
+  & > * {
+    &:hover {
+      background: linear-gradient(
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1)
+      );
+    }
+  }
 }
