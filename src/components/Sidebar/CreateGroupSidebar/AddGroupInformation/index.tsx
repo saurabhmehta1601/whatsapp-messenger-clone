@@ -21,7 +21,6 @@ interface IProps extends ComponentPropsWithoutRef<"div"> {
 const GROUP_NAME_LENGTH_LIMIT = 25;
 
 export const AddGroupInformation = (props: IProps) => {
-  const [previewSrc, setPreviewSrc] = useState("");
 
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -99,21 +98,7 @@ export const AddGroupInformation = (props: IProps) => {
     }
   };
 
-  const handleGroupImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      if (file) {
-        if (file.size > 1000000) {
-          alert.error("File size should be less than 1MB");
-          return;
-        }
-        const fileURL = URL.createObjectURL(file);
-        setPreviewSrc(fileURL);
-      } else {
-        setPreviewSrc("");
-      }
-    }
-  };
+  const handleGroupImgChange = (e: React.ChangeEvent<HTMLInputElement>) => { };
 
   return (
     <CreateGroupSidebarLayout
@@ -125,8 +110,6 @@ export const AddGroupInformation = (props: IProps) => {
     >
       <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }}>
         <ImageUpload
-          previewSrc={previewSrc}
-          handleImageChange={handleGroupImgChange}
           fileInputRef={fileInputRef}
         ></ImageUpload>
         <div className={styles.groupSubjectContainer}>
