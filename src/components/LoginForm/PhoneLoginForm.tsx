@@ -3,42 +3,12 @@ import styles from "./styles.module.scss";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@Firebase/app";
-import { isValidPhoneNumber } from "react-phone-number-input";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@Redux/hooks";
 import { setConfirmationResult } from "@Redux/features/auth";
 import { useAlert } from "react-alert";
 
-/**
- * 
- *
-  const isValidName = (name: string) => {
-    return name.length >= 3 && name.length <= 20;
-  };
-
-  import PersonIcon from "@mui/icons-material/Person";
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length <= 20) setName(e.target.value);
-  };
- * 
-      <div className={styles.formControl}>
-        <PersonIcon />
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={handleNameChange}
-        />
-      </div>
- */
-
-
-interface IProps {
-  name: string;
-  setName: (name: string) => void;
-}
-
-export const PhoneLoginForm = ({ name }: IProps) => {
+export const PhoneLoginForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState({ code: "+91", symbol: "IN" });
   const [loginDisabled, setLoginDisabled] = useState(false);
@@ -53,7 +23,7 @@ export const PhoneLoginForm = ({ name }: IProps) => {
         "sign-in-button",
         {
           size: "invisible",
-          callback: (response: any) => {},
+          callback: () => {},
           "expired-callback": () => {
             alert.error("Recaptch Expired");
           },
@@ -76,7 +46,6 @@ export const PhoneLoginForm = ({ name }: IProps) => {
     }
   };
 
-
   return (
     <div className={styles.form}>
       <div className={styles.formControl}>
@@ -92,9 +61,7 @@ export const PhoneLoginForm = ({ name }: IProps) => {
         className={styles.button}
         id="sign-in-button"
         onClick={handlePhoneLogin}
-        disabled={
-          loginDisabled || !( isValidPhoneNumber(phoneNumber, (country as any).symbol) )
-        }
+        disabled={loginDisabled || phoneNumber.length < 10}
       >
         CONFIRM
       </button>
