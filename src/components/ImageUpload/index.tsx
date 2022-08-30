@@ -5,11 +5,10 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useAlert } from "react-alert";
 
 interface IProps extends ComponentPropsWithoutRef<"div"> {
-  fileInputRef: React.RefObject<HTMLInputElement> | null;
   handleImageChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const ImageUpload = ({ fileInputRef, ...props }: IProps) => {
+export const ImageUpload = (props: IProps) => {
   const [previewSrc, setPreviewSrc] = React.useState("");
   const alert = useAlert();
 
@@ -34,7 +33,6 @@ export const ImageUpload = ({ fileInputRef, ...props }: IProps) => {
       {...props}
       className={[styles.imageUploadContainer, props.className].join(" ")}
     >
-      {" "}
       <label
         htmlFor="uploadImg"
         style={previewSrc ? { backgroundImage: `url(${previewSrc})` } : {}}
@@ -52,7 +50,6 @@ export const ImageUpload = ({ fileInputRef, ...props }: IProps) => {
         </div>
       </label>
       <input
-        ref={fileInputRef}
         onChange={onImageChange}
         type="file"
         id="uploadImg"
