@@ -5,13 +5,11 @@ import { ConfirmationResult } from "firebase/auth";
 interface IState {
   confirmationResult: ConfirmationResult | null;
   username: string;
-  OTP: string;
 }
 
 // Define the initial state using that type
 const initialState: IState = {
   confirmationResult: null,
-  OTP: "",
   username: "",
 };
 
@@ -26,16 +24,13 @@ export const authSlice = createSlice({
     ) => {
       state.confirmationResult = action.payload;
     },
-    setOTP: (state, action: PayloadAction<string>) => {
-      state.OTP = action.payload;
-    },
     setUsername: (state, action: PayloadAction<string>) => {
       state.username = action.payload;
     },
   },
 });
 
-export const { setConfirmationResult, setOTP, setUsername } = authSlice.actions;
+export const { setConfirmationResult, setUsername } = authSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 

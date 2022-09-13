@@ -1,10 +1,6 @@
-import {
-  addUserToFirestoreIfNotExists,
-  getUserByIdFromFirestore,
-} from "@Firebase/utils/db/CRUD";
+import { getUserByIdFromFirestore } from "@Firebase/utils/db/CRUD";
 import useAlertError from "@Hooks/useAlertError";
 import { setActiveUser } from "@Redux/features/activeUser";
-import { setOTP } from "@Redux/features/auth";
 import { useAppDispatch, useAppSelector } from "@Redux/hooks";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -12,18 +8,17 @@ import { useAlert } from "react-alert";
 import styles from "./styles.module.scss";
 
 export const OTPForm = () => {
+  const [OTP, setOTP] = useState("");
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const {  confirmationResult, OTP } = useAppSelector(
-    (state) => state.auth
-  );
+  const { confirmationResult } = useAppSelector((state) => state.auth);
   const alert = useAlert();
   const alertError = useAlertError();
 
   const [isFormDisabled, setIsFormDisabled] = useState(true);
 
   const handleOTPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setOTP(e.target.value));
+    setOTP(e.target.value);
     if (e.target.value.length === 6) {
       setIsFormDisabled(false);
     } else {
@@ -31,7 +26,12 @@ export const OTPForm = () => {
     }
   };
 
-  const handleOTPVerification = async () => {
+  const handleOTPVerification = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      OTP: string;
+    };
+    console.log(target.OTP);
     setIsFormDisabled(true);
     try {
       if (!confirmationResult) {
@@ -42,10 +42,10 @@ export const OTPForm = () => {
       const result = await confirmationResult.confirm(OTP);
       const userId = result.user.uid;
       const existingUser = await getUserByIdFromFirestore(userId);
-      console.log("found user is ", existingUser);
-      if (!existingUser) { router.push("/profile/" + userId); }
-      else {
-        dispatch(setActiveUser(existingUser)); 
+      if (!existingUser) {
+        router.push("/profile/" + userId);
+      } else {
+        dispatch(setActiveUser(existingUser));
         router.push("/group");
       }
       alert.success("Logged in successfully .");
@@ -56,10 +56,11 @@ export const OTPForm = () => {
   };
 
   return (
-    <div className={styles.form}>
+    <form className={styles.form} onSubmit={handleOTPVerification}>
       <div className={styles.formControl}>
         <input
           type="number"
+          name="OTP"
           placeholder="Enter OTP"
           value={OTP}
           onChange={handleOTPChange}
