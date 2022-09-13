@@ -1,5 +1,5 @@
 import { LeftArrowImg, FloatingActionButton } from "@Components/exports";
-import { HeaderLayout, SidebarLayout } from "layouts/exports";
+import { HeaderLayout } from "layouts/exports";
 import React, { ComponentPropsWithoutRef } from "react";
 import styles from "./styles.module.scss";
 import { motion } from "framer-motion";
@@ -14,7 +14,7 @@ interface IProps extends ComponentPropsWithoutRef<"div"> {
 
 export const CreateGroupSidebarLayout = (props: IProps) => {
   return (
-    <SidebarLayout className={styles.wrapper}>
+    <div className={styles.wrapper}>
       <HeaderLayout className={styles.createGroupSidebarHeader}>
         <motion.div
           initial={{ x: -20 }}
@@ -42,6 +42,6 @@ export const CreateGroupSidebarLayout = (props: IProps) => {
           />
         )}
       </div>
-    </SidebarLayout>
+    </div>
   );
 };
