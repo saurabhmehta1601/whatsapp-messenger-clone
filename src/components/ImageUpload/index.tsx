@@ -62,3 +62,5 @@ export const ImageUpload = React.forwardRef(
     );
   }
 );
+
+ImageUpload.displayName = "ImageUpload";
