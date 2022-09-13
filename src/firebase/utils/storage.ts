@@ -3,17 +3,19 @@ import { ref, uploadBytes } from "firebase/storage";
 
 /**
  *
- * @param img File object
- * @param imgName unique name for image
+ * @param fileBlob BLOB file object
+ * @param folderName name of folder to store file in
+ *
+ * uploads
  */
 
-export const uploadImgToStore = (
-  img: File,
-  imgName: string,
+export const uploadFile = (
+  fileBlob: File,
+  location: string,
   callback: (snapshot: any) => void
 ) => {
-  const imgRef = ref(storage, `group-images/${imgName}`);
-  uploadBytes(imgRef, img).then((snapshot) => {
+  const imgRef = ref(storage, location);
+  uploadBytes(imgRef, fileBlob).then((snapshot) => {
     callback(snapshot);
   });
 };
