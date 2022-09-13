@@ -14,6 +14,9 @@ import styles from "./styles.module.scss";
 import { motion } from "framer-motion";
 import useAlertError from "@Hooks/useAlertError";
 import { ImageUpload } from "@Components/ImageUpload";
+import { uploadFile } from "@Firebase/utils/storage";
+import { updateGroupInFirestore } from "@Firebase/utils/db/CRUD";
+import { getDownloadURL } from "firebase/storage";
 interface IProps extends ComponentPropsWithoutRef<"div"> {
   handlePrevState: () => void;
 }
@@ -21,7 +24,6 @@ interface IProps extends ComponentPropsWithoutRef<"div"> {
 const GROUP_NAME_LENGTH_LIMIT = 25;
 
 export const AddGroupInformation = (props: IProps) => {
-
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const alert = useAlert();
@@ -46,24 +48,13 @@ export const AddGroupInformation = (props: IProps) => {
 
   const createNewGroup = async () => {
     try {
-      let img = null,
-        membersId: string[] = [];
+      let img = null;
+      let membersId: string[] = [];
 
       // check if group name is empty
       if (groupSubject.length === 0) {
-        throw new Error("Please enter group subject");
+        alert.error("Please enter group subject");
         return;
-      }
-
-      // set group image
-      if (
-        fileInputRef.current?.files &&
-        fileInputRef.current?.files.length > 0
-      ) {
-        img = {
-          name: fileInputRef.current.files[0].name,
-          content: fileInputRef.current.files[0],
-        };
       }
 
       // set group members
@@ -83,7 +74,23 @@ export const AddGroupInformation = (props: IProps) => {
 
       // create group
       console.log("creating new group");
-      await createGroup(newGroup);
+      const groupInfo = await createGroup(newGroup);
+
+      // set group image
+      if (
+        fileInputRef.current?.files &&
+        fileInputRef.current?.files.length > 0
+      ) {
+        img = {
+          name: fileInputRef.current.files[0].name,
+          content: fileInputRef.current.files[0],
+        };
+        uploadFile(img.content, `group-images/${groupInfo.id}`, (snap) => {
+          getDownloadURL(snap.ref).then((photoURL) => {
+            updateGroupInFirestore(groupInfo.id, { photoURL });
+          });
+        });
+      }
 
       // reset group information form
       dispatch(closeCreateGroupSidebar());
@@ -98,8 +105,6 @@ export const AddGroupInformation = (props: IProps) => {
     }
   };
 
-  const handleGroupImgChange = (e: React.ChangeEvent<HTMLInputElement>) => { };
-
   return (
     <CreateGroupSidebarLayout
       headerText="New group"
@@ -109,9 +114,7 @@ export const AddGroupInformation = (props: IProps) => {
       {...props}
     >
       <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }}>
-        <ImageUpload
-          fileInputRef={fileInputRef}
-        ></ImageUpload>
+        <ImageUpload ref={fileInputRef}></ImageUpload>
         <div className={styles.groupSubjectContainer}>
           <input
             type="text"
