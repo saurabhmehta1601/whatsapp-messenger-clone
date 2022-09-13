@@ -9,8 +9,6 @@ import { ActiveUserProvider } from "@Components/exports";
 import dynamic from "next/dynamic";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // later I will set the activeUser using firebase auth
-  console.log("app message");
   return (
     <AlertProvider
       template={AlertTemplate as any}

@@ -37,7 +37,6 @@ export const sendMessage = async (message: INewChatMessage) => {
       await updateGroupInFirestore(message.groupId, {
         lastMessageId: createdMessage.id,
       });
-      console.log("message added to firebase with id", createdMessage?.id);
     }
   } catch (error) {
     console.log("error sending message", error);

@@ -73,7 +73,6 @@ export const AddGroupInformation = (props: IProps) => {
       };
 
       // create group
-      console.log("creating new group");
       const groupInfo = await createGroup(newGroup);
 
       // set group image

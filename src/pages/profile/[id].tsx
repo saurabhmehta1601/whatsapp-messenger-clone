@@ -13,7 +13,6 @@ const Profile = () => {
 
   const loggedUser = useFirebaseAuth();
 
-  console.log("activeUser", loggedUser);
   const { id: userId } = router.query;
   const [displayName, setDisplayName] = useState("");
   const [phoneNumber, setPhoneNo] = useState("");
@@ -22,16 +21,7 @@ const Profile = () => {
   const profileImageInputRef = useRef<HTMLInputElement>(null);
 
   const handleFormSubmit = (e: React.SyntheticEvent) => {
-    console.log("form is submitted ")
     e.preventDefault();
-    const target = e.target as typeof e.target & {
-      displayName: string;
-      phoneNumber: string;
-      status: string;
-    };
-
-    console.log(target.displayName);
-    console.log("profileImageInputRef.current", profileImageInputRef.current);
 
     if (
       userId &&
@@ -40,7 +30,6 @@ const Profile = () => {
       profileImageInputRef.current.files.length > 0
     ) {
       const image = profileImageInputRef.current.files[0];
-      console.log("selected image is ", image);
       uploadFile(image, `profile-images/${userId}`, (snap) => {
         getDownloadURL(snap.ref).then((photoURL) => {
           addUserToFirestoreIfNotExists(userId as any, {
@@ -63,9 +52,6 @@ const Profile = () => {
         <div className={styles.imageWrapper}>
           <ImageUpload
             ref={profileImageInputRef}
-            onChange={(e) => {
-              console.log(e.target.files);
-            }}
             style={{ transform: "scale(0.8)" }}
           />
         </div>

@@ -20,7 +20,6 @@ export const FacebookLoginButton = () => {
           groupIds: [],
           status: "Hey there! I am using whatsApp.",
         });
-        console.log(user);
         alert.success("Logged in successfully .");
         router.push("/group");
       }

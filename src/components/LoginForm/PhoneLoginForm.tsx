@@ -38,7 +38,6 @@ export const PhoneLoginForm = () => {
       );
       if (confirmationResult)
         dispatch(setConfirmationResult(confirmationResult));
-      console.log("confirmationResult", confirmationResult);
       router.push("/verify-otp");
     } catch (error) {
       setLoginDisabled(false);

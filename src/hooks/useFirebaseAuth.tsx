@@ -1,7 +1,5 @@
 import { auth } from "@Firebase/app";
-import { getUserByIdFromFirestore } from "@Firebase/utils/db/CRUD";
 import { onAuthStateChanged } from "firebase/auth";
-import { onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 export const useFirebaseAuth = () => {

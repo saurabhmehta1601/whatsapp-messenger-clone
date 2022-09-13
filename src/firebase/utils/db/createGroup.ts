@@ -21,7 +21,6 @@ export const createGroup = async (group: {
     //  Upload groupImg to firebase storage
     const storageRef = ref(storage, group.img.name);
     const snap = await uploadBytes(storageRef, group.img.content);
-    console.log("uploaded snap", snap);
     const downloadURL = await getDownloadURL(storageRef);
     //  set uploaded image url to group photURL
     setDoc(newGroupRef, { photoURL: downloadURL }, { merge: true });

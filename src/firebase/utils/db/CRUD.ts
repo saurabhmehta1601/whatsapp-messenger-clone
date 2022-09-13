@@ -106,7 +106,6 @@ export const addGroupIdToUserInFirestore = (
 export const uploadFile = async (media : { name: string; file: File }) => {
   const storageRef = ref(storage, media.name);
   const snap = await uploadBytes(storageRef, media.file);
-  console.log("uploaded snap", snap);
   const downloadURL = await getDownloadURL(storageRef);
   return downloadURL;
 };

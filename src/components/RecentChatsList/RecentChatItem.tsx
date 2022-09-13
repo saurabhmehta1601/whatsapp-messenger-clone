@@ -32,7 +32,6 @@ export const ChatItem = ({ groupId, ...props }: IProps) => {
       if (snap.exists()) {
         const groupData = { ...snap.data(), id: snap.id } as DocumentData;
         setGroup(groupData as IGroup);
-        console.log("Doc changes are ", snap.data());
         if (groupData.lastMessageId) {
           const lastMessage = await getMessageByIdFromFirestore(
             groupData.lastMessageId
@@ -79,7 +78,6 @@ export const ChatItem = ({ groupId, ...props }: IProps) => {
           {...props}
           className={[styles.chatItem, props.className ?? ""].join(" ")}
           onClick={() => {
-            console.log(groupId);
             dispatch(setActiveChatGroupId(groupId));
           }}
         >

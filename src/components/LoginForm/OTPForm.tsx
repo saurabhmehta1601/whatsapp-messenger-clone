@@ -31,7 +31,6 @@ export const OTPForm = () => {
     const target = e.target as typeof e.target & {
       OTP: string;
     };
-    console.log(target.OTP);
     setIsFormDisabled(true);
     try {
       if (!confirmationResult) {

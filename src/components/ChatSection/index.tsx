@@ -35,7 +35,6 @@ export const ChatSection = () => {
             ...doc.data(),
             id: doc.id,
           }));
-          console.log("messages are", messages);
           setMessages(messages);
         });
       }

@@ -14,7 +14,6 @@ const extensions = {
 };
 
 export const MediaMessage = ({ message }: IProps) => {
-  console.log("media message is ", message);
   return (
     <div className={styles.mediaMessage}>
       {extensions.image.includes(message.extention) && (
