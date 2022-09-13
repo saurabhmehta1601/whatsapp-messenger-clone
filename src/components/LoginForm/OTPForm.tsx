@@ -68,13 +68,9 @@ export const OTPForm = () => {
           min="0"
         />
       </div>
-      <button
-        onClick={handleOTPVerification}
-        disabled={isFormDisabled}
-        className={styles.button}
-      >
+      <button type="submit" disabled={isFormDisabled} className={styles.button}>
         VERIFY OTP
       </button>
-    </div>
+    </form>
   );
 };

@@ -60,4 +60,15 @@
       }
     }
   }
+  .submit {
+    border: none;
+    padding: 0.4em 0.8em;
+    border-radius: 4px;
+    background-color: #ba000d;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .submit[data-validated="yes"] {
+    background-color: var(--clr-green-100);
+  }
 }
