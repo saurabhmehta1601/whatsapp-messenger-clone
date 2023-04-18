@@ -1,3 +1,9 @@
+.grid {
+  display: grid;
+  row-gap: 2em;
+  margin-bottom: -2em;
+}
+
 .button {
   font-size: 0.9rem;
   font-weight: 600;
@@ -10,10 +16,54 @@
   background-color: gray;
 }
 
-.facebookConnectButton {
-  @extend .button;
-  background-color: var(--clr-blue-200) !important;
-  color: var(--clr-gray-100);
+// .FBButtonContainer {
+//   margin-top: 2em;
+//   margin-bottom: -3em;
+// }
+
+.btnFB {
+  cursor: pointer;
+  display: inline-block;
+	border-radius: 1px;
+	text-decoration: none;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
+	transition: background-color .218s, border-color .218s ,box-shadow .218s;
+
+  .FBContent {
+    display: flex;
+		align-items: center;
+		width: 300px;
+		height: 50px;
+  }
+  .logo{
+    padding: 15px;
+    height: inherit;
+  }
+  svg{
+    width: 18px;
+    height: 18px;
+  }
+  p{
+    width: 100%;
+    line-height: 1;
+    letter-spacing: .21px;
+    text-align: center;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+  }
+}
+.btnFB{
+	padding-top: 1.5px;
+	background: #4267b2;
+	&:hover{
+		box-shadow: 0 0 3px 3px rgba(#3b5998,.3);
+  }
+	&:active{
+    background-color: #3b5998;
+  }
+	.FBContent p{
+    color: rgba(white, .87);
+  }
 }
 
 .form {
